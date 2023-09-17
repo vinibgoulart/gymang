@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not return negative limit 1`] = `
+{
+  "count": 2,
+  "edges": [],
+  "endCursorOffset": 10,
+  "pageInfo": {
+    "endCursor": null,
+    "hasNextPage": false,
+    "hasPreviousPage": true,
+    "startCursor": null,
+  },
+  "startCursorOffset": 10,
+}
+`;
+
+exports[`should return connection from mongo aggregate 1`] = `
+{
+  "count": 2,
+  "edges": [
+    {
+      "cursor": "bW9uZ286MA==",
+      "node": "user",
+    },
+  ],
+  "endCursorOffset": 1,
+  "pageInfo": {
+    "endCursor": "bW9uZ286MA==",
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "startCursor": "bW9uZ286MA==",
+  },
+  "startCursorOffset": 0,
+}
+`;
+
+exports[`should return connection from mongo aggregate 2`] = `
+{
+  "count": 2,
+  "edges": [
+    {
+      "cursor": "bW9uZ286MQ==",
+      "node": "user",
+    },
+  ],
+  "endCursorOffset": 2,
+  "pageInfo": {
+    "endCursor": "bW9uZ286MQ==",
+    "hasNextPage": false,
+    "hasPreviousPage": true,
+    "startCursor": "bW9uZ286MQ==",
+  },
+  "startCursorOffset": 1,
+}
+`;
+
+exports[`should return connection from mongo aggregate with raw 1`] = `
+{
+  "count": 2,
+  "edges": [
+    {
+      "cursor": "bW9uZ286MA==",
+      "node": "user",
+    },
+  ],
+  "endCursorOffset": 1,
+  "pageInfo": {
+    "endCursor": "bW9uZ286MA==",
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "startCursor": "bW9uZ286MA==",
+  },
+  "startCursorOffset": 0,
+}
+`;
+
+exports[`should return correct connection and hasNextPage when using shouldCount=false 1`] = `
+{
+  "count": null,
+  "edges": [
+    {
+      "cursor": "bW9uZ286MA==",
+      "node": "user",
+    },
+    {
+      "cursor": "bW9uZ286MQ==",
+      "node": "user",
+    },
+    {
+      "cursor": "bW9uZ286Mg==",
+      "node": "user",
+    },
+    {
+      "cursor": "bW9uZ286Mw==",
+      "node": "user",
+    },
+    {
+      "cursor": "bW9uZ286NA==",
+      "node": "user",
+    },
+  ],
+  "endCursorOffset": 5,
+  "pageInfo": {
+    "endCursor": "bW9uZ286NA==",
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "startCursor": "bW9uZ286MA==",
+  },
+  "startCursorOffset": 0,
+}
+`;
+
+exports[`should work with empty args 1`] = `
+{
+  "count": 2,
+  "edges": [
+    {
+      "cursor": "bW9uZ286MA==",
+      "node": "user",
+    },
+    {
+      "cursor": "bW9uZ286MQ==",
+      "node": "user",
+    },
+  ],
+  "endCursorOffset": 2,
+  "pageInfo": {
+    "endCursor": "bW9uZ286MQ==",
+    "hasNextPage": false,
+    "hasPreviousPage": false,
+    "startCursor": "bW9uZ286MA==",
+  },
+  "startCursorOffset": 0,
+}
+`;
+
+exports[`should work with empty args and empty result 1`] = `
+{
+  "count": 0,
+  "edges": [],
+  "endCursorOffset": 0,
+  "pageInfo": {
+    "endCursor": null,
+    "hasNextPage": false,
+    "hasPreviousPage": false,
+    "startCursor": null,
+  },
+  "startCursorOffset": 0,
+}
+`;

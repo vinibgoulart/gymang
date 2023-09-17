@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should register a new user 1`] = `
+{
+  "UserAdd": {
+    "error": "EMPTY",
+    "success": "User created successfully",
+    "user": {
+      "id": "FROZEN-ID",
+    },
+  },
+}
+`;
+
+exports[`should return an error if the email is been used 1`] = `
+{
+  "UserAdd": {
+    "error": "Email already in use",
+    "success": "EMPTY",
+    "user": "EMPTY",
+  },
+}
+`;

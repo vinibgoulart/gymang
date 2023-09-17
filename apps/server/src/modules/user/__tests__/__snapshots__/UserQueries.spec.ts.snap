@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should get an user from context 1`] = `
+{
+  "me": {
+    "firstName": "Walter",
+    "id": "FROZEN-ID",
+  },
+}
+`;
+
+exports[`should return null if no context 1`] = `
+{
+  "me": "EMPTY",
+}
+`;

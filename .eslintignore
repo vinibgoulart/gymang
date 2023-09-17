@@ -1,0 +1,11 @@
+node_modules
+
+.jest-cache
+**/__snapshots__
+
+.turbo
+build/**
+dist/**
+.next/**
+
+**__generated__**

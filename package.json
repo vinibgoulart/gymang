@@ -1,0 +1,63 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "es": "node -r esbuild-register",
+    "w": "pnpm es webpackx.ts",
+    "schema": "DEBUG=true yarn es ./scripts/updateSchema.ts",
+    "test": "jest --coverage --runInBand --forceExit",
+    "lint:staged": "turbo run lint-staged",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "yarn prettier",
+      "eslint --fix"
+    ],
+    "*.yml": [
+      "prettier --write --single-quote"
+    ]
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^13.4.19",
+    "@types/bcryptjs": "^2.4.4",
+    "@types/jest": "^29.5.2",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.62.0",
+    "esbuild-jest": "^0.5.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "jest-environment-node": "^29.5.0",
+    "jest-fetch-mock": "^3.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^3.0.3",
+    "pretty-format": "^29.6.3",
+    "swagger-jsdoc": "^6.2.8",
+    "tsconfig": "workspace:*",
+    "turbo": "latest",
+    "uuid": "^9.0.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "packageManager": "pnpm@8.6.10",
+  "name": "gymang",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "esbuild-register": "^3.5.0",
+    "graphql": "^16.8.0",
+    "hygen": "6.2.11",
+    "i18next": "^23.5.1",
+    "jest": "^29.7.0",
+    "lucide-react": "^0.277.0",
+    "util": "^0.12.5"
+  }
+}

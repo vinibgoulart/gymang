@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "jasmine": true
+  },
+  "rules": {
+    "no-plusplus": 0
+  }
+}
