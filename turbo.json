@@ -22,15 +22,7 @@
     "relay": {
       "cache": false
     },
-    "relay:admin": {
-      "cache": false,
-      "dependsOn": ["relay"]
-    },
-    "relay:bko": {
-      "cache": false,
-      "dependsOn": ["relay"]
-    },
-    "relay:app": {
+    "relay:web": {
       "cache": false,
       "dependsOn": ["relay"]
     }

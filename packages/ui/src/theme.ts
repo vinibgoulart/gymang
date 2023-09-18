@@ -16,5 +16,8 @@ export const theme = extendTheme({
       light: "#718096",
       main: "#1A202C",
     },
+    error: {
+      main: "#F56565",
+    },
   },
 });
