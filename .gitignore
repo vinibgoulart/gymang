@@ -42,3 +42,5 @@ dist
 .jest-cache
 
 globalConfig.json
+
+__generated__

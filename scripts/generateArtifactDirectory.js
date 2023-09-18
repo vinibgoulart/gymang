@@ -5,16 +5,8 @@ const dir = '__generated__';
 
 const relayPackages = [
   {
-    name: 'bko',
-    path: `./apps/bko/${dir}`,
-  },
-  {
-    name: 'admin',
-    path: `./apps/admin/${dir}`,
-  },
-  {
-    name: 'app',
-    path: `./apps/client/${dir}`,
+    name: 'web',
+    path: `./apps/web/${dir}`,
   },
 ];
 

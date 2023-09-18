@@ -1,9 +1,10 @@
-import { ReactElement } from "react";
-import { RootLayout } from "../RootLayout";
+import type { ReactElement } from "react";
 
-const Home = () => {
+import { RootLayout } from "../layouts/RootLayout";
+
+function Home() {
   return <>Bem Vindo!</>;
-};
+}
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (

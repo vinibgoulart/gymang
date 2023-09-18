@@ -1,0 +1,25 @@
+{
+  "name": "@gymang/relay",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "generate:component": "turbo gen react-component"
+  },
+  "devDependencies": {
+    "@types/react-relay": "^14.1.5",
+    "@types/relay-runtime": "^14.1.13",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
+    "@gymang/babel": "workspace:*",
+    "@gymang/config": "workspace:*",
+    "@gymang/core": "workspace:*",
+    "chakra-ui": "^0.3.9",
+    "react-relay": "^15.0.0",
+    "relay-runtime": "^15.0.0"
+  }
+}

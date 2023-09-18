@@ -10,7 +10,9 @@
     "schema": "DEBUG=true yarn es ./scripts/updateSchema.ts",
     "test": "jest --coverage --runInBand --forceExit",
     "lint:staged": "turbo run lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "relay": "node ./scripts/generateArtifactDirectory.js && turbo run relay:web --parallel",
+    "relay:web": "node ./scripts/generateArtifactDirectory.js && yarn workspace @gymang/web relay"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
