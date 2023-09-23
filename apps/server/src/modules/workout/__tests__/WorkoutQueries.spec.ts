@@ -1,5 +1,3 @@
-
-
 import { GRAPHQL_TYPE } from '@gymang/core';
 import {
   clearDbAndRestartCounters,
@@ -8,7 +6,9 @@ import {
   sanitizeTestObject,
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
+import { handleCreateWorkout } from '@gymang/workout';
 import { graphql } from 'graphql';
+
 
 import { getContext } from '../../../getContext';
 import { schema as schemaAdmin } from '../../../graphql/schema/schema';
@@ -20,19 +20,26 @@ beforeEach(clearDbAndRestartCounters);
 afterAll(disconnectMongoose);
 
 const query = `
-  query UserQueriesSpecQuery {
-    me {
-      id
-      firstName
+  query WorkoutQueriesSpecQuery {
+    workouts(first: 10) {
+      edges {
+        node {
+          id
+          name
+          user
+          createdBy
+          description
+        }
+      }
     }
   }
 `;
 
-it('should get an user from context', async () => {
-  const user = await handleCreateUser({
-    email: 'heisen@test.com',
-    password: 'awesomepass',
-    firstName: 'Walter',
+it('should get a list of workouts', async () => {
+  const user = await handleCreateUser();
+  await handleCreateWorkout({
+    user,
+    createdBy: user,
   });
 
   const context = await getContext({
@@ -50,21 +57,27 @@ it('should get an user from context', async () => {
   });
 
   expect(result.errors).toBeUndefined();
-  expect(result.data.me.id).toBeTruthy();
-  expect(result.data.me.firstName).toBeTruthy();
+
+  const [workout] = result.data.workouts.edges;
+
+  expect(workout.node.user).toEqual(user.id);
+  expect(workout.node.createdBy).toEqual(user.id);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
 
-it('should return null if no context', async () => {
-  await handleCreateUser({
-    email: 'heisen@test.com',
-    password: 'awesomepass',
-    firstName: 'Walter',
+it('should get a list of workouts in a user that not create this workout', async () => {
+  const user = await handleCreateUser();
+  const userWithWorkout = await handleCreateUser();
+
+  await handleCreateWorkout({
+    user,
+    createdBy: userWithWorkout,
   });
 
   const context = await getContext({
     graphql: GRAPHQL_TYPE.WEB,
+    user,
   });
 
   const rootValue = {};
@@ -77,7 +90,11 @@ it('should return null if no context', async () => {
   });
 
   expect(result.errors).toBeUndefined();
-  expect(result.data.me).toBeNull();
+
+  const [workout] = result.data.workouts.edges;
+
+  expect(workout.node.user).toEqual(user.id);
+  expect(workout.node.createdBy).toEqual(userWithWorkout.id);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

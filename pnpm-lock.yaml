@@ -44,6 +44,9 @@ importers:
       lucide-react:
         specifier: ^0.277.0
         version: 0.277.0(react@18.2.0)
+      mongoose:
+        specifier: ^7.5.2
+        version: 7.5.2
       util:
         specifier: ^0.12.5
         version: 0.12.5
@@ -147,6 +150,9 @@ importers:
       '@gymang/user':
         specifier: workspace:*
         version: link:../../packages/user
+      '@gymang/workout':
+        specifier: workspace:*
+        version: link:../../packages/workout
       '@koa/cors':
         specifier: ^4.0.0
         version: 4.0.0
@@ -835,6 +841,31 @@ importers:
       '@gymang/types':
         specifier: workspace:*
         version: link:../types
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
+  packages/workout:
+    dependencies:
+      '@gymang/babel':
+        specifier: workspace:*
+        version: link:../babel
+      '@gymang/config':
+        specifier: workspace:*
+        version: link:../config
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
+      '@gymang/graphql':
+        specifier: workspace:*
+        version: link:../graphql
+      '@gymang/types':
+        specifier: workspace:*
+        version: link:../types
+      '@gymang/user':
+        specifier: workspace:*
+        version: link:../user
     devDependencies:
       tsconfig:
         specifier: workspace:*
@@ -14403,7 +14434,6 @@ packages:
       socks: 2.7.1
     optionalDependencies:
       '@mongodb-js/saslprep': 1.1.0
-    dev: true
 
   /mongoose@7.4.2:
     resolution: {integrity: sha512-sNolW2hyncwvWmZjIEIwAckjaSKtC1SE86zE1v2TKm3vPTRogZfBQf+3zLYYdrgrVTzoaoICieVpct9hjcn3EQ==}
@@ -14463,7 +14493,6 @@ packages:
       - mongodb-client-encryption
       - snappy
       - supports-color
-    dev: true
 
   /monitor-event-loop-delay@1.0.0:
     resolution: {integrity: sha512-YRIr1exCIfBDLZle8WHOfSo7Xg3M+phcZfq9Fx1L6Abo+atGp7cge5pM7PjyBn4s1oZI/BRD4EMrzQBbPpVb5Q==}
