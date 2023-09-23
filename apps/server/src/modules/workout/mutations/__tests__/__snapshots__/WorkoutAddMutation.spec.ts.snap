@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add a new workout 1`] = `
+{
+  "WorkoutAdd": {
+    "error": "EMPTY",
+    "success": "Workout created successfully",
+    "workout": {
+      "createdBy": "ObjectId",
+      "description": "Hard work",
+      "id": "FROZEN-ID",
+      "name": "Chest Workout",
+      "user": "ObjectId",
+    },
+  },
+}
+`;
+
+exports[`should add a new workout created by other user 1`] = `
+{
+  "WorkoutAdd": {
+    "error": "EMPTY",
+    "success": "Workout created successfully",
+    "workout": {
+      "createdBy": "ObjectId",
+      "description": "Hard work",
+      "id": "FROZEN-ID",
+      "name": "Chest Workout",
+      "user": "ObjectId",
+    },
+  },
+}
+`;

@@ -1,4 +1,5 @@
-import { DeepPartial } from '@gymang/types';
+import type { DeepPartial } from '@gymang/types';
+
 import type { IUser } from '../UserModel';
 import User from '../UserModel';
 
@@ -11,7 +12,6 @@ export const handleCreateUser = async (
 ): Promise<IUser> => {
   let { firstName, email, ...payload } = args;
 
-  // const n = getCounter('user');
   const n = (global.__COUNTERS__.user += 1);
 
   if (firstName === undefined) {
