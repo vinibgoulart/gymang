@@ -1,5 +1,4 @@
-import type {
-  FlexProps} from '@chakra-ui/react';
+import type { FlexProps } from '@chakra-ui/react';
 import {
   Avatar,
   Box,
@@ -14,6 +13,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 
@@ -45,14 +45,14 @@ export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
+      <Box display={{ base: 'flex', md: 'none' }}>
+        <Image
+          src="/data/images/logo.webp"
+          alt="logo"
+          width={100}
+          height={50}
+        />
+      </Box>
 
       <HStack spacing={{ base: '0', md: '6' }}>
         {/* not used */}
@@ -93,7 +93,9 @@ export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
               <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuDivider />
-              <MenuItem onClick={() => router.push('/logout')}>Sign out</MenuItem>
+              <MenuItem onClick={() => router.push('/logout')}>
+                Sign out
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

@@ -8,9 +8,9 @@ export const theme = extendTheme({
       main: '#E2E8F0',
     },
     primary: {
-      light: "#B276D5",
-      main: "#954FC9",
-      dark: "#7536B0",
+      light: "#a2a2ff",
+      main: "#8c82fc",
+      dark: "#755ef6",
     },
     text: {
       light: "#718096",

@@ -1,16 +1,18 @@
+import type {
+  BoxProps} from '@chakra-ui/react';
 import {
   Box,
-  BoxProps,
   CloseButton,
   Divider,
   Flex,
   Stack,
-  Text,
-} from "@chakra-ui/react";
-import { IconType } from "react-icons";
-import { CgGym } from "react-icons/cg";
-import { AiOutlinePlus } from "react-icons/ai";
-import { NavItem } from "./NavItem";
+} from '@chakra-ui/react';
+import Image from 'next/image';
+import type { IconType } from 'react-icons';
+import { AiOutlinePlus } from 'react-icons/ai';
+import { CgGym } from 'react-icons/cg';
+
+import { NavItem } from './NavItem';
 
 type LinkItemProps = {
   name: string;
@@ -21,25 +23,28 @@ type SidebarProps = BoxProps & {
   onClose: () => void;
 };
 
-const LinkItems: Array<LinkItemProps> = [{ name: "Treino A", icon: CgGym }];
+const LinkItems: Array<LinkItemProps> = [{ name: 'Treino A', icon: CgGym }];
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg={"white"}
+      bg={'white'}
       borderRight="1px"
-      borderRightColor={"neutral.main"}
-      w={{ base: "full", md: 60 }}
+      borderRightColor={'neutral.main'}
+      w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        <Image
+          src="/data/images/logo.webp"
+          alt="logo"
+          width={100}
+          height={50}
+        />
+        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       <Stack spacing={1}>
         {LinkItems.map((link) => (
