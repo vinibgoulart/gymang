@@ -9,7 +9,6 @@ import { handleCreateUser } from '@gymang/user';
 import { handleCreateWorkout } from '@gymang/workout';
 import { graphql } from 'graphql';
 
-
 import { getContext } from '../../../getContext';
 import { schema as schemaAdmin } from '../../../graphql/schema/schema';
 
@@ -71,8 +70,8 @@ it('should get a list of workouts in a user that not create this workout', async
   const userWithWorkout = await handleCreateUser();
 
   await handleCreateWorkout({
-    user,
-    createdBy: userWithWorkout,
+    user: userWithWorkout._id,
+    createdBy: userWithWorkout._id,
   });
 
   const context = await getContext({
