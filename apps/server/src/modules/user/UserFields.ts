@@ -1,13 +1,13 @@
-import { GraphQLNonNull } from 'graphql';
-import UserType, { UserConnection } from './UserType';
-import { UserLoader } from '@gymang/user';
+import { isLoggedIn } from '@gymang/core';
 import {
   edgeField,
   connectionArgs,
   NullConnection,
-  withFilter,
 } from '@gymang/graphql';
-import { isLoggedIn } from '@gymang/core';
+import { UserLoader } from '@gymang/user';
+import { GraphQLNonNull } from 'graphql';
+
+import UserType, { UserConnection } from './UserType';
 
 export const userTypeField = (key = 'user', bypassViewerCanSee = false) => ({
   [key]: {
@@ -44,11 +44,7 @@ export const userConnectionField = (customResolver = null) => ({
         return NullConnection;
       }
 
-      const argsWithCompany = withFilter(args, {
-        merchant: context?.merchant?._id,
-      });
-
-      return UserLoader.loadAll(context, argsWithCompany);
+      return UserLoader.loadAll(context, args);
     },
   },
 });

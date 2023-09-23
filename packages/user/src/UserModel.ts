@@ -1,8 +1,8 @@
-import { hashSync, compareSync } from "bcryptjs";
-import type { Document, Types } from "mongoose";
-import { Schema, model } from "mongoose";
+import { writeConcern } from '@gymang/graphql';
+import { hashSync, compareSync } from 'bcryptjs';
+import type { Document, Types } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-import { writeConcern } from "@gymang/graphql";
 
 type User = {
   _id: Types.ObjectId;
@@ -27,6 +27,7 @@ const UserSchema = new Schema<IUser>(
     email: {
       type: String,
       required: true,
+      index: true,
     },
     password: {
       type: String,
@@ -37,17 +38,16 @@ const UserSchema = new Schema<IUser>(
       type: Date,
       index: true,
       default: null,
-      es_indexed: true,
     },
   },
   {
-    collection: "User",
+    collection: 'User',
     writeConcern,
     timestamps: {
-      createdAt: "createdAt",
-      updatedAt: "updatedAt",
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
     },
-  }
+  },
 );
 
 UserSchema.methods = {
@@ -60,14 +60,14 @@ UserSchema.methods = {
   },
 };
 
-UserSchema.pre("save", function encryptPasswordHook(next) {
-  if (this.isModified("password")) {
+UserSchema.pre('save', function encryptPasswordHook(next) {
+  if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);
   }
 
   return next();
 });
 
-const UserModel = model<IUser>("User", UserSchema);
+const UserModel = model<IUser>('User', UserSchema);
 
 export default UserModel;
