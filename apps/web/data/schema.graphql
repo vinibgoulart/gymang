@@ -84,6 +84,8 @@ type UserEdge {
 
 type Mutation {
   UserAdd(input: UserAddInput!): UserAddPayload
+  UserLogin(input: UserLoginInput!): UserLoginPayload
+  UserLogout(input: UserLogoutInput!): UserLogoutPayload
 }
 
 type UserAddPayload {
@@ -97,5 +99,28 @@ input UserAddInput {
   email: String!
   password: String!
   firstName: String!
+  clientMutationId: String
+}
+
+type UserLoginPayload {
+  user: User
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input UserLoginInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserLogoutPayload {
+  success: String
+  error: String
+  clientMutationId: String
+}
+
+input UserLogoutInput {
   clientMutationId: String
 }

@@ -6,7 +6,7 @@ import { createEnvironment } from './relayEnvironment';
 import { Providers } from '../Providers';
 
 export type NextPageWithLayout<T> = NextPage<T> & {
-  getLayout?: (page: React.ReactElement) => React.ReactNode;
+  getLayout?: (page: React.ReactElement, props: any) => React.ReactNode;
 };
 
 export function ReactRelayContainer({
@@ -41,6 +41,8 @@ function Hydrate<T>({
     if (props == null) {
       return props;
     }
+
+    // eslint-disable-next-line
     const { preloadedQueries, ...otherProps } = props;
     if (preloadedQueries == null) {
       return props;
@@ -66,10 +68,12 @@ function Hydrate<T>({
       };
     }
 
-    return { ...otherProps, queryRefs };
+    return { ...otherProps, preloadedQueries: queryRefs };
   }, [props]);
 
   return (
-    <Providers>{getLayout(<Component {...transformedProps} />)}</Providers>
+    <Providers>
+      {getLayout(<Component {...transformedProps} />, props)}
+    </Providers>
   );
 }

@@ -1,0 +1,11 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    [
+      "relay",
+      {
+        "artifactDirectory": "apps/web/__generated__"
+      }
+    ]
+  ]
+}

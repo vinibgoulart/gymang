@@ -1,9 +1,9 @@
-import { GraphQLContext } from '@gymang/types';
-import jwt from 'jsonwebtoken';
-import type { IUser } from '@gymang/user';
 
 import { config } from '@gymang/config';
+import type { GraphQLContext } from '@gymang/core';
 import { getObjectId } from '@gymang/graphql';
+import type { IUser } from '@gymang/user';
+import jwt from 'jsonwebtoken';
 
 // 1 year
 // eslint-disable-next-line
@@ -25,8 +25,6 @@ export const setSessionTokenCookie = async (
       path: '/',
       maxAge,
     };
-
-    console.log({ context });
 
     context.koaContext.cookies.set(COLLECTION_SESSION_COOKIE, token, options);
   } catch (err) {
