@@ -70,3 +70,7 @@ export { createWSServer } from './websocket/createWSServer';
 export { isWsOpen } from './websocket/isWsOpen';
 export { serverAddress } from './websocket/serverAddress';
 export { waitWsOpen } from './websocket/waitWsOpen';
+export { assertText } from './text/assertText';
+export { fieldInput } from './fieldInput';
+export { waitForOperation } from './waitForOperation';
+export { assertAndResolveMostRecentOperation } from './relay/assertAndResolveMostRecentOperation';

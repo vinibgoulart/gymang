@@ -6,13 +6,13 @@ import {
   Container,
   SimpleGrid,
 } from '@chakra-ui/react';
-import { Card, TextGradient } from '@gymang/ui';
-import type { ReactElement } from 'react';
+import { ActionButton, Card, TextGradient } from '@gymang/ui';
+import type { GetServerSideProps } from 'next';
 
-import { UserRegisterForm } from '../../components/user/UserRegisterForm';
-import { UnauthenticatedLayout } from '../../layouts/UnauthenticatedLayout';
+import { getToken } from '../auth/getToken';
+import { UserLoginForm } from '../components/user/UserLoginForm';
 
-function Register() {
+const Login = () => {
   return (
     <Box position="relative">
       <Container
@@ -27,10 +27,10 @@ function Register() {
             Alcance
             <TextGradient> seus objetivos</TextGradient> com precisão!
           </Heading>
-          <Heading fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}>
+          <Heading fontSize={{ base: '3xl', lg: '6xl' }}>
             <TextGradient> Seu treino...</TextGradient>
           </Heading>
-          <Heading fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}>
+          <Heading fontSize={{ base: '3xl', lg: '6xl' }}>
             <TextGradient> Suas metas...</TextGradient>
           </Heading>
         </Stack>
@@ -41,20 +41,35 @@ function Register() {
               <TextGradient>!</TextGradient>
             </Heading>
             <Text color="text.light">
-              Registre-se agora e comece a transformar sua jornada fitness.
-              Conquiste suas metas de forma eficaz com nosso aplicativo de
-              treino. Junte-se à comunidade fitness e evolua como nunca antes!
+              Entre agora e comece a transformar sua jornada fitness. Conquiste
+              suas metas de forma eficaz com nosso aplicativo de treino.
+              Junte-se à comunidade fitness e evolua como nunca antes!
             </Text>
           </Stack>
-          <UserRegisterForm />
+          <UserLoginForm />
+          <ActionButton link="/register">Não tenho uma conta</ActionButton>
         </Card>
       </Container>
     </Box>
   );
-}
-
-Register.getLayout = function getLayout(page: ReactElement) {
-  return <UnauthenticatedLayout>{page}</UnauthenticatedLayout>;
 };
 
-export default Register;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = getToken(context);
+
+  if (token) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+      props: {},
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
+
+export default Login;

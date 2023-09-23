@@ -3,8 +3,13 @@ const jestTransformer = () => {
     !process.env?.JEST_TRANSFORMER ||
     process.env.JEST_TRANSFORMER === 'babel-jest'
   ) {
-    console.log('customBabelTransformer path', require('path').resolve('./customBabelTransformer'));
+    console.log(
+      'customBabelTransformer path',
+      // eslint-disable-next-line
+      require('path').resolve('./customBabelTransformer'),
+    );
     return {
+      // eslint-disable-next-line
       '^.+\\.(js|ts|tsx)?$': require('path').resolve(
         './customBabelTransformer',
       ),
@@ -44,6 +49,8 @@ module.exports = {
     '__generated__',
   ],
   transformIgnorePatterns: ['node_modules/(?!d3-random)'],
+  coverageReporters: ['lcov', 'html'],
+  reporters: ['default', 'jest-junit'],
   testEnvironment: 'jsdom',
   transform: {
     ...jestTransformer(),
@@ -55,5 +62,5 @@ module.exports = {
   cacheDirectory: '.jest-cache',
   rootDir: './',
   cacheDirectory: '.jest-cache',
-  // setupFiles: ['<rootDir>/../testutils/test/setupFilesWeb.js'],
+  setupFiles: ['<rootDir>/../../packages/testutils/test/setupFiles.js'],
 };
