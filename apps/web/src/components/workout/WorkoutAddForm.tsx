@@ -4,30 +4,30 @@ import { useMutationCallbacks } from '@gymang/relay';
 import { ActionButton } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { UserLogin } from './mutations/UserLoginMutation';
-import type { UserLoginMutation } from '../../../__generated__/UserLoginMutation.graphql';
+import { WorkoutAdd } from './mutations/WorkoutAddMutation';
+import type { WorkoutAddMutation } from '../../../__generated__/WorkoutAddMutation.graphql';
 
 const validationSchema = z.object({
-  email: z.string().email({ message: 'Email inválido' }),
-  password: z.string().min(6, { message: 'Senha inválida' }),
+  name: z.string().min(2, { message: 'Nome é obrigatório' }),
+  description: z.string(),
 });
 
 type Values = z.infer<typeof validationSchema>;
 
-export const UserLoginForm = () => {
+export const WorkoutAddForm = () => {
   const router = useRouter();
 
   const defaultValues = {
-    email: '',
-    password: '',
+    name: '',
+    description: '',
   };
 
-  const [userLogin, isPending] = useMutationCallbacks<UserLoginMutation>({
-    name: 'UserLogin',
-    mutation: UserLogin,
+  const [workoutAdd, isPending] = useMutationCallbacks<WorkoutAddMutation>({
+    name: 'WorkoutAdd',
+    mutation: WorkoutAdd,
     afterCompleted: () => {
       router.push('/');
     },
@@ -44,28 +44,28 @@ export const UserLoginForm = () => {
     formState: { isValid },
   } = formBag;
 
-  const onSubmit = handleSubmit(({ email, password }: Values) => {
+  const onSubmit = handleSubmit(({ name, description }: Values) => {
     const config = {
       variables: {
         input: {
-          email,
-          password,
+          name,
+          description,
         },
       },
     };
 
-    userLogin(config);
+    workoutAdd(config);
   });
 
-  const disabled = isPending || isValid;
+  const disabled = isPending || !isValid;
 
   return (
     <FormProvider {...formBag}>
       <Stack spacing={4}>
-        <TextForm name="email" placeholder="Email" />
-        <TextForm name="password" placeholder="Senha" type="password" />
-        <ActionButton disabled={disabled} onClick={onSubmit} w="full">
-          Entrar
+        <TextForm name="name" placeholder="Nome" />
+        <TextForm name="description" placeholder="Descrição (opcional)" />
+        <ActionButton isDisabled={disabled} onClick={onSubmit} w="full" data-testid={'button-workout-add'}>
+          Adicionar
         </ActionButton>
       </Stack>
     </FormProvider>

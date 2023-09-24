@@ -48,12 +48,12 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       </Flex>
       <Stack spacing={1}>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+          <NavItem key={link.name} icon={link.icon} href='#'>
             {link.name}
           </NavItem>
         ))}
         <Divider />
-        <NavItem icon={AiOutlinePlus}>Adicionar Treino</NavItem>
+        <NavItem icon={AiOutlinePlus} href='/workout/create'>Adicionar Treino</NavItem>
       </Stack>
     </Box>
   );

@@ -1,19 +1,22 @@
-import { Box, Flex, FlexProps, Icon } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { IconType } from "react-icons";
+import type { FlexProps} from '@chakra-ui/react';
+import { Box, Flex, Icon } from '@chakra-ui/react';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+import type { IconType } from 'react-icons';
 
 type NavItemProps = FlexProps & {
   icon: IconType;
   children: ReactNode;
+  href: string;
 };
 
-export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+export const NavItem = ({ icon, children, href, ...rest }: NavItemProps) => {
   return (
     <Box
-      as="a"
-      href="#"
-      style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
+      as={Link}
+      href={href}
+      style={{ textDecoration: 'none' }}
+      _focus={{ boxShadow: 'none' }}
     >
       <Flex
         align="center"
@@ -24,15 +27,15 @@ export const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "primary.main",
-          color: "white",
+          bg: 'primary.main',
+          color: 'white',
         }}
         {...rest}
       >
         {icon && (
           <Icon
             _groupHover={{
-              color: "white",
+              color: 'white',
             }}
             as={icon}
           />
