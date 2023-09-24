@@ -22,7 +22,7 @@ const Home = () => {
 Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
   const actions = (
     <>
-      <ActionButton link="/workout/create" variant={'solid'}>
+      <ActionButton link="/workout/create" variant={'solid'} size={{ base: 'sm', md: 'md' }}>
         Adicionar treino
       </ActionButton>
     </>
