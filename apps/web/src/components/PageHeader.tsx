@@ -19,7 +19,7 @@ export const PageHeader = (props: PageHeaderProps) => {
     return <Heading size={'lg'}>{props.title}</Heading>;
   };
   return (
-    <Flex justifyContent={'space-between'}>
+    <Flex justifyContent={'space-between'} mb={4}>
       {getHeading()}
       {props.actions}
     </Flex>

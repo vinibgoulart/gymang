@@ -69,7 +69,6 @@ const mockGeolocation = {
   clearWatch: jest.fn(),
 };
 
-global.ResizeObserver = resizeObserverPolyfill
 global.navigator.geolocation = mockGeolocation;
 // jest.mock('popper.js', () => {
 //   const PopperJS = jest.requireActual('popper.js');
