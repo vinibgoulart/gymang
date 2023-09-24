@@ -63,7 +63,7 @@
     "jest-preview": "^0.3.1",
     "jsdom": "^22.1.0",
     "lucide-react": "^0.277.0",
-    "mongoose": "^7.5.2",
+    "mongoose": "^7.4.3",
     "util": "^0.12.5"
   }
 }
