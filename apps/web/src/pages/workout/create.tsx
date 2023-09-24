@@ -1,30 +1,42 @@
 import type { GetServerSideProps } from 'next';
 import type { ReactElement } from 'react';
-import type { PreloadedQuery } from 'react-relay';
+import { graphql, usePreloadedQuery, type PreloadedQuery } from 'react-relay';
 
-import type { UserMeQuery } from '../../../__generated__/UserMeQuery.graphql';
-import UserMePreloadedQuery from '../../../__generated__/UserMeQuery.graphql';
+import type { createWorkoutQuery } from '../../../__generated__/createWorkoutQuery.graphql';
+import createWorkoutPreloadedQuery from '../../../__generated__/createWorkoutQuery.graphql';
 import { PageHeader } from '../../components/PageHeader';
 import { WorkoutAddForm } from '../../components/workout/WorkoutAddForm';
 import { RootLayout } from '../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../relay/network';
 
-type WorkoutCreateProps = {
+type CreateWorkoutProps = {
   preloadedQueries: {
-    me: PreloadedQuery<UserMeQuery>;
+    createWorkout: PreloadedQuery<createWorkoutQuery>;
   };
 };
 
-const WorkoutCreate = () => {
-  return <WorkoutAddForm />
+const CreateWorkout = () => {
+  return <WorkoutAddForm />;
 };
 
-WorkoutCreate.getLayout = function getLayout(
+CreateWorkout.getLayout = function useGetLayout(
   page: ReactElement,
-  props: WorkoutCreateProps,
+  props: CreateWorkoutProps,
 ) {
+  const query = usePreloadedQuery<createWorkoutQuery>(
+    graphql`
+      query createWorkoutQuery @preloadable {
+        ...RootLayoutWorkouts_query
+        me {
+          ...RootLayout_me
+        }
+      }
+    `,
+    props.preloadedQueries.createWorkout,
+  );
+
   return (
-    <RootLayout query={props.preloadedQueries.me}>
+    <RootLayout me={query.me} workouts={query}>
       <PageHeader title="Adicionar treino" />
       {page}
     </RootLayout>
@@ -35,10 +47,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       preloadedQueries: {
-        me: await getPreloadedQuery(UserMePreloadedQuery, {}, context),
+        createWorkout: await getPreloadedQuery(
+          createWorkoutPreloadedQuery,
+          {},
+          context,
+        ),
       },
     },
   };
 };
 
-export default WorkoutCreate;
+export default CreateWorkout;

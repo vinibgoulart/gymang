@@ -1,31 +1,22 @@
-import type {
-  BoxProps} from '@chakra-ui/react';
-import {
-  Box,
-  CloseButton,
-  Divider,
-  Flex,
-  Stack,
-} from '@chakra-ui/react';
+import type { BoxProps } from '@chakra-ui/react';
+import { Box, CloseButton, Divider, Flex, Stack } from '@chakra-ui/react';
 import Image from 'next/image';
-import type { IconType } from 'react-icons';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { CgGym } from 'react-icons/cg';
 
+import type { NavItemProps } from './NavItem';
 import { NavItem } from './NavItem';
-
-type LinkItemProps = {
-  name: string;
-  icon: IconType;
-};
+import { NavItems } from './NavItems';
 
 type SidebarProps = BoxProps & {
   onClose: () => void;
+  navItems?: NavItemProps[];
 };
 
-const LinkItems: Array<LinkItemProps> = [{ name: 'Treino A', icon: CgGym }];
-
-export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+export const SidebarContent = ({
+  onClose,
+  navItems,
+  ...rest
+}: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
@@ -47,13 +38,13 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       <Stack spacing={1}>
-        {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon} href='#'>
-            {link.name}
-          </NavItem>
-        ))}
+        <NavItems navItems={navItems} />
         <Divider />
-        <NavItem icon={AiOutlinePlus} href='/workout/create'>Adicionar Treino</NavItem>
+        <NavItem
+          icon={AiOutlinePlus}
+          href="/workout/create"
+          name="Adicionar Treino"
+        />
       </Stack>
     </Box>
   );

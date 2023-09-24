@@ -1,17 +1,17 @@
 import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
 import type { ReactElement } from 'react';
-import type { PreloadedQuery } from 'react-relay';
+import { usePreloadedQuery, type PreloadedQuery, graphql } from 'react-relay';
 
-import type { UserMeQuery } from '../../__generated__/UserMeQuery.graphql';
-import UserMePreloadedQuery from '../../__generated__/UserMeQuery.graphql';
+import type { pagesIndexQuery } from '../../__generated__/pagesIndexQuery.graphql';
+import pagesIndexPreloadedQuery from '../../__generated__/pagesIndexQuery.graphql';
 import { PageHeader } from '../components/PageHeader';
 import { RootLayout } from '../layouts/RootLayout';
 import { getPreloadedQuery } from '../relay/network';
 
 type HomeProps = {
   preloadedQueries: {
-    me: PreloadedQuery<UserMeQuery>;
+    home: PreloadedQuery<pagesIndexQuery>;
   };
 };
 
@@ -19,17 +19,33 @@ const Home = () => {
   return <>Bem Vindo!</>;
 };
 
-Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
+Home.getLayout = function useGetLayout(page: ReactElement, props: HomeProps) {
+  const query = usePreloadedQuery<pagesIndexQuery>(
+    graphql`
+      query pagesIndexQuery @preloadable {
+        ...RootLayoutWorkouts_query
+        me {
+          ...RootLayout_me
+        }
+      }
+    `,
+    props.preloadedQueries.home,
+  );
+
   const actions = (
     <>
-      <ActionButton link="/workout/create" variant={'solid'} size={{ base: 'sm', md: 'md' }}>
+      <ActionButton
+        link="/workout/create"
+        variant={'solid'}
+        size={{ base: 'sm', md: 'md' }}
+      >
         Adicionar treino
       </ActionButton>
     </>
   );
 
   return (
-    <RootLayout query={props.preloadedQueries.me}>
+    <RootLayout me={query.me} workouts={query}>
       <PageHeader title="Bem vindo!" actions={actions} />
       {page}
     </RootLayout>
@@ -40,7 +56,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       preloadedQueries: {
-        me: await getPreloadedQuery(UserMePreloadedQuery, {}, context),
+        home: await getPreloadedQuery(
+          pagesIndexPreloadedQuery,
+          {
+            first: 20,
+            after: null,
+          },
+          context,
+        ),
       },
     },
   };

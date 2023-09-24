@@ -2,14 +2,16 @@ import { Box, Drawer, DrawerContent, useDisclosure } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 
 import { MobileNav } from './MobileNav';
+import type { NavItemProps } from './NavItem';
 import { SidebarContent } from './SidebarContent';
 
 type Props = {
   children: ReactNode;
   name: string;
+  navItems?: NavItemProps[];
 };
 
-export const Header = ({ children, name }: Props) => {
+export const Header = ({ children, name, navItems }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -17,6 +19,7 @@ export const Header = ({ children, name }: Props) => {
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
+        navItems={navItems}
       />
       <Drawer
         isOpen={isOpen}
@@ -27,7 +30,7 @@ export const Header = ({ children, name }: Props) => {
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent onClose={onClose} navItems={navItems} />
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} name={name} />
