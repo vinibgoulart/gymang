@@ -3,6 +3,7 @@ import {
   edgeField,
   connectionArgs,
   NullConnection,
+  withFilter,
 } from '@gymang/graphql';
 import { WorkoutLoader } from '@gymang/workout';
 import { GraphQLNonNull } from 'graphql';
@@ -29,8 +30,8 @@ export const workoutEdgeField = () =>
     name: 'Workout',
   });
 
-export const workoutConnectionField = (customResolver = null) => ({
-  workouts: {
+export const myWorkoutConnectionField = (customResolver = null) => ({
+  myWorkouts: {
     type: new GraphQLNonNull(WorkoutConnection.connectionType),
     args: {
       ...connectionArgs,
@@ -47,7 +48,11 @@ export const workoutConnectionField = (customResolver = null) => ({
         return NullConnection;
       }
 
-      return WorkoutLoader.loadAll(context, args);
+      const argsWithUser = withFilter(args, {
+        user: context.user._id,
+      });
+
+      return WorkoutLoader.loadAll(context, argsWithUser);
     },
   },
 });

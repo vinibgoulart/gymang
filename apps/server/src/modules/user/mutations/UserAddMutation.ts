@@ -1,9 +1,10 @@
+import { errorField, successField } from '@gymang/graphql';
+import { USER_SESSION_COOKIE, USER_TOKEN_SCOPES, generateUserToken, setSessionTokenCookie } from '@gymang/session';
+import { userCreate } from '@gymang/user';
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
 import { userTypeField } from '../UserFields';
-import { userCreate } from '@gymang/user';
-import { errorField, successField } from '@gymang/graphql';
 
 type RegisterMutationArgs = {
   email: string;
@@ -46,6 +47,14 @@ const mutation = mutationWithClientMutationId({
         error,
       };
     }
+
+    const userToken = generateUserToken(user, USER_TOKEN_SCOPES.SESSION);
+
+    await setSessionTokenCookie(
+      context,
+      USER_SESSION_COOKIE,
+      `JWT ${userToken}`,
+    );
 
     return {
       user: user!._id,

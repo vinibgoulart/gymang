@@ -14,7 +14,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 
 type MobileProps = FlexProps & {
@@ -23,8 +23,6 @@ type MobileProps = FlexProps & {
 };
 
 export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
-  const router = useRouter();
-
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -86,7 +84,7 @@ export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
               <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuDivider />
-              <MenuItem onClick={() => router.push('/logout')}>
+              <MenuItem as={Link} href={'/logout'}>
                 Sign out
               </MenuItem>
             </MenuList>

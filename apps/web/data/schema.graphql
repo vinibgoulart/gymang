@@ -16,7 +16,7 @@ type Query {
   ): [Node]!
   me: User
   users(after: String, first: Int, before: String, last: Int): UserConnection!
-  workouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
+  myWorkouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
 }
 
 """An object with an ID"""
