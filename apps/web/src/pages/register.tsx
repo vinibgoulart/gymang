@@ -23,14 +23,14 @@ const Register = () => {
         spacing={{ base: 10, lg: 32 }}
       >
         <Stack spacing={8}>
-          <Heading fontSize={{ base: '3xl', lg: '6xl' }}>
+          <Heading fontSize={{ base: '3xl', md: '6xl' }}>
             Alcance
             <TextGradient> seus objetivos</TextGradient> com precisão!
           </Heading>
-          <Heading fontSize={{ base: '3xl', lg: '6xl' }}>
+          <Heading fontSize={{ base: '3xl', md: '6xl' }}>
             <TextGradient> Seu treino...</TextGradient>
           </Heading>
-          <Heading fontSize={{ base: '3xl', lg: '6xl' }}>
+          <Heading fontSize={{ base: '3xl', md: '6xl' }}>
             <TextGradient> Suas metas...</TextGradient>
           </Heading>
         </Stack>

@@ -31,7 +31,7 @@ export const Header = ({ children, name }: Props) => {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} name={name} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p={{ base: 2, md: 4 }}>
         {children}
       </Box>
     </Box>
