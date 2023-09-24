@@ -1,23 +1,79 @@
 import { Header } from '@gymang/ui';
 import type { ReactNode } from 'react';
-import type { PreloadedQuery} from 'react-relay';
-import { usePreloadedQuery } from 'react-relay';
+import { CgGym } from 'react-icons/cg';
+import { graphql, useFragment, usePaginationFragment } from 'react-relay';
 
-import type { UserMeQuery } from '../../__generated__/UserMeQuery.graphql';
-import { userMeQuery } from '../components/user/UserMe';
+import type { RootLayout_me$key } from '../../__generated__/RootLayout_me.graphql';
+import type { RootLayoutWorkouts_query$key } from '../../__generated__/RootLayoutWorkouts_query.graphql';
+import type { RootLayoutWorkoutsPaginationQuery } from '../../__generated__/RootLayoutWorkoutsPaginationQuery.graphql';
 
 type RootLayoutProps = {
   children: ReactNode;
-  query: PreloadedQuery<UserMeQuery>;
+  workouts: RootLayoutWorkouts_query$key;
+  me: RootLayout_me$key;
 };
 
 export function RootLayout({ children, ...props }: RootLayoutProps) {
-  const query = usePreloadedQuery(userMeQuery, props.query);
-  const { me } = query;
+  const { data } = usePaginationFragment<
+    RootLayoutWorkoutsPaginationQuery,
+    RootLayoutWorkouts_query$key
+  >(
+    graphql`
+      fragment RootLayoutWorkouts_query on Query
+      @argumentDefinitions(
+        first: { type: Int, defaultValue: 5 }
+        after: { type: String }
+      )
+      @refetchable(queryName: "RootLayoutWorkoutsPaginationQuery") {
+        workouts(first: $first, after: $after)
+          @connection(key: "WorkoutList_workouts") {
+          edges {
+            node {
+              id
+              name
+              description
+            }
+          }
+        }
+      }
+    `,
+    props.workouts,
+  );
 
-  if (!me) return null;
+  const { workouts } = data;
 
-  const { firstName } = me;
+  const me = useFragment<RootLayout_me$key>(
+    graphql`
+      fragment RootLayout_me on User {
+        firstName
+      }
+    `,
+    props.me,
+  );
 
-  return <Header name={firstName}>{children}</Header>;
+  if (!me) {
+    return null;
+  }
+
+  const getNavItems = () => {
+    if (!workouts.edges.length) {
+      return {};
+    }
+
+    return {
+      navItems: workouts.edges.map((workout) => {
+        return {
+          name: workout.node.name,
+          icon: CgGym,
+          href: `/workout/${workout.node.id}`,
+        };
+      }),
+    };
+  };
+
+  return (
+    <Header name={me.firstName} {...getNavItems()}>
+      {children}
+    </Header>
+  );
 }
