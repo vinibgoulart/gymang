@@ -1,19 +1,40 @@
 import { Header } from '@gymang/ui';
 import type { ReactNode } from 'react';
 import { CgGym } from 'react-icons/cg';
-import { graphql, useFragment, usePaginationFragment } from 'react-relay';
+import {
+  graphql,
+  useFragment,
+  useLazyLoadQuery,
+  usePaginationFragment,
+} from 'react-relay';
 
 import type { RootLayout_me$key } from '../../__generated__/RootLayout_me.graphql';
+import type { RootLayoutQuery } from '../../__generated__/RootLayoutQuery.graphql';
 import type { RootLayoutWorkouts_query$key } from '../../__generated__/RootLayoutWorkouts_query.graphql';
 import type { RootLayoutWorkoutsPaginationQuery } from '../../__generated__/RootLayoutWorkoutsPaginationQuery.graphql';
 
 type RootLayoutProps = {
   children: ReactNode;
-  workouts: RootLayoutWorkouts_query$key;
-  me: RootLayout_me$key;
+  fetchKey?: string;
 };
 
-export function RootLayout({ children, ...props }: RootLayoutProps) {
+export function RootLayout({ children, fetchKey }: RootLayoutProps) {
+  const response = useLazyLoadQuery<RootLayoutQuery>(
+    graphql`
+      query RootLayoutQuery {
+        ...RootLayoutWorkouts_query
+        me {
+          ...RootLayout_me
+        }
+      }
+    `,
+    {},
+    {
+      fetchKey,
+      fetchPolicy: 'network-only',
+    },
+  );
+
   const { data } = usePaginationFragment<
     RootLayoutWorkoutsPaginationQuery,
     RootLayoutWorkouts_query$key
@@ -37,7 +58,7 @@ export function RootLayout({ children, ...props }: RootLayoutProps) {
         }
       }
     `,
-    props.workouts,
+    response,
   );
 
   const { myWorkouts } = data;
@@ -48,7 +69,7 @@ export function RootLayout({ children, ...props }: RootLayoutProps) {
         firstName
       }
     `,
-    props.me,
+    response.me,
   );
 
   const getNavItems = () => {

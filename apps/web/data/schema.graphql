@@ -122,10 +122,10 @@ type WorkoutEdge {
 type Workout implements Node {
   """The ID of an object"""
   id: ID!
-  name: String
+  name: String!
   description: String
-  createdBy: String
-  user: String
+  createdBy: User
+  user: User
 }
 
 type Mutation {

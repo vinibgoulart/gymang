@@ -10,7 +10,7 @@ export function TextGradient({ children }: TextGradientProps) {
     <Text
       as="span"
       bgClip="text"
-      bgGradient="linear(to-r, primary.light, primary.dark)"
+      bgGradient="linear(to-r, primary.main, primary.dark)"
     >
       {children}
     </Text>

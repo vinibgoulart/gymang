@@ -1,52 +1,14 @@
-import type { GetServerSideProps } from 'next';
-import { graphql, usePreloadedQuery, type PreloadedQuery } from 'react-relay';
-
-import type { createWorkoutQuery } from '../../../__generated__/createWorkoutQuery.graphql';
-import createWorkoutPreloadedQuery from '../../../__generated__/createWorkoutQuery.graphql';
 import { PageHeader } from '../../components/PageHeader';
 import { WorkoutAddForm } from '../../components/workout/WorkoutAddForm';
 import { RootLayout } from '../../layouts/RootLayout';
-import { getPreloadedQuery } from '../../relay/network';
 
-type CreateWorkoutProps = {
-  preloadedQueries: {
-    createWorkout: PreloadedQuery<createWorkoutQuery>;
-  };
-};
-
-const CreateWorkout = (props: CreateWorkoutProps) => {
-  const query = usePreloadedQuery<createWorkoutQuery>(
-    graphql`
-      query createWorkoutQuery @preloadable {
-        ...RootLayoutWorkouts_query
-        me {
-          ...RootLayout_me
-        }
-      }
-    `,
-    props.preloadedQueries.createWorkout,
-  );
-
+const CreateWorkout = () => {
   return (
-    <RootLayout me={query.me} workouts={query}>
+    <RootLayout>
       <PageHeader title="Adicionar treino" />
       <WorkoutAddForm />
     </RootLayout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: {
-      preloadedQueries: {
-        createWorkout: await getPreloadedQuery(
-          createWorkoutPreloadedQuery,
-          {},
-          context,
-        ),
-      },
-    },
-  };
 };
 
 export default CreateWorkout;
