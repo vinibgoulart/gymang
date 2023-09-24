@@ -4,10 +4,12 @@ import {
   nodeInterface,
   registerTypeLoader,
 } from '@gymang/graphql';
-import type { IWorkout} from '@gymang/workout';
+import type { IWorkout } from '@gymang/workout';
 import { WorkoutLoader } from '@gymang/workout';
-import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
+
+import { userTypeField } from '../user/UserFields';
 
 const WorkoutType = new GraphQLObjectType<IWorkout, GraphQLContext>({
   name: 'Workout',
@@ -15,21 +17,15 @@ const WorkoutType = new GraphQLObjectType<IWorkout, GraphQLContext>({
   fields: () => ({
     id: globalIdField('Workout'),
     name: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(GraphQLString),
       resolve: (workout) => workout.name,
     },
     description: {
       type: GraphQLString,
       resolve: (workout) => workout.description,
     },
-    createdBy: {
-      type: GraphQLString,
-      resolve: (workout) => workout.createdBy,
-    },
-    user: {
-      type: GraphQLString,
-      resolve: (workout) => workout.user,
-    },
+    ...userTypeField('createdBy'),
+    ...userTypeField(),
   }),
   interfaces: () => [nodeInterface],
 });
