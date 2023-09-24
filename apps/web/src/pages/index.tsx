@@ -1,14 +1,13 @@
+import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
 import type { ReactElement } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 
-import type {
-  UserMeQuery,
-} from '../../__generated__/UserMeQuery.graphql';
+import type { UserMeQuery } from '../../__generated__/UserMeQuery.graphql';
 import UserMePreloadedQuery from '../../__generated__/UserMeQuery.graphql';
+import { PageHeader } from '../components/PageHeader';
 import { RootLayout } from '../layouts/RootLayout';
 import { getPreloadedQuery } from '../relay/network';
-
 
 type HomeProps = {
   preloadedQueries: {
@@ -21,7 +20,20 @@ const Home = () => {
 };
 
 Home.getLayout = function getLayout(page: ReactElement, props: HomeProps) {
-  return <RootLayout query={props.preloadedQueries.me}>{page}</RootLayout>;
+  const actions = (
+    <>
+      <ActionButton link="/workout/create" variant={'solid'}>
+        Adicionar treino
+      </ActionButton>
+    </>
+  );
+
+  return (
+    <RootLayout query={props.preloadedQueries.me}>
+      <PageHeader title="Bem vindo!" actions={actions} />
+      {page}
+    </RootLayout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

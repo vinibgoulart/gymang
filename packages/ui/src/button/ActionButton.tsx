@@ -15,6 +15,29 @@ export const ActionButton = ({
   external = false,
   ...props
 }: Props) => {
+  const getColor = () => {
+    if (props.variant === 'solid') {
+      return {
+        bgGradient: 'linear(to-r, primary.main, primary.dark)',
+        color: 'white',
+        _hover: {
+          boxShadow: 'md',
+        },
+      };
+    }
+
+    if (props.variant === 'outline') {
+      return {
+        borderColor: 'primary.main',
+        _hover: {
+          boxShadow: 'md',
+        },
+      };
+    }
+
+    return {};
+  };
+
   if (link) {
     if (external) {
       return (
@@ -37,6 +60,7 @@ export const ActionButton = ({
         href={link}
         color={'primary.main'}
         disableElevation
+        {...getColor()}
         {...props}
       >
         {children}
@@ -46,10 +70,10 @@ export const ActionButton = ({
 
   return (
     <Button
-      bgGradient="linear(to-r, primary.light, primary.dark)"
+      bgGradient="linear(to-r, primary.main, primary.dark)"
       color={'white'}
       _hover={{
-        boxShadow: 'xl',
+        boxShadow: 'md',
       }}
       {...props}
     >
