@@ -92,7 +92,7 @@ it('should get a list of workouts in a user that not create this workout', async
 
   const [workout] = result.data.workouts.edges;
 
-  expect(workout.node.user).toEqual(user.id);
+  expect(workout.node.user).toEqual(userWithWorkout.id);
   expect(workout.node.createdBy).toEqual(userWithWorkout.id);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
