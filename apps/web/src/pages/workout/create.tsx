@@ -1,5 +1,4 @@
 import type { GetServerSideProps } from 'next';
-import type { ReactElement } from 'react';
 import { graphql, usePreloadedQuery, type PreloadedQuery } from 'react-relay';
 
 import type { createWorkoutQuery } from '../../../__generated__/createWorkoutQuery.graphql';
@@ -15,14 +14,7 @@ type CreateWorkoutProps = {
   };
 };
 
-const CreateWorkout = () => {
-  return <WorkoutAddForm />;
-};
-
-CreateWorkout.getLayout = function useGetLayout(
-  page: ReactElement,
-  props: CreateWorkoutProps,
-) {
+const CreateWorkout = (props: CreateWorkoutProps) => {
   const query = usePreloadedQuery<createWorkoutQuery>(
     graphql`
       query createWorkoutQuery @preloadable {
@@ -38,7 +30,7 @@ CreateWorkout.getLayout = function useGetLayout(
   return (
     <RootLayout me={query.me} workouts={query}>
       <PageHeader title="Adicionar treino" />
-      {page}
+      <WorkoutAddForm />
     </RootLayout>
   );
 };

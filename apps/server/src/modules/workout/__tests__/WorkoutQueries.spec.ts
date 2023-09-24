@@ -20,7 +20,7 @@ afterAll(disconnectMongoose);
 
 const query = `
   query WorkoutQueriesSpecQuery {
-    workouts(first: 10) {
+    myWorkouts(first: 10) {
       edges {
         node {
           id

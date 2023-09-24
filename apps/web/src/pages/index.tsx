@@ -1,6 +1,5 @@
 import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
-import type { ReactElement } from 'react';
 import { usePreloadedQuery, type PreloadedQuery, graphql } from 'react-relay';
 
 import type { pagesIndexQuery } from '../../__generated__/pagesIndexQuery.graphql';
@@ -15,11 +14,7 @@ type HomeProps = {
   };
 };
 
-const Home = () => {
-  return <>Bem Vindo!</>;
-};
-
-Home.getLayout = function useGetLayout(page: ReactElement, props: HomeProps) {
+const Home = (props: HomeProps) => {
   const query = usePreloadedQuery<pagesIndexQuery>(
     graphql`
       query pagesIndexQuery @preloadable {
@@ -47,7 +42,7 @@ Home.getLayout = function useGetLayout(page: ReactElement, props: HomeProps) {
   return (
     <RootLayout me={query.me} workouts={query}>
       <PageHeader title="Bem vindo!" actions={actions} />
-      {page}
+      Bem vindo
     </RootLayout>
   );
 };
