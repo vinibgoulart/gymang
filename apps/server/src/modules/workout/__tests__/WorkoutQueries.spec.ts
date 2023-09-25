@@ -57,7 +57,7 @@ it('should get a list of workouts', async () => {
 
   expect(result.errors).toBeUndefined();
 
-  const [workout] = result.data.workouts.edges;
+  const [workout] = result.data.myWorkouts.edges;
 
   expect(workout.node.user).toEqual(user.id);
   expect(workout.node.createdBy).toEqual(user.id);
@@ -90,7 +90,7 @@ it('should get a list of workouts in a user that not create this workout', async
 
   expect(result.errors).toBeUndefined();
 
-  const [workout] = result.data.workouts.edges;
+  const [workout] = result.data.myWorkouts.edges;
 
   expect(workout.node.user).toEqual(userWithWorkout.id);
   expect(workout.node.createdBy).toEqual(userWithWorkout.id);

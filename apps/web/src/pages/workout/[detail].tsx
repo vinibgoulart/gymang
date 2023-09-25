@@ -1,10 +1,9 @@
+import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
-import type { PreloadedQuery} from 'react-relay';
+import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
-import type {
-  DetailWorkoutQuery,
-} from '../../../__generated__/DetailWorkoutQuery.graphql';
+import type { DetailWorkoutQuery } from '../../../__generated__/DetailWorkoutQuery.graphql';
 import DetailWorkoutPreloadedQuery from '../../../__generated__/DetailWorkoutQuery.graphql';
 import { PageHeader } from '../../components/PageHeader';
 import { WorkoutDetail } from '../../components/workout/WorkoutDetail';
@@ -23,6 +22,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
       query DetailWorkoutQuery($id: ID!) @preloadable {
         workout: node(id: $id) {
           ... on Workout {
+            id
             name
             description
             ...WorkoutDetail_workout
@@ -39,9 +39,25 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
 
   const { workout } = query;
 
+  const actions = (
+    <>
+      <ActionButton
+        link={`/workout/${workout.id}/split/create`}
+        variant={'solid'}
+        size={{ base: 'sm', md: 'md' }}
+      >
+        Adicionar divisão
+      </ActionButton>
+    </>
+  );
+
   return (
     <RootLayout>
-      <PageHeader title={workout.name} subtitle={workout.description} />
+      <PageHeader
+        title={workout.name}
+        subtitle={workout.description}
+        actions={actions}
+      />
       <WorkoutDetail workout={query.workout} />
     </RootLayout>
   );

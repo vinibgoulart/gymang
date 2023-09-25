@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should get a list of workouts splits 1`] = `
+{
+  "meWorkoutSplits": {
+    "edges": [
+      {
+        "node": {
+          "id": "FROZEN-ID",
+          "modality": "BOXING",
+          "name": "A",
+          "user": {
+            "id": "FROZEN-ID",
+          },
+          "workout": {
+            "id": "FROZEN-ID",
+            "name": "Workout NaN name",
+          },
+        },
+      },
+      {
+        "node": {
+          "id": "FROZEN-ID",
+          "modality": "BOXING",
+          "name": "B",
+          "user": {
+            "id": "FROZEN-ID",
+          },
+          "workout": {
+            "id": "FROZEN-ID",
+            "name": "Workout NaN name",
+          },
+        },
+      },
+    ],
+  },
+}
+`;

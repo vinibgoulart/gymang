@@ -153,6 +153,9 @@ importers:
       '@gymang/workout':
         specifier: workspace:*
         version: link:../../packages/workout
+      '@gymang/workout-split':
+        specifier: workspace:*
+        version: link:../../packages/workoutSplit
       '@koa/cors':
         specifier: ^4.0.0
         version: 4.0.0
@@ -866,6 +869,31 @@ importers:
       '@gymang/user':
         specifier: workspace:*
         version: link:../user
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
+  packages/workoutSplit:
+    dependencies:
+      '@gymang/babel':
+        specifier: workspace:*
+        version: link:../babel
+      '@gymang/config':
+        specifier: workspace:*
+        version: link:../config
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
+      '@gymang/graphql':
+        specifier: workspace:*
+        version: link:../graphql
+      '@gymang/user':
+        specifier: workspace:*
+        version: link:../user
+      '@gymang/workout':
+        specifier: workspace:*
+        version: link:../workout
     devDependencies:
       tsconfig:
         specifier: workspace:*
