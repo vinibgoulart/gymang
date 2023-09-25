@@ -31,7 +31,7 @@ export const workoutEdgeField = () =>
   });
 
 export const myWorkoutConnectionField = (customResolver = null) => ({
-  myWorkouts: {
+  meWorkouts: {
     type: new GraphQLNonNull(WorkoutConnection.connectionType),
     args: {
       ...connectionArgs,

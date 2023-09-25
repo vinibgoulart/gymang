@@ -20,13 +20,19 @@ afterAll(disconnectMongoose);
 
 const query = `
   query WorkoutQueriesSpecQuery {
-    myWorkouts(first: 10) {
+    meWorkouts(first: 10) {
       edges {
         node {
           id
           name
-          user
-          createdBy
+          user {
+            id
+            firstName
+          }
+          createdBy {
+            id
+            firstName
+          }
           description
         }
       }
@@ -57,21 +63,21 @@ it('should get a list of workouts', async () => {
 
   expect(result.errors).toBeUndefined();
 
-  const [workout] = result.data.myWorkouts.edges;
+  const [workout] = result.data.meWorkouts.edges;
 
-  expect(workout.node.user).toEqual(user.id);
-  expect(workout.node.createdBy).toEqual(user.id);
+  expect(workout.node.user.firstName).toEqual(user.firstName);
+  expect(workout.node.createdBy.firstName).toEqual(user.firstName);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
 
-it('should get a list of workouts in a user that not create this workout', async () => {
+it('should not get a list of workouts in a user that not create this workout', async () => {
   const user = await handleCreateUser();
   const userWithWorkout = await handleCreateUser();
 
   await handleCreateWorkout({
-    user: userWithWorkout._id,
-    createdBy: userWithWorkout._id,
+    user: userWithWorkout,
+    createdBy: userWithWorkout,
   });
 
   const context = await getContext({
@@ -88,12 +94,6 @@ it('should get a list of workouts in a user that not create this workout', async
     contextValue: context,
   });
 
-  expect(result.errors).toBeUndefined();
-
-  const [workout] = result.data.myWorkouts.edges;
-
-  expect(workout.node.user).toEqual(userWithWorkout.id);
-  expect(workout.node.createdBy).toEqual(userWithWorkout.id);
-
+  expect(result.data.meWorkouts.edges).toHaveLength(0);
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

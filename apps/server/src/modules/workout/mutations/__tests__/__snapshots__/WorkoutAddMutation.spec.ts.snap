@@ -6,11 +6,15 @@ exports[`should add a new workout 1`] = `
     "error": "EMPTY",
     "success": "Workout created successfully",
     "workout": {
-      "createdBy": "ObjectId",
+      "createdBy": {
+        "firstName": "User 1 firstName",
+      },
       "description": "Hard work",
       "id": "FROZEN-ID",
       "name": "Chest Workout",
-      "user": "ObjectId",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
     },
   },
 }
@@ -22,11 +26,15 @@ exports[`should add a new workout created by other user 1`] = `
     "error": "EMPTY",
     "success": "Workout created successfully",
     "workout": {
-      "createdBy": "ObjectId",
+      "createdBy": {
+        "firstName": "User 2 firstName",
+      },
       "description": "Hard work",
       "id": "FROZEN-ID",
       "name": "Chest Workout",
-      "user": "ObjectId",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
     },
   },
 }
