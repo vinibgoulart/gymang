@@ -8,7 +8,7 @@ import WorkoutSplit from '../WorkoutSplitModel';
 
 type WorkoutSplitCreatePayload = {
   name: string;
-  description: string;
+  description?: string;
   user: IUser;
   modality: WORKOUT_SPLIT_MODALITY;
   workout: IWorkout;

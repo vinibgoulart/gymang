@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add a new workout split 1`] = `
+{
+  "WorkoutSplitAdd": {
+    "error": "EMPTY",
+    "success": "Workout Split created successfully",
+    "workoutSplit": {
+      "description": "Hard work",
+      "id": "FROZEN-ID",
+      "modality": "ObjectId",
+      "name": "Chest Workout",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "workout": {
+        "id": "FROZEN-ID",
+        "name": "Workout NaN name",
+      },
+    },
+  },
+}
+`;
