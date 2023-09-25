@@ -5,6 +5,7 @@ import { globalIdField } from 'graphql-relay';
 
 import UserQueries from '../../modules/user/UserQueries';
 import WorkoutQueries from '../../modules/workout/WorkoutQueries';
+import WorkoutSplitQueries from '../../modules/workoutSplit/WorkoutSplitQueries';
 
 const QueryType = new GraphQLObjectType<
   Record<string, unknown>,
@@ -18,6 +19,7 @@ const QueryType = new GraphQLObjectType<
     nodes: nodesField,
     ...UserQueries,
     ...WorkoutQueries,
+    ...WorkoutSplitQueries,
   }),
 });
 
