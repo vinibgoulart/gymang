@@ -16,7 +16,8 @@ type Query {
   ): [Node]!
   me: User
   users(after: String, first: Int, before: String, last: Int): UserConnection!
-  myWorkouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
+  meWorkouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
+  meWorkoutSplits(after: String, first: Int, before: String, last: Int): WorkoutSplitConnection!
 }
 
 """An object with an ID"""
@@ -126,6 +127,70 @@ type Workout implements Node {
   description: String
   createdBy: User
   user: User
+}
+
+"""A connection to a list of items."""
+type WorkoutSplitConnection {
+  """Number of items in this connection"""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+    This allows a client to fetch the first five objects by passing "5" as the
+    argument to "first", then fetch the total count so it could display "5 of 83",
+    for example.
+  """
+  totalCount: Int
+
+  """Offset from start"""
+  startCursorOffset: Int!
+
+  """Offset till end"""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfoExtended!
+
+  """A list of edges."""
+  edges: [WorkoutSplitEdge]!
+}
+
+"""An edge in a connection."""
+type WorkoutSplitEdge {
+  """The item at the end of the edge"""
+  node: WorkoutSplit
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represents a WorkoutSplit"""
+type WorkoutSplit implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String!
+  description: String
+  modality: WorkoutSplitModalityEnum
+  user: User
+  workout: Workout
+}
+
+enum WorkoutSplitModalityEnum {
+  BODYBUILDING
+  CYCLING
+  RUNNING
+  SWIMMING
+  WALKING
+  WEIGHTLIFTING
+  YOGA
+  BEACH_TENNIS
+  BASKETBALL
+  BOXING
+  FOOTBALL
+  HANDBALL
+  VOLLEYBALL
+  TENNIS
+  OTHER
 }
 
 type Mutation {

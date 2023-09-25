@@ -6,7 +6,7 @@ import {
   sanitizeTestObject,
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
-import { Workout, handleCreateWorkout } from '@gymang/workout';
+import { handleCreateWorkout } from '@gymang/workout';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
 
@@ -26,8 +26,12 @@ const query = `
         id
         name
         description
-        createdBy
-        user
+        createdBy {
+          firstName
+        }
+        user {
+          firstName
+        }
       }
       success
       error
@@ -69,10 +73,10 @@ it('should add a new workout', async () => {
     'Workout created successfully',
   );
 
-  const workoutCreated = await Workout.findOne();
+  const workoutCreated = result.data.WorkoutAdd.workout;
 
-  expect(workoutCreated?.user).toEqual(user._id);
-  expect(workoutCreated?.createdBy).toEqual(user._id);
+  expect(workoutCreated?.user.firstName).toEqual(user.firstName);
+  expect(workoutCreated?.createdBy.firstName).toEqual(user.firstName);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
@@ -121,8 +125,10 @@ it('should add a new workout created by other user', async () => {
   console.log({ test: result.data.WorkoutAdd });
   const workoutCreated = result.data.WorkoutAdd.workout;
 
-  expect(workoutCreated?.user).toEqual(user._id.toString());
-  expect(workoutCreated?.createdBy).toEqual(userWithWorkout._id.toString());
+  expect(workoutCreated?.user.firstName).toEqual(user.firstName);
+  expect(workoutCreated?.createdBy.firstName).toEqual(
+    userWithWorkout.firstName,
+  );
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

@@ -46,8 +46,8 @@ export function RootLayout({ children, fetchKey }: RootLayoutProps) {
         after: { type: String }
       )
       @refetchable(queryName: "RootLayoutWorkoutsPaginationQuery") {
-        myWorkouts(first: $first, after: $after)
-          @connection(key: "WorkoutList_myWorkouts") {
+        meWorkouts(first: $first, after: $after)
+          @connection(key: "WorkoutList_meWorkouts") {
           edges {
             node {
               id
@@ -61,7 +61,7 @@ export function RootLayout({ children, fetchKey }: RootLayoutProps) {
     response,
   );
 
-  const { myWorkouts } = data;
+  const { meWorkouts } = data;
 
   const me = useFragment<RootLayout_me$key>(
     graphql`
@@ -73,12 +73,12 @@ export function RootLayout({ children, fetchKey }: RootLayoutProps) {
   );
 
   const getNavItems = () => {
-    if (!myWorkouts.edges.length) {
+    if (!meWorkouts.edges.length) {
       return {};
     }
 
     return {
-      navItems: myWorkouts.edges.map((workout) => {
+      navItems: meWorkouts.edges.map((workout) => {
         return {
           name: workout.node.name,
           icon: CgGym,

@@ -2,15 +2,21 @@
 
 exports[`should get a list of workouts 1`] = `
 {
-  "workouts": {
+  "meWorkouts": {
     "edges": [
       {
         "node": {
-          "createdBy": "ObjectId",
+          "createdBy": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
           "description": "EMPTY",
           "id": "FROZEN-ID",
           "name": "Workout NaN name",
-          "user": "ObjectId",
+          "user": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
         },
       },
     ],
@@ -18,20 +24,10 @@ exports[`should get a list of workouts 1`] = `
 }
 `;
 
-exports[`should get a list of workouts in a user that not create this workout 1`] = `
+exports[`should not get a list of workouts in a user that not create this workout 1`] = `
 {
-  "workouts": {
-    "edges": [
-      {
-        "node": {
-          "createdBy": "ObjectId",
-          "description": "EMPTY",
-          "id": "FROZEN-ID",
-          "name": "Workout 1 name",
-          "user": "ObjectId",
-        },
-      },
-    ],
+  "meWorkouts": {
+    "edges": [],
   },
 }
 `;
