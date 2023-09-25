@@ -7,8 +7,7 @@ import {
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
 import { handleCreateWorkout } from '@gymang/workout';
-import { handleCreateWorkoutSplit } from '@gymang/workout-split';
-import { WORKOUT_SPLIT_MODALITY } from '@gymang/workout-split/src/WorkoutSplitModality';
+import { handleCreateWorkoutSplit , WORKOUT_SPLIT_MODALITY } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
 
