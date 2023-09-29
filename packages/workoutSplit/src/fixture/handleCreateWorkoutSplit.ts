@@ -1,8 +1,8 @@
+import { WORKOUT_SPLIT_MODALITY } from '@gymang/enums';
 import type { DeepPartial } from '@gymang/types';
 import { User, handleCreateUser } from '@gymang/user';
 import { Workout, handleCreateWorkout } from '@gymang/workout';
 
-import { WORKOUT_SPLIT_MODALITY } from '../WorkoutSplitModality';
 import type { IWorkoutSplit } from '../WorkoutSplitModel';
 import WorkoutSplit from '../WorkoutSplitModel';
 

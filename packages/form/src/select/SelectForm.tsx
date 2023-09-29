@@ -1,18 +1,23 @@
-import { Input, Stack, Text } from '@chakra-ui/react';
+import { Select, Stack, Text } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
+
+type Option = {
+  label: string;
+  value: string;
+};
 
 type Props = {
   name: string;
-  label?: string;
   placeholder: string;
-  type?: string;
+  options: Option[];
 };
 
-export const TextForm = ({ name, placeholder, type = 'text' }: Props) => {
+export const SelectForm = ({ name, placeholder, options }: Props) => {
   const {
     register,
     formState: { errors },
     setValue,
+    getValues
   } = useFormContext();
 
   const error = errors[name]?.message;
@@ -33,7 +38,7 @@ export const TextForm = ({ name, placeholder, type = 'text' }: Props) => {
     return {};
   };
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.FormEvent<HTMLSelectElement>) => {
     const { value } = event.target;
 
     setValue(name, value);
@@ -48,21 +53,33 @@ export const TextForm = ({ name, placeholder, type = 'text' }: Props) => {
     ...getErrorProps(),
   };
 
+  console.log({ value: getValues() });
+
+  const getColor = () => {
+    if (getValues(name)) {
+      return { color: 'text.main' };
+    }
+
+    return { color: 'text.light' };
+  };
+
   return (
     <Stack spacing={1}>
-      <Input
-        _placeholder={{
-          color: 'text.light',
-        }}
+      <Select
         bg="neutral.semiLight"
-        color="text.main"
         id={name}
         placeholder={placeholder}
-        type={type}
+        {...getColor()}
         {...register(name)}
         onChange={handleChange}
         {...textInputProps}
-      />
+      >
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </Select>
       {error ? (
         <Text color="error.main" fontSize="sm">
           {error}

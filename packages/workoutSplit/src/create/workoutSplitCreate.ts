@@ -1,16 +1,16 @@
+import type { WORKOUT_SPLIT_MODALITY } from '@gyamng/enums';
 import type { GraphQLContext } from '@gymang/core';
 import type { IUser } from '@gymang/user';
 import type { IWorkout } from '@gymang/workout';
 
 import { validateWorkoutSplitCreate } from './validateWorkoutSplitCreate';
-import type { WORKOUT_SPLIT_MODALITY } from '../WorkoutSplitModality';
 import WorkoutSplit from '../WorkoutSplitModel';
 
 type WorkoutSplitCreatePayload = {
   name: string;
   description?: string;
   user: IUser;
-  modality: WORKOUT_SPLIT_MODALITY;
+  modality: keyof typeof WORKOUT_SPLIT_MODALITY;
   workout: IWorkout;
 };
 

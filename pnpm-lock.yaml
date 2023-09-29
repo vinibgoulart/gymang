@@ -132,6 +132,9 @@ importers:
       '@gymang/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@gymang/enums':
+        specifier: workspace:*
+        version: link:../../packages/enums
       '@gymang/graphql':
         specifier: workspace:*
         version: link:../../packages/graphql
@@ -265,6 +268,9 @@ importers:
       '@gymang/config-web':
         specifier: workspace:*
         version: link:../../packages/configWeb
+      '@gymang/enums':
+        specifier: workspace:*
+        version: link:../../packages/enums
       '@gymang/form':
         specifier: workspace:*
         version: link:../../packages/form
@@ -438,6 +444,22 @@ importers:
         version: link:../tsconfig
 
   packages/core:
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
+  packages/enums:
+    dependencies:
+      '@gymang/babel':
+        specifier: workspace:*
+        version: link:../babel
+      '@gymang/config':
+        specifier: workspace:*
+        version: link:../config
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       tsconfig:
         specifier: workspace:*
@@ -885,6 +907,9 @@ importers:
       '@gymang/core':
         specifier: workspace:*
         version: link:../core
+      '@gymang/enums':
+        specifier: workspace:*
+        version: link:../enums
       '@gymang/graphql':
         specifier: workspace:*
         version: link:../graphql

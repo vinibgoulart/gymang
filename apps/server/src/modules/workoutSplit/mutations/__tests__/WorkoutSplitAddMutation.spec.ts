@@ -1,4 +1,5 @@
 import { GRAPHQL_TYPE } from '@gymang/core';
+import { WORKOUT_SPLIT_MODALITY } from '@gymang/enums';
 import {
   clearDbAndRestartCounters,
   connectMongoose,
@@ -7,7 +8,6 @@ import {
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
 import { handleCreateWorkout } from '@gymang/workout';
-import { WORKOUT_SPLIT_MODALITY } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
 

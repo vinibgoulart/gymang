@@ -11,8 +11,8 @@ import { WorkoutAdd } from './mutations/WorkoutAddMutation';
 import type { WorkoutAddMutation } from '../../../__generated__/WorkoutAddMutation.graphql';
 
 const validationSchema = z.object({
-  name: z.string().min(2, { message: 'Nome é obrigatório' }),
-  description: z.string(),
+  name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres' }),
+  description: z.string().max(20, { message: 'Descrição deve ter no máximo 20 caracteres' }),
 });
 
 type Values = z.infer<typeof validationSchema>;

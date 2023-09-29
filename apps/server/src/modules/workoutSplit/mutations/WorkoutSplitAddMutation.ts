@@ -1,8 +1,8 @@
 import type { GraphQLContext } from '@gymang/core';
+import type {
+  WORKOUT_SPLIT_MODALITY} from '@gymang/enums';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
 import { Workout } from '@gymang/workout';
-import type {
-  WORKOUT_SPLIT_MODALITY} from '@gymang/workout-split';
 import {
   WorkoutSplitModality,
   workoutSplitCreate,
@@ -16,7 +16,7 @@ import { workoutSplitTypeField } from '../WorkoutSplitFields';
 type WorkoutSplitAddMutationArgs = {
   name: string;
   description?: string;
-  modality: WORKOUT_SPLIT_MODALITY;
+  modality: keyof typeof WORKOUT_SPLIT_MODALITY;
   workout: string;
 };
 
