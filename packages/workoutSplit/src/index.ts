@@ -5,5 +5,4 @@ export type { IWorkoutSplit } from './WorkoutSplitModel';
 
 export { handleCreateWorkoutSplit } from './fixture/handleCreateWorkoutSplit';
 export { workoutSplitCreate } from './create/workoutSplitCreate';
-export { WorkoutSplitModality } from './WorkoutSplitModality';
-export { WORKOUT_SPLIT_MODALITY } from './WorkoutSplitModality';
+export { WorkoutSplitModality } from './WorkoutSplitModalityEnum';

@@ -1,10 +1,10 @@
+import { WORKOUT_SPLIT_MODALITY } from '@gymang/enums';
 import { writeConcern } from '@gymang/graphql';
 import type { IUser } from '@gymang/user';
 import type { IWorkout } from '@gymang/workout';
 import type { Document, Types } from 'mongoose';
 import { Schema, model } from 'mongoose';
 
-import { WORKOUT_SPLIT_MODALITY } from './WorkoutSplitModality';
 
 type WorkoutSplit = {
   _id: Types.ObjectId;
@@ -12,7 +12,7 @@ type WorkoutSplit = {
   description: string;
   user: IUser;
   workout: IWorkout;
-  modality: WORKOUT_SPLIT_MODALITY;
+  modality: keyof typeof WORKOUT_SPLIT_MODALITY;
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;

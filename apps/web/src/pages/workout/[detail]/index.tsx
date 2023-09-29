@@ -3,12 +3,12 @@ import type { GetServerSideProps } from 'next';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
-import type { DetailWorkoutQuery } from '../../../__generated__/DetailWorkoutQuery.graphql';
-import DetailWorkoutPreloadedQuery from '../../../__generated__/DetailWorkoutQuery.graphql';
-import { PageHeader } from '../../components/PageHeader';
-import { WorkoutDetail } from '../../components/workout/WorkoutDetail';
-import { RootLayout } from '../../layouts/RootLayout';
-import { getPreloadedQuery } from '../../relay/network';
+import type { DetailWorkoutQuery } from '../../../../__generated__/DetailWorkoutQuery.graphql';
+import DetailWorkoutPreloadedQuery from '../../../../__generated__/DetailWorkoutQuery.graphql';
+import { PageHeader } from '../../../components/PageHeader';
+import { WorkoutDetail } from '../../../components/workout/WorkoutDetail';
+import { RootLayout } from '../../../layouts/RootLayout';
+import { getPreloadedQuery } from '../../../relay/network';
 
 type DetailWorkoutProps = {
   preloadedQueries: {

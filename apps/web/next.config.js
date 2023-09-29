@@ -4,7 +4,11 @@ const relay = require('./relay.config.js');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@gymang/ui', '@gymang/form'],
+  transpilePackages: [
+    '@gymang/ui',
+    '@gymang/form',
+    '@gymang/enums',
+  ],
   compiler: {
     relay: {
       src: relay.src,

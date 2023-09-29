@@ -1,5 +1,5 @@
 {
-  "name": "@gymang/workout-split",
+  "name": "@gymang/enums",
   "version": "0.0.0",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -13,10 +13,6 @@
   },
   "dependencies": {
     "@gymang/core": "workspace:*",
-    "@gymang/graphql": "workspace:*",
-    "@gymang/enums": "workspace:*",
-    "@gymang/workout": "workspace:*",
-    "@gymang/user": "workspace:*",
     "@gymang/config": "workspace:*",
     "@gymang/babel": "workspace:*"
   }

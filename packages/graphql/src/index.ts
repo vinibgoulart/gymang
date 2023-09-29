@@ -83,7 +83,6 @@ export { orderByField } from './order/orderByField';
 export { orderByFilterField } from './order/orderByFilterField';
 export { orderInput } from './order/orderInput';
 export { orderAggregatePipeline } from './orderAggregatePipeline';
-export { aggregateApm, monkeyPatchAggregateApm } from './perf/aggregateApm';
 export { timeSpan } from './perf/timeSpan';
 export { traceResolver } from './perf/traceResolver';
 export { traceResolveMiddleware } from './perf/traceResolverMiddleware';
