@@ -23,7 +23,7 @@ afterAll(disconnectMongoose);
 
 const query = `
   query WorkoutSplitQueriesSpecQuery {
-    meWorkoutSplits(first: 10) {
+    workoutSplits(first: 10) {
       edges {
         node {
           id
@@ -79,8 +79,8 @@ it('should get a list of workouts splits', async () => {
 
   expect(result.errors).toBeUndefined();
 
-  expect(result.data.meWorkoutSplits.edges.length).toEqual(2);
-  const [workoutSplit] = result.data.meWorkoutSplits.edges;
+  expect(result.data.workoutSplits.edges.length).toEqual(2);
+  const [workoutSplit] = result.data.workoutSplits.edges;
 
   expect(workoutSplit.node.user.id).toEqual(toGlobalId('User', user.id));
   expect(workoutSplit.node.workout.id).toEqual(

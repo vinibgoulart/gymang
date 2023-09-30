@@ -8,7 +8,6 @@ import WorkoutSplit from '../WorkoutSplitModel';
 
 type WorkoutSplitCreatePayload = {
   name: string;
-  description?: string;
   user: IUser;
   modality: keyof typeof WORKOUT_SPLIT_MODALITY;
   workout: IWorkout;
@@ -27,7 +26,6 @@ export const workoutSplitCreate = async ({
 }: WorkoutSplitCreateArgs) => {
   const {
     name,
-    description,
     user,
     modality,
     workout,
@@ -47,7 +45,6 @@ export const workoutSplitCreate = async ({
 
   const workoutSplit = await new WorkoutSplit({
     name,
-    description,
     modality,
     workout,
     user,

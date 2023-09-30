@@ -10,7 +10,6 @@ exports[`should get a list of workouts 1`] = `
             "firstName": "User 1 firstName",
             "id": "FROZEN-ID",
           },
-          "description": "EMPTY",
           "id": "FROZEN-ID",
           "name": "Workout NaN name",
           "user": {

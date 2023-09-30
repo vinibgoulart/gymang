@@ -2,13 +2,13 @@
 
 exports[`should get a list of workouts splits 1`] = `
 {
-  "meWorkoutSplits": {
+  "workoutSplits": {
     "edges": [
       {
         "node": {
           "id": "FROZEN-ID",
           "modality": "BOXING",
-          "name": "A",
+          "name": "B",
           "user": {
             "id": "FROZEN-ID",
           },
@@ -22,7 +22,7 @@ exports[`should get a list of workouts splits 1`] = `
         "node": {
           "id": "FROZEN-ID",
           "modality": "BOXING",
-          "name": "B",
+          "name": "A",
           "user": {
             "id": "FROZEN-ID",
           },

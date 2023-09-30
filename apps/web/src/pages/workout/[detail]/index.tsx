@@ -1,3 +1,4 @@
+import { Stack } from '@chakra-ui/react';
 import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
 import type { PreloadedQuery } from 'react-relay';
@@ -25,7 +26,6 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
           ... on Workout {
             id
             name
-            description
             ...WorkoutDetail_workout
           }
         }
@@ -57,11 +57,12 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
     <RootLayout>
       <PageHeader
         title={workout.name}
-        subtitle={workout.description}
         actions={actions}
       />
-      <WorkoutDetail workout={query.workout} />
-      <WorkoutSplitData query={query} />
+      <Stack spacing={4}>
+        <WorkoutDetail workout={query.workout} />
+        <WorkoutSplitData query={query} />
+      </Stack>
     </RootLayout>
   );
 };

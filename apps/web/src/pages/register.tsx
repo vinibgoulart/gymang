@@ -34,7 +34,7 @@ const Register = () => {
             <TextGradient> Suas metas...</TextGradient>
           </Heading>
         </Stack>
-        <Card spacing={4}>
+        <Card gap={4} justifyContent={'space-around'}>
           <Stack spacing={2}>
             <Heading color="text.main" fontSize={{ base: '2xl', md: '4xl' }}>
               Entre nessa jornada
@@ -46,8 +46,10 @@ const Register = () => {
               treino. Junte-se à comunidade fitness e evolua como nunca antes!
             </Text>
           </Stack>
-          <UserRegisterForm />
-          <ActionButton link="/login">Já tenho uma conta</ActionButton>
+          <Stack>
+            <UserRegisterForm />
+            <ActionButton link="/login">Já tenho uma conta</ActionButton>
+          </Stack>
         </Card>
       </Container>
     </Box>

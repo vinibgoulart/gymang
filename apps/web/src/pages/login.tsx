@@ -34,7 +34,7 @@ const Login = () => {
             <TextGradient> Suas metas...</TextGradient>
           </Heading>
         </Stack>
-        <Card spacing={4}>
+        <Card gap={4} justifyContent={'space-around'}>
           <Stack spacing={2}>
             <Heading color="text.main" fontSize={{ base: '2xl', md: '4xl' }}>
               Entre nessa jornada
@@ -46,8 +46,10 @@ const Login = () => {
               Junte-se à comunidade fitness e evolua como nunca antes!
             </Text>
           </Stack>
-          <UserLoginForm />
-          <ActionButton link="/register">Não tenho uma conta</ActionButton>
+          <Stack>
+            <UserLoginForm />
+            <ActionButton link="/register">Não tenho uma conta</ActionButton>
+          </Stack>
         </Card>
       </Container>
     </Box>

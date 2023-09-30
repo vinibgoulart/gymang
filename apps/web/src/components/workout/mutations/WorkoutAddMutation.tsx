@@ -6,7 +6,6 @@ export const WorkoutAdd = graphql`
       workout {
         id
         name
-        description
       }
       error
       success

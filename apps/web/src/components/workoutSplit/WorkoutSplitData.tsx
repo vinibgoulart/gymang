@@ -42,7 +42,7 @@ export const WorkoutSplitData = (props: WorkoutSplitDataProps) => {
   }
 
   return (
-    <SimpleGrid minChildWidth={14} spacing={3}>
+    <SimpleGrid minChildWidth={300} spacing={4}>
       {workoutSplits.edges.map(({ node }) => (
         <WorkoutSplitCard key={node.id} workoutSplit={node} />
       ))}

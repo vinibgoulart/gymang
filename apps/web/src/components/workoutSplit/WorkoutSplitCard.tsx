@@ -1,4 +1,5 @@
-import { Text } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react';
+import { WORKOUT_SPLIT_MODALITY_LABEL } from '@gymang/enums';
 import { Card } from '@gymang/ui';
 import { graphql, useFragment } from 'react-relay';
 
@@ -20,9 +21,16 @@ export const WorkoutSplitCard = (props: WorkoutSplitCardProps) => {
     props.workoutSplit,
   );
 
+  if (!workoutSplit) {
+    return null;
+  }
+
   return (
-    <Card>
-      <Text>{workoutSplit.name}</Text>
+    <Card align="center" backgroundColor={'white'}>
+      <Heading size={'md'} as={'h4'}>
+        {workoutSplit.name}
+      </Heading>
+      <Text>{WORKOUT_SPLIT_MODALITY_LABEL[workoutSplit.modality]}</Text>
     </Card>
   );
 };

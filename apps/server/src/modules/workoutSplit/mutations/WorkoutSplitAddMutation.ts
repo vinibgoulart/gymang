@@ -15,7 +15,6 @@ import { workoutSplitTypeField } from '../WorkoutSplitFields';
 
 type WorkoutSplitAddMutationArgs = {
   name: string;
-  description?: string;
   modality: keyof typeof WORKOUT_SPLIT_MODALITY;
   workout: string;
 };
@@ -26,9 +25,6 @@ const mutation = mutationWithClientMutationId({
     name: {
       type: new GraphQLNonNull(GraphQLString),
     },
-    description: {
-      type: GraphQLString,
-    },
     modality: {
       type: new GraphQLNonNull(WorkoutSplitModality),
     },
@@ -37,7 +33,7 @@ const mutation = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async (
-    { name, description, modality, workout }: WorkoutSplitAddMutationArgs,
+    { name, modality, workout }: WorkoutSplitAddMutationArgs,
     context: GraphQLContext,
   ) => {
     const { t, user } = context;
@@ -57,7 +53,6 @@ const mutation = mutationWithClientMutationId({
     const payload = {
       name,
       user,
-      description,
       modality,
       workout: workoutExistent,
     };

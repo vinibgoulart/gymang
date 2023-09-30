@@ -26,7 +26,6 @@ const query = `
       workoutSplit {
         id
         name
-        description
         user {
           firstName
         }
@@ -48,7 +47,6 @@ it.only('should add a new workout split', async () => {
 
   const input = {
     name: 'Chest Workout',
-    description: 'Hard work',
     workout: toGlobalId('Workout', workout._id),
     modality: WORKOUT_SPLIT_MODALITY.BODYBUILDING,
   };

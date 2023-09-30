@@ -7,14 +7,13 @@ export const validateWorkoutCreate = async ({
   context,
 }: ValidateWorkoutCreateArgs) => {
   const { t } = context;
-  const { name, user, createdBy, description } = payload;
+  const { name, user, createdBy } = payload;
 
   if (!name) {
     return {
       name: null,
       user: null,
       createdBy: null,
-      description: null,
       error: t('Name is required'),
     };
   }
@@ -24,7 +23,6 @@ export const validateWorkoutCreate = async ({
       name: null,
       user: null,
       createdBy: null,
-      description: null,
       error: t('User is required'),
     };
   }
@@ -34,7 +32,6 @@ export const validateWorkoutCreate = async ({
       name: null,
       user: null,
       createdBy: null,
-      description: null,
       error: t('Created by is required'),
     };
   }
@@ -43,7 +40,6 @@ export const validateWorkoutCreate = async ({
     name,
     user,
     createdBy,
-    description,
     error: null,
   };
 };

@@ -25,7 +25,6 @@ const query = `
       workout {
         id
         name
-        description
         createdBy {
           firstName
         }
@@ -44,7 +43,6 @@ it('should add a new workout', async () => {
 
   const input = {
     name: 'Chest Workout',
-    description: 'Hard work',
   };
 
   const variables = {
@@ -92,7 +90,6 @@ it('should add a new workout created by other user', async () => {
 
   const input = {
     name: 'Chest Workout',
-    description: 'Hard work',
     originalWorkout: toGlobalId('Workout', existentWorkout._id),
   };
 
@@ -122,7 +119,6 @@ it('should add a new workout created by other user', async () => {
     'Workout created successfully',
   );
 
-  console.log({ test: result.data.WorkoutAdd });
   const workoutCreated = result.data.WorkoutAdd.workout;
 
   expect(workoutCreated?.user.firstName).toEqual(user.firstName);

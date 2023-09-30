@@ -9,7 +9,6 @@ type Workout = {
   name: string;
   createdBy: IUser;
   user: IUser;
-  description: string;
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
@@ -35,9 +34,6 @@ const WorkoutSchema = new Schema<IWorkout>(
       ref: 'User',
       required: true,
       index: true,
-    },
-    description: {
-      type: String,
     },
     removedAt: {
       type: Date,

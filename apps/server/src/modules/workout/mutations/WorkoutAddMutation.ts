@@ -9,7 +9,6 @@ import { workoutTypeField } from '../WorkoutFields';
 type WorkoutAddMutationArgs = {
   name: string;
   originalWorkout?: string;
-  description: string;
 };
 
 const mutation = mutationWithClientMutationId({
@@ -21,12 +20,9 @@ const mutation = mutationWithClientMutationId({
     originalWorkout: {
       type: GraphQLID,
     },
-    description: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
   },
   mutateAndGetPayload: async (
-    { name, originalWorkout, description }: WorkoutAddMutationArgs,
+    { name, originalWorkout }: WorkoutAddMutationArgs,
     context: GraphQLContext,
   ) => {
     const { t, user } = context;
@@ -48,7 +44,6 @@ const mutation = mutationWithClientMutationId({
     const payload = {
       name,
       user,
-      description,
       ...(await getCreatedBy()),
     };
 
