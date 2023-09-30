@@ -153,6 +153,9 @@ importers:
       '@gymang/user':
         specifier: workspace:*
         version: link:../../packages/user
+      '@gymang/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@gymang/workout':
         specifier: workspace:*
         version: link:../../packages/workout
@@ -866,6 +869,22 @@ importers:
       '@gymang/types':
         specifier: workspace:*
         version: link:../types
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
+  packages/utils:
+    dependencies:
+      '@gymang/babel':
+        specifier: workspace:*
+        version: link:../babel
+      '@gymang/config':
+        specifier: workspace:*
+        version: link:../config
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
       tsconfig:
         specifier: workspace:*

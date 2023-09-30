@@ -1,5 +1,5 @@
 {
   "extends": "tsconfig/base.json",
-  "include": ["src/**/*", "../../packages/core/src/context.ts"],
+  "include": ["src/**/*", "../../packages/core/src/context.ts", "../../packages/workoutSplit/src/WorkoutSplitOrderBy.ts"],
   "exclude": ["node_modules"]
 }

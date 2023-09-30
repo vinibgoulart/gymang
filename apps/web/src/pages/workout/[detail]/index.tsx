@@ -7,6 +7,7 @@ import type { DetailWorkoutQuery } from '../../../../__generated__/DetailWorkout
 import DetailWorkoutPreloadedQuery from '../../../../__generated__/DetailWorkoutQuery.graphql';
 import { PageHeader } from '../../../components/PageHeader';
 import { WorkoutDetail } from '../../../components/workout/WorkoutDetail';
+import { WorkoutSplitData } from '../../../components/workoutSplit/WorkoutSplitData';
 import { RootLayout } from '../../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../../relay/network';
 
@@ -28,6 +29,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
             ...WorkoutDetail_workout
           }
         }
+        ...WorkoutSplitData_query
       }
     `,
     props.preloadedQueries.detailWorkout,
@@ -59,6 +61,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
         actions={actions}
       />
       <WorkoutDetail workout={query.workout} />
+      <WorkoutSplitData query={query} />
     </RootLayout>
   );
 };

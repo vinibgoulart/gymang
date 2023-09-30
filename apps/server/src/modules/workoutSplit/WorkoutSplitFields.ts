@@ -1,12 +1,11 @@
-import { isLoggedIn } from '@gymang/core';
+import type { GraphQLContext } from '@gymang/core';
+import { edgeField, connectionArgs, withFilter } from '@gymang/graphql';
 import {
-  edgeField,
-  connectionArgs,
-  NullConnection,
-  withFilter,
-} from '@gymang/graphql';
-import { WorkoutSplitLoader } from '@gymang/workout-split';
+  WorkoutSplitFilterInputType,
+  WorkoutSplitLoader,
+} from '@gymang/workout-split';
 import { GraphQLNonNull } from 'graphql';
+import type { ConnectionArguments } from 'graphql-relay';
 
 import WorkoutSplitType, { WorkoutSplitConnection } from './WorkoutSplitType';
 
@@ -16,7 +15,7 @@ export const workoutSplitTypeField = (
 ) => ({
   [key]: {
     type: WorkoutSplitType,
-    resolve: async (obj, args, context) => {
+    resolve: async (obj, _, context: GraphQLContext) => {
       return WorkoutSplitLoader.load(context, obj[key], bypassViewerCanSee);
     },
   },
@@ -30,29 +29,35 @@ export const workoutSplitEdgeField = () =>
     name: 'WorkoutSplit',
   });
 
-export const meWorkoutSplitsConnectionField = (customResolver = null) => ({
-  meWorkoutSplits: {
+type MeWorkoutSplitsConnectionArgs = {
+  filters?: WorkoutSplitFilterInputType;
+} & ConnectionArguments;
+
+export const workoutSplitsConnectionField = <T = unknown>(
+  customResolver = null,
+) => ({
+  workoutSplits: {
     type: new GraphQLNonNull(WorkoutSplitConnection.connectionType),
     args: {
       ...connectionArgs,
-      // filters: {
-      //   type: WorkoutSplitFilterInputType,
-      // },
+      filters: {
+        type: WorkoutSplitFilterInputType,
+      },
     },
-    resolve: (obj, args, context) => {
+    resolve: (
+      obj: T,
+      args: MeWorkoutSplitsConnectionArgs,
+      context: GraphQLContext,
+    ) => {
       if (customResolver) {
         return customResolver(obj, args, context);
       }
 
-      if (!isLoggedIn(context)) {
-        return NullConnection;
-      }
-
-      const argsWithUser = withFilter(args, {
-        user: context.user._id,
+      const argsWithWorkout = withFilter(args, {
+        workout: args.filters?.workout,
       });
 
-      return WorkoutSplitLoader.loadAll(context, argsWithUser);
+      return WorkoutSplitLoader.loadAll(context, argsWithWorkout);
     },
   },
 });

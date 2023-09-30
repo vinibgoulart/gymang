@@ -17,7 +17,7 @@ type Query {
   me: User
   users(after: String, first: Int, before: String, last: Int): UserConnection!
   meWorkouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
-  meWorkoutSplits(after: String, first: Int, before: String, last: Int): WorkoutSplitConnection!
+  workoutSplits(after: String, first: Int, before: String, last: Int, filters: WorkoutSplitFilter): WorkoutSplitConnection!
 }
 
 """An object with an ID"""
@@ -191,6 +191,27 @@ enum WorkoutSplitModalityEnum {
   VOLLEYBALL
   TENNIS
   OTHER
+}
+
+"""Used to filter workout split"""
+input WorkoutSplitFilter {
+  workout: String
+  orderBy: [WorkoutSplitOrdering!]
+}
+
+input WorkoutSplitOrdering {
+  sort: WorkoutSplitSort!
+  direction: DirectionEnum!
+}
+
+enum WorkoutSplitSort {
+  createdAt
+  updatedAt
+}
+
+enum DirectionEnum {
+  ASC
+  DESC
 }
 
 type Mutation {

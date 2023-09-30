@@ -1,9 +1,11 @@
 import { isLoggedIn } from '@gymang/core';
 import type { GraphQLContext } from '@gymang/core';
-import { createLoader } from '@gymang/graphql';
+import { DIRECTION, createLoader } from '@gymang/graphql';
 
+import { workoutSplitFilterMapping } from './WorkoutSplitFilterInputType';
 import type { IWorkoutSplit } from './WorkoutSplitModel';
 import WorkoutSplitModel from './WorkoutSplitModel';
+import { WORKOUT_SPLIT_SORT } from './WorkoutSplitOrderBy';
 
 const viewerCanSee = async (context: GraphQLContext, data: IWorkoutSplit) => {
   if (isLoggedIn(context, context.graphql)) {
@@ -22,7 +24,16 @@ const {
 } = createLoader({
   model: WorkoutSplitModel,
   loaderName: 'WorkoutSplitLoader',
+  filterMapping: workoutSplitFilterMapping,
   viewerCanSee,
+  defaultArgs: {
+    orderBy: [
+      {
+        direction: DIRECTION.DESC,
+        sort: WORKOUT_SPLIT_SORT.createdAt,
+      },
+    ],
+  },
 });
 
 export { getLoader, clearCache, load, loadAll, WorkoutSplit };
