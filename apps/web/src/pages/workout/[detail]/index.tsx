@@ -21,7 +21,10 @@ type DetailWorkoutProps = {
 const DetailWorkout = (props: DetailWorkoutProps) => {
   const query = usePreloadedQuery<DetailWorkoutQuery>(
     graphql`
-      query DetailWorkoutQuery($id: ID!) @preloadable {
+      query DetailWorkoutQuery(
+        $id: ID!
+        $workoutSplitFilters: WorkoutSplitFilter
+      ) @preloadable {
         workout: node(id: $id) {
           ... on Workout {
             id
@@ -29,7 +32,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
             ...WorkoutDetail_workout
           }
         }
-        ...WorkoutSplitData_query
+        ...WorkoutSplitData_query @arguments(filters: $workoutSplitFilters)
       }
     `,
     props.preloadedQueries.detailWorkout,
@@ -55,10 +58,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
 
   return (
     <RootLayout>
-      <PageHeader
-        title={workout.name}
-        actions={actions}
-      />
+      <PageHeader title={workout.name} actions={actions} />
       <Stack spacing={4}>
         <WorkoutDetail workout={query.workout} />
         <WorkoutSplitData query={query} />
@@ -77,6 +77,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           DetailWorkoutPreloadedQuery,
           {
             id: detail,
+            workoutSplitFilters: {
+              workout: detail,
+            },
           },
           context,
         ),
