@@ -15,6 +15,7 @@
     "@gymang/session": "workspace:*",
     "@gymang/workout": "workspace:*",
     "@gymang/enums": "workspace:*",
+    "@gymang/utils": "workspace:*",
     "@gymang/workout-split": "workspace:*",
     "@gymang/types": "workspace:*",
     "@gymang/config": "workspace:*",

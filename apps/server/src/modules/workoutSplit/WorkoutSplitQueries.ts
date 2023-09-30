@@ -1,7 +1,7 @@
-import { meWorkoutSplitsConnectionField } from './WorkoutSplitFields';
+import { workoutSplitsConnectionField } from './WorkoutSplitFields';
 
 const WorkoutSplitQueries = {
-  ...meWorkoutSplitsConnectionField(),
+  ...workoutSplitsConnectionField(),
 };
 
 export default WorkoutSplitQueries;
