@@ -3,6 +3,7 @@ import {
   fieldInput,
   waitForOperation,
 } from '@gymang/testutils';
+import { resolveMostRecentOperation } from '@gymang/testutils/src/resolveMostRecentOperation';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createMockEnvironment } from 'relay-test-utils';
 
@@ -20,18 +21,18 @@ it('should render workout create page with form and call mutation', async () => 
   );
 
   const name = 'Chest Workout';
-  const description = 'Chest Workout Description';
 
   const customMockResolvers = {
     WorkoutAddPayload: () => ({
       workout: {
         name,
-        description,
       },
       success: 'Success',
       error: null,
     }),
   };
+
+  resolveMostRecentOperation(environment, customMockResolvers);
 
   const buttonWorkoutAdd = screen.getByTestId('button-workout-add');
 
@@ -42,8 +43,6 @@ it('should render workout create page with form and call mutation', async () => 
   await waitFor(() => {
     expect(buttonWorkoutAdd).toBeEnabled();
   });
-
-  fieldInput('description', description);
 
   fireEvent.click(buttonWorkoutAdd);
 
@@ -56,7 +55,6 @@ it('should render workout create page with form and call mutation', async () => 
       variables: {
         input: {
           name,
-          description,
         },
       },
     },

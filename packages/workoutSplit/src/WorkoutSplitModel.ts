@@ -9,7 +9,6 @@ import { Schema, model } from 'mongoose';
 type WorkoutSplit = {
   _id: Types.ObjectId;
   name: string;
-  description: string;
   user: IUser;
   workout: IWorkout;
   modality: keyof typeof WORKOUT_SPLIT_MODALITY;
@@ -26,9 +25,6 @@ const WorkoutSplitSchema = new Schema<IWorkoutSplit>(
       type: String,
       required: true,
       index: true,
-    },
-    description: {
-      type: String,
     },
     user: {
       type: Schema.Types.ObjectId,

@@ -1,19 +1,15 @@
-import { Stack, StackProps } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import type { CardProps } from '@chakra-ui/react';
+import { Card as _Card } from '@chakra-ui/react';
+import type { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
-} & StackProps;
+} & CardProps;
 
 export const Card = ({ children, ...props }: Props) => {
   return (
-    <Stack
-      bg={"neutral.light"}
-      rounded={"xl"}
-      p={6}
-      {...props}
-    >
+    <_Card bg={'neutral.light'} rounded={'xl'} p={6} {...props}>
       {children}
-    </Stack>
+    </_Card>
   );
 };

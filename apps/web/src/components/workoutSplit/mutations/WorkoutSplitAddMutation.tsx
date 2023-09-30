@@ -6,7 +6,6 @@ export const WorkoutSplitAdd = graphql`
       workoutSplit {
         id
         name
-        description
         modality
       }
       error

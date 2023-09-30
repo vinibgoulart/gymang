@@ -20,10 +20,6 @@ const WorkoutType = new GraphQLObjectType<IWorkout, GraphQLContext>({
       type: new GraphQLNonNull(GraphQLString),
       resolve: (workout) => workout.name,
     },
-    description: {
-      type: GraphQLString,
-      resolve: (workout) => workout.description,
-    },
     ...userTypeField('createdBy'),
     ...userTypeField(),
   }),

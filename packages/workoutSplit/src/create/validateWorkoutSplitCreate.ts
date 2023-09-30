@@ -7,7 +7,7 @@ export const validateWorkoutSplitCreate = async ({
   context,
 }: ValidateWorkoutSplitCreateArgs) => {
   const { t } = context;
-  const { name, user, description, modality, workout } = payload;
+  const { name, user, modality, workout } = payload;
 
   if (!name) {
     return {
@@ -15,7 +15,6 @@ export const validateWorkoutSplitCreate = async ({
       user: null,
       modality: null,
       workout: null,
-      description: null,
       error: t('Name is required'),
     };
   }
@@ -26,7 +25,6 @@ export const validateWorkoutSplitCreate = async ({
       user: null,
       modality: null,
       workout: null,
-      description: null,
       error: t('User is required'),
     };
   }
@@ -37,7 +35,6 @@ export const validateWorkoutSplitCreate = async ({
       user: null,
       modality: null,
       workout: null,
-      description: null,
       error: t('Modality is required'),
     };
   }
@@ -48,7 +45,6 @@ export const validateWorkoutSplitCreate = async ({
       user: null,
       modality: null,
       workout: null,
-      description: null,
       error: t('Workout is required'),
     };
   }
@@ -58,7 +54,6 @@ export const validateWorkoutSplitCreate = async ({
     user,
     modality,
     workout,
-    description,
     error: null,
   };
 };

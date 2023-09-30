@@ -52,7 +52,6 @@ export function RootLayout({ children, fetchKey }: RootLayoutProps) {
             node {
               id
               name
-              description
             }
           }
         }

@@ -12,7 +12,6 @@ import type { WorkoutAddMutation } from '../../../__generated__/WorkoutAddMutati
 
 const validationSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres' }),
-  description: z.string().max(20, { message: 'Descrição deve ter no máximo 20 caracteres' }),
 });
 
 type Values = z.infer<typeof validationSchema>;
@@ -22,7 +21,6 @@ export const WorkoutAddForm = () => {
 
   const defaultValues = {
     name: '',
-    description: '',
   };
 
   const [workoutAdd, isPending] = useMutationCallbacks<WorkoutAddMutation>({
@@ -44,12 +42,11 @@ export const WorkoutAddForm = () => {
     formState: { isValid },
   } = formBag;
 
-  const onSubmit = handleSubmit(({ name, description }: Values) => {
+  const onSubmit = handleSubmit(({ name }: Values) => {
     const config = {
       variables: {
         input: {
           name,
-          description,
         },
       },
     };
@@ -63,8 +60,12 @@ export const WorkoutAddForm = () => {
     <FormProvider {...formBag}>
       <Stack spacing={4}>
         <TextForm name="name" placeholder="Nome" />
-        <TextForm name="description" placeholder="Descrição (opcional)" />
-        <ActionButton isDisabled={disabled} onClick={onSubmit} w="full" data-testid={'button-workout-add'}>
+        <ActionButton
+          isDisabled={disabled}
+          onClick={onSubmit}
+          w="full"
+          data-testid={'button-workout-add'}
+        >
           Adicionar
         </ActionButton>
       </Stack>

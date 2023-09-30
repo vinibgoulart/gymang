@@ -22,9 +22,6 @@ type WorkoutSplitAddFormProps = {
 
 const validationSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres' }),
-  description: z
-    .string()
-    .max(20, { message: 'Descrição deve ter no máximo 20 caracteres' }),
   modality: z.string().min(2, { message: 'Modalidade é obrigatório' }),
 });
 
@@ -44,7 +41,6 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
 
   const defaultValues = {
     name: '',
-    description: '',
   };
 
   const [workoutSplitAdd, isPending] =
@@ -71,12 +67,11 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
     formState: { isValid },
   } = formBag;
 
-  const onSubmit = handleSubmit(({ name, description, modality }: Values) => {
+  const onSubmit = handleSubmit(({ name, modality }: Values) => {
     const config = {
       variables: {
         input: {
           name,
-          description,
           modality,
           workout: workout.id,
         },
@@ -97,7 +92,6 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
     <FormProvider {...formBag}>
       <Stack spacing={4}>
         <TextForm name="name" placeholder="Nome" />
-        <TextForm name="description" placeholder="Descrição (opcional)" />
         <SelectForm
           name="modality"
           options={options}
@@ -107,7 +101,7 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
           isDisabled={disabled}
           onClick={onSubmit}
           w="full"
-          data-testid={'button-workout-add'}
+          data-testid={'button-workout-split-add'}
         >
           Adicionar
         </ActionButton>

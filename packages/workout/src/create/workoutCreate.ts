@@ -8,7 +8,6 @@ type WorkoutCreatePayload = {
   name: string;
   user: IUser;
   createdBy: IUser;
-  description: string;
 };
 
 export type WorkoutCreateArgs = {
@@ -25,7 +24,6 @@ export const workoutCreate = async ({
   const {
     name,
     createdBy,
-    description,
     user,
     error: errorValidateWorkoutCreate,
   } = await validateWorkoutCreate({
@@ -43,7 +41,6 @@ export const workoutCreate = async ({
 
   const workout = await new Workout({
     name,
-    description,
     createdBy,
     user,
   }).save();

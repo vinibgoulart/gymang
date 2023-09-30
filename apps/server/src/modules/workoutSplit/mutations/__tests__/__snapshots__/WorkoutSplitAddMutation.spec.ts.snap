@@ -6,7 +6,6 @@ exports[`should add a new workout split 1`] = `
     "error": "EMPTY",
     "success": "Workout Split created successfully",
     "workoutSplit": {
-      "description": "Hard work",
       "id": "FROZEN-ID",
       "modality": "ObjectId",
       "name": "Chest Workout",

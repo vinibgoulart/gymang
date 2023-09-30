@@ -33,7 +33,6 @@ const query = `
             id
             firstName
           }
-          description
         }
       }
     }

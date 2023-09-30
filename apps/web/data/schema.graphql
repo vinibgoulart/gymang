@@ -124,7 +124,6 @@ type Workout implements Node {
   """The ID of an object"""
   id: ID!
   name: String!
-  description: String
   createdBy: User
   user: User
 }
@@ -169,8 +168,7 @@ type WorkoutSplit implements Node {
   """The ID of an object"""
   id: ID!
   name: String!
-  description: String
-  modality: WorkoutSplitModalityEnum
+  modality: WorkoutSplitModalityEnum!
   user: User
   workout: Workout
 }
@@ -269,7 +267,6 @@ type WorkoutAddPayload {
 input WorkoutAddInput {
   name: String!
   originalWorkout: ID
-  description: String!
   clientMutationId: String
 }
 
@@ -282,7 +279,6 @@ type WorkoutSplitAddPayload {
 
 input WorkoutSplitAddInput {
   name: String!
-  description: String
   modality: WorkoutSplitModalityEnum!
   workout: ID!
   clientMutationId: String

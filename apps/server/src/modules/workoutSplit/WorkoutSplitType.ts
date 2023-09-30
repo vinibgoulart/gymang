@@ -24,12 +24,8 @@ const WorkoutSplitType = new GraphQLObjectType<IWorkoutSplit, GraphQLContext>({
       type: new GraphQLNonNull(GraphQLString),
       resolve: (workoutSplit) => workoutSplit.name,
     },
-    description: {
-      type: GraphQLString,
-      resolve: (workoutSplit) => workoutSplit.description,
-    },
     modality: {
-      type: WorkoutSplitModality,
+      type: new GraphQLNonNull(WorkoutSplitModality),
       resolve: (workoutSplit) => workoutSplit.modality,
     },
     ...userTypeField(),

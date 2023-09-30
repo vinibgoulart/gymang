@@ -12,7 +12,6 @@ export const WorkoutDetail = (props: WorkoutDetailProps) => {
     graphql`
       fragment WorkoutDetail_workout on Workout {
         name
-        description
         createdBy {
           id
           firstName

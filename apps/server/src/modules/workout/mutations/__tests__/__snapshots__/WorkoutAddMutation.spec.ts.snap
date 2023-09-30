@@ -9,7 +9,6 @@ exports[`should add a new workout 1`] = `
       "createdBy": {
         "firstName": "User 1 firstName",
       },
-      "description": "Hard work",
       "id": "FROZEN-ID",
       "name": "Chest Workout",
       "user": {
@@ -29,7 +28,6 @@ exports[`should add a new workout created by other user 1`] = `
       "createdBy": {
         "firstName": "User 2 firstName",
       },
-      "description": "Hard work",
       "id": "FROZEN-ID",
       "name": "Chest Workout",
       "user": {
