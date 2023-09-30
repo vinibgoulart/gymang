@@ -8,7 +8,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { WorkoutAdd } from './mutations/WorkoutAddMutation';
-import type { WorkoutAddMutation } from '../../../__generated__/WorkoutAddMutation.graphql';
+import type {
+  WorkoutAddMutation,
+  WorkoutAddMutation$data,
+} from '../../../__generated__/WorkoutAddMutation.graphql';
 
 const validationSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres' }),
@@ -26,8 +29,8 @@ export const WorkoutAddForm = () => {
   const [workoutAdd, isPending] = useMutationCallbacks<WorkoutAddMutation>({
     name: 'WorkoutAdd',
     mutation: WorkoutAdd,
-    afterCompleted: () => {
-      router.push('/');
+    afterCompleted: ({ WorkoutAdd }: WorkoutAddMutation$data) => {
+      router.push(`/workout/${WorkoutAdd?.workout?.id}`);
     },
   });
 
