@@ -49,6 +49,14 @@ const mutation = mutationWithClientMutationId({
       };
     }
 
+    if (workoutExistent.user.toString() !== user._id.toString()) {
+      return {
+        workoutSplit: null,
+        success: null,
+        error: t('You can not create a Workout Split for another user'),
+      };
+    }
+
     const payload = {
       name,
       user,
@@ -62,7 +70,7 @@ const mutation = mutationWithClientMutationId({
       removedAt: null,
     });
 
-    if (existentWorkoutSplits.length > 7) {
+    if (existentWorkoutSplits.length >= 7) {
       return {
         workoutSplit: null,
         success: null,
