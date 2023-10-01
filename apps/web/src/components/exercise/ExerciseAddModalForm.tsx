@@ -6,6 +6,7 @@ import { ActionButton, Modal } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { graphql, useFragment } from 'react-relay';
+import { ROOT_ID, ConnectionHandler } from 'relay-runtime';
 import { z } from 'zod';
 
 import { ExerciseAdd } from './mutations/ExerciseAddMutation';
@@ -83,8 +84,14 @@ export const ExerciseAddModalForm = (props: ExerciseAddModalFormProps) => {
 
   const onSubmit = handleSubmit(
     ({ name, breakTime, muscleGroup, repetitions, series, weight }: Values) => {
+      const connectionID = ConnectionHandler.getConnectionID(
+        ROOT_ID,
+        'ExerciseTable_exercises',
+      );
+
       const config = {
         variables: {
+          connections: [connectionID],
           input: {
             name,
             workoutSplit: workoutSplit.id,
