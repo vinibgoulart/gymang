@@ -9,8 +9,8 @@ import { ActionButton } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
-import { graphql, useFragment, ConnectionHandler } from 'react-relay';
-import { ROOT_ID } from 'relay-runtime';
+import { graphql, useFragment } from 'react-relay';
+import { ROOT_ID, ConnectionHandler } from 'relay-runtime';
 import { z } from 'zod';
 
 import { WorkoutSplitAdd } from './mutations/WorkoutSplitAddMutation';
@@ -74,7 +74,7 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
   } = formBag;
 
   const onSubmit = handleSubmit(({ name, modality }: Values) => {
-    const workoutDataConnectionId = ConnectionHandler.getConnectionID(
+    const connectionID = ConnectionHandler.getConnectionID(
       ROOT_ID,
       'WorkoutData_workoutSplits',
     );
@@ -86,7 +86,7 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
           modality,
           workout: workout.id,
         },
-        connections: [workoutDataConnectionId],
+        connections: [connectionID],
       },
     };
 
