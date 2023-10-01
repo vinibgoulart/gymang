@@ -69,6 +69,14 @@ const mutation = mutationWithClientMutationId({
       };
     }
 
+    if (workoutSplitExistent.user.toString() !== user._id.toString()) {
+      return {
+        exercise: null,
+        success: null,
+        error: t('You can not create a Exercise for another user'),
+      };
+    }
+
     const payload = {
       name,
       user,
