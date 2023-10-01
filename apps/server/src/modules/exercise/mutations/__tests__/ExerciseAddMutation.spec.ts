@@ -1,4 +1,5 @@
 import { GRAPHQL_TYPE } from '@gymang/core';
+import { MUSCLE_GROUP } from '@gymang/enums';
 import {
   clearDbAndRestartCounters,
   connectMongoose,
@@ -55,7 +56,7 @@ it('should add a new exercise', async () => {
     repetitions: '10',
     weight: '50',
     breakTime: '60',
-    muscleGroup: 'Back',
+    muscleGroup: MUSCLE_GROUP.BACK,
   };
 
   const variables = {

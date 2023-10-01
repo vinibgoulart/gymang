@@ -1,3 +1,4 @@
+import { MUSCLE_GROUP } from '@gymang/enums';
 import type { DeepPartial } from '@gymang/types';
 import { User, handleCreateUser } from '@gymang/user';
 import { WorkoutSplit, handleCreateWorkoutSplit } from '@gymang/workout-split';
@@ -12,7 +13,15 @@ type HandleCreateExerciseArgs = DeepPartial<IExercise> & ExerciseOptions;
 export const handleCreateExercise = async (
   args: HandleCreateExerciseArgs = {},
 ): Promise<IExercise> => {
-  let { name, user, workoutSplit, series, repetitions, ...payload } = args;
+  let {
+    name,
+    user,
+    workoutSplit,
+    series,
+    repetitions,
+    muscleGroup,
+    ...payload
+  } = args;
 
   // const n = getCounter('workoutSplit');
   const n = (global.__COUNTERS__.workoutSplit += 1);
@@ -50,12 +59,17 @@ export const handleCreateExercise = async (
     repetitions = 12;
   }
 
+  if (muscleGroup === undefined) {
+    muscleGroup = MUSCLE_GROUP.BACK;
+  }
+
   return new Exercise({
     name,
     user,
     workoutSplit,
     series,
     repetitions,
+    muscleGroup,
     ...payload,
   }).save();
 };

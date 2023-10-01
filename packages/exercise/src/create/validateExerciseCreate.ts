@@ -88,6 +88,20 @@ export const validateExerciseCreate = async ({
     };
   }
 
+  if (!muscleGroup) {
+    return {
+      name: null,
+      user: null,
+      workoutSplit: null,
+      repetitions: null,
+      series: null,
+      breakTime: null,
+      muscleGroup: null,
+      weight: null,
+      error: t('Muscle Group is required'),
+    };
+  }
+
   return {
     name,
     user,

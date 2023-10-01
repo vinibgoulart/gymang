@@ -11,3 +11,4 @@ export {
   ExerciseSort,
 } from './ExerciseOrderBy';
 export { ExerciseFilterInputType } from './ExerciseFilterInputType';
+export { ExerciseMuscleGroupEnum } from './ExerciseMuscleGroupEnum';

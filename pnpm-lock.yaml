@@ -494,6 +494,9 @@ importers:
       '@gymang/core':
         specifier: workspace:*
         version: link:../core
+      '@gymang/enums':
+        specifier: workspace:*
+        version: link:../enums
       '@gymang/graphql':
         specifier: workspace:*
         version: link:../graphql
