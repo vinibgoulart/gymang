@@ -1,9 +1,9 @@
 import type { GraphQLContext } from '@gymang/core';
-import type {
-  WORKOUT_SPLIT_MODALITY} from '@gymang/enums';
+import type { WORKOUT_SPLIT_MODALITY } from '@gymang/enums';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
 import { Workout } from '@gymang/workout';
 import {
+  WorkoutSplit,
   WorkoutSplitModality,
   workoutSplitCreate,
 } from '@gymang/workout-split';
@@ -11,7 +11,6 @@ import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
 import { workoutSplitTypeField } from '../WorkoutSplitFields';
-
 
 type WorkoutSplitAddMutationArgs = {
   name: string;
@@ -56,6 +55,20 @@ const mutation = mutationWithClientMutationId({
       modality,
       workout: workoutExistent,
     };
+
+    const existentWorkoutSplits = await WorkoutSplit.find({
+      user,
+      workout: workoutExistent,
+      removedAt: null,
+    });
+
+    if (existentWorkoutSplits.length > 7) {
+      return {
+        workoutSplit: null,
+        success: null,
+        error: t('You can not create more than 7 Workout Splits'),
+      };
+    }
 
     const { workoutSplit, error } = await workoutSplitCreate({
       payload,
