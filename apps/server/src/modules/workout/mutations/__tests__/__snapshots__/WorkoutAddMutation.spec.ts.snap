@@ -19,7 +19,7 @@ exports[`should add a new workout 1`] = `
 }
 `;
 
-exports[`should add a new workout created by other user 1`] = `
+exports[`should add a new workout created by other user and duplicate splits and exercises 1`] = `
 {
   "WorkoutAdd": {
     "error": "EMPTY",

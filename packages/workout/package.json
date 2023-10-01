@@ -15,7 +15,9 @@
     "@gymang/core": "workspace:*",
     "@gymang/graphql": "workspace:*",
     "@gymang/user": "workspace:*",
+    "@gymang/exercise": "workspace:*",
     "@gymang/types": "workspace:*",
+    "@gymang/workout-split": "workspace:*",
     "@gymang/config": "workspace:*",
     "@gymang/babel": "workspace:*"
   }

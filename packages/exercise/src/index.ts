@@ -1,6 +1,6 @@
 export * as ExerciseLoader from './ExerciseLoader';
 
-export { default as ExerciseSplit } from './ExerciseModel';
+export { default as Exercise } from './ExerciseModel';
 export type { IExercise } from './ExerciseModel';
 
 export { handleCreateExercise } from './fixture/handleCreateExercise';

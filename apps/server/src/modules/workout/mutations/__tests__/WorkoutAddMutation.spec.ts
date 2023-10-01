@@ -1,4 +1,5 @@
 import { GRAPHQL_TYPE } from '@gymang/core';
+import { Exercise, handleCreateExercise } from '@gymang/exercise';
 import {
   clearDbAndRestartCounters,
   connectMongoose,
@@ -7,6 +8,7 @@ import {
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
 import { handleCreateWorkout } from '@gymang/workout';
+import { WorkoutSplit, handleCreateWorkoutSplit } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
 
@@ -79,13 +81,21 @@ it('should add a new workout', async () => {
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
 
-it('should add a new workout created by other user', async () => {
+it('should add a new workout created by other user and duplicate splits and exercises', async () => {
   const user = await handleCreateUser();
-
   const userWithWorkout = await handleCreateUser();
+
   const existentWorkout = await handleCreateWorkout({
     user: userWithWorkout,
     createdBy: userWithWorkout,
+  });
+
+  const workoutSplit = await handleCreateWorkoutSplit({
+    workout: existentWorkout,
+  });
+
+  await handleCreateExercise({
+    workoutSplit,
   });
 
   const input = {
@@ -125,6 +135,14 @@ it('should add a new workout created by other user', async () => {
   expect(workoutCreated?.createdBy.firstName).toEqual(
     userWithWorkout.firstName,
   );
+
+  const allWorkoutSplits = await WorkoutSplit.find();
+
+  expect(allWorkoutSplits.length).toEqual(2);
+
+  const allExercises = await Exercise.find();
+
+  expect(allExercises.length).toEqual(2);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

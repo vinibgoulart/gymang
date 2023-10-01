@@ -44,7 +44,7 @@
     "pretty-format": "^29.6.3",
     "swagger-jsdoc": "^6.2.8",
     "tsconfig": "workspace:*",
-    "turbo": "latest",
+    "turbo": "1.2.3",
     "uuid": "^9.0.0",
     "webpack-node-externals": "^3.0.0"
   },

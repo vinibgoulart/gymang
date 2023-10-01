@@ -5,3 +5,4 @@ export type { IWorkout } from './WorkoutModel';
 
 export { handleCreateWorkout } from './fixture/handleCreateWorkout';
 export { workoutCreate } from './create/workoutCreate';
+export { duplicateWorkout } from './duplicate/duplicateWorkout';
