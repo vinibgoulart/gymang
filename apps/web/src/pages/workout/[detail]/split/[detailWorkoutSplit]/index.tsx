@@ -4,10 +4,9 @@ import type { GetServerSideProps } from 'next';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
-import type {
-  DetailWorkoutSplitQuery,
-} from '../../../../../../__generated__/DetailWorkoutSplitQuery.graphql';
+import type { DetailWorkoutSplitQuery } from '../../../../../../__generated__/DetailWorkoutSplitQuery.graphql';
 import DetailWorkoutSplitPreloadedQuery from '../../../../../../__generated__/DetailWorkoutSplitQuery.graphql';
+import { ExerciseTable } from '../../../../../components/exercise/ExerciseTable';
 import { PageHeader } from '../../../../../components/PageHeader';
 import { WorkoutSplitDetail } from '../../../../../components/workoutSplit/WorkoutSplitDetail';
 import { RootLayout } from '../../../../../layouts/RootLayout';
@@ -22,7 +21,8 @@ type DetailWorkoutSplitProps = {
 const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
   const query = usePreloadedQuery<DetailWorkoutSplitQuery>(
     graphql`
-      query DetailWorkoutSplitQuery($id: ID!) @preloadable {
+      query DetailWorkoutSplitQuery($id: ID!, $exerciseFilters: ExerciseFilter)
+      @preloadable {
         workoutSplit: node(id: $id) {
           ... on WorkoutSplit {
             id
@@ -33,6 +33,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
             ...WorkoutSplitDetail_workoutSplit
           }
         }
+        ...ExerciseTable_query @arguments(filters: $exerciseFilters)
       }
     `,
     props.preloadedQueries.detailWorkout,
@@ -64,6 +65,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
       />
       <Stack spacing={4}>
         <WorkoutSplitDetail workoutSplit={query.workoutSplit} />
+        <ExerciseTable query={query} />
       </Stack>
     </RootLayout>
   );
@@ -79,6 +81,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           DetailWorkoutSplitPreloadedQuery,
           {
             id: detailWorkoutSplit,
+            exerciseFilters: {
+              workoutSplit: detailWorkoutSplit,
+            },
           },
           context,
         ),
