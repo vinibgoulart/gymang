@@ -7,6 +7,7 @@ import { graphql, usePreloadedQuery } from 'react-relay';
 import type { DetailWorkoutQuery } from '../../../../__generated__/DetailWorkoutQuery.graphql';
 import DetailWorkoutPreloadedQuery from '../../../../__generated__/DetailWorkoutQuery.graphql';
 import { PageHeader } from '../../../components/PageHeader';
+import { WorkoutDuplicateButton } from '../../../components/workout/duplicate/WorkoutDuplicateButton';
 import { WorkoutData } from '../../../components/workout/WorkoutData';
 import { WorkoutDetail } from '../../../components/workout/WorkoutDetail';
 import { RootLayout } from '../../../layouts/RootLayout';
@@ -29,9 +30,16 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
           ... on Workout {
             id
             name
+            user {
+              id
+            }
+            ...WorkoutDuplicateButton_workout
             ...WorkoutDetail_workout
             ...WorkoutData_workout
           }
+        }
+        me {
+          id
         }
         ...WorkoutData_query @arguments(filters: $workoutSplitFilters)
       }
@@ -45,17 +53,21 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
 
   const { workout } = query;
 
-  const actions = (
-    <>
+  const getActions = () => {
+    if (workout.user.id !== query.me.id) {
+      return <WorkoutDuplicateButton workout={workout} />;
+    }
+
+    return (
       <ActionButton link={`/workout/${workout.id}/split/create`}>
         Adicionar divisão
       </ActionButton>
-    </>
-  );
+    );
+  };
 
   return (
     <RootLayout>
-      <PageHeader title={workout.name} actions={actions} />
+      <PageHeader title={workout.name} actions={getActions()} />
       <Stack spacing={4}>
         <WorkoutDetail workout={query.workout} />
         <WorkoutData query={query} workout={workout} />

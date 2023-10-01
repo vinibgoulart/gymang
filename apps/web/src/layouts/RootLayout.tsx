@@ -42,7 +42,7 @@ export function RootLayout({ children, fetchKey }: RootLayoutProps) {
     graphql`
       fragment RootLayoutWorkouts_query on Query
       @argumentDefinitions(
-        first: { type: Int, defaultValue: 5 }
+        first: { type: Int, defaultValue: 10 }
         after: { type: String }
       )
       @refetchable(queryName: "RootLayoutWorkoutsPaginationQuery") {
