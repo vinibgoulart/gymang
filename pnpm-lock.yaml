@@ -280,6 +280,9 @@ importers:
       '@gymang/form':
         specifier: workspace:*
         version: link:../../packages/form
+      '@gymang/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@gymang/relay':
         specifier: workspace:*
         version: link:../../packages/relay
@@ -623,6 +626,22 @@ importers:
       '@types/mongoose':
         specifier: ^5.11.97
         version: 5.11.97
+
+  packages/hooks:
+    dependencies:
+      '@gymang/babel':
+        specifier: workspace:*
+        version: link:../babel
+      '@gymang/config':
+        specifier: workspace:*
+        version: link:../config
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/i18n:
     dependencies:

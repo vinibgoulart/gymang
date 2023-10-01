@@ -13,7 +13,9 @@ export const WorkoutSplitDetail = (props: WorkoutSplitDetailProps) => {
       fragment WorkoutSplitDetail_workoutSplit on WorkoutSplit {
         name
         workout {
-          name
+          createdBy {
+            firstName
+          }
         }
       }
     `,
@@ -26,7 +28,7 @@ export const WorkoutSplitDetail = (props: WorkoutSplitDetailProps) => {
 
   return (
     <Box>
-      <Text>Treino: {workoutSplit.workout.name}</Text>
+      <Text>Criado por: {workoutSplit.workout.createdBy.firstName}</Text>
     </Box>
   );
 };

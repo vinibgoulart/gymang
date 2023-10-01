@@ -17,6 +17,7 @@
     "@gymang/form": "workspace:*",
     "@gymang/relay": "workspace:*",
     "@gymang/enums": "workspace:*",
+    "@gymang/hooks": "workspace:*",
     "@gymang/testutils": "workspace:*",
     "@gymang/ui": "workspace:*",
     "@hookform/resolvers": "^3.3.1",

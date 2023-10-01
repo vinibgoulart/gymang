@@ -18,6 +18,7 @@ type Query {
   users(after: String, first: Int, before: String, last: Int): UserConnection!
   meWorkouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
   workoutSplits(after: String, first: Int, before: String, last: Int, filters: WorkoutSplitFilter): WorkoutSplitConnection!
+  exercises(after: String, first: Int, before: String, last: Int, filters: ExerciseFilter): ExerciseConnection!
 }
 
 """An object with an ID"""
@@ -212,12 +213,78 @@ enum DirectionEnum {
   DESC
 }
 
+"""A connection to a list of items."""
+type ExerciseConnection {
+  """Number of items in this connection"""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+    This allows a client to fetch the first five objects by passing "5" as the
+    argument to "first", then fetch the total count so it could display "5 of 83",
+    for example.
+  """
+  totalCount: Int
+
+  """Offset from start"""
+  startCursorOffset: Int!
+
+  """Offset till end"""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfoExtended!
+
+  """A list of edges."""
+  edges: [ExerciseEdge]!
+}
+
+"""An edge in a connection."""
+type ExerciseEdge {
+  """The item at the end of the edge"""
+  node: Exercise
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represents a Exercise"""
+type Exercise implements Node {
+  """The ID of an object"""
+  id: ID!
+  name: String!
+  series: String!
+  repetitions: String!
+  breakTime: String
+  muscleGroup: String
+  weight: String
+  user: User
+  workoutSplit: WorkoutSplit
+}
+
+"""Used to filter exercises"""
+input ExerciseFilter {
+  workoutSplit: String
+  orderBy: [ExerciseOrdering!]
+}
+
+input ExerciseOrdering {
+  sort: ExerciseSort!
+  direction: DirectionEnum!
+}
+
+enum ExerciseSort {
+  createdAt
+  updatedAt
+}
+
 type Mutation {
   UserAdd(input: UserAddInput!): UserAddPayload
   UserLogin(input: UserLoginInput!): UserLoginPayload
   UserLogout(input: UserLogoutInput!): UserLogoutPayload
   WorkoutAdd(input: WorkoutAddInput!): WorkoutAddPayload
   WorkoutSplitAdd(input: WorkoutSplitAddInput!): WorkoutSplitAddPayload
+  ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
 }
 
 type UserAddPayload {
@@ -281,5 +348,23 @@ input WorkoutSplitAddInput {
   name: String!
   modality: WorkoutSplitModalityEnum!
   workout: ID!
+  clientMutationId: String
+}
+
+type ExerciseAddPayload {
+  exercise: Exercise
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input ExerciseAddInput {
+  name: String!
+  workoutSplit: ID!
+  repetitions: String!
+  series: String!
+  breakTime: String
+  muscleGroup: String
+  weight: String
   clientMutationId: String
 }
