@@ -13,6 +13,7 @@
   "dependencies": {
     "@gymang/babel": "workspace:*",
     "@gymang/session": "workspace:*",
+    "@gymang/exercise": "workspace:*",
     "@gymang/workout": "workspace:*",
     "@gymang/enums": "workspace:*",
     "@gymang/utils": "workspace:*",

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add a new exercise 1`] = `
+{
+  "ExerciseAdd": {
+    "error": "EMPTY",
+    "exercise": {
+      "breakTime": "60",
+      "id": "FROZEN-ID",
+      "muscleGroup": "Back",
+      "name": "Pull Down",
+      "repetitions": "10",
+      "series": "3",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "weight": "50",
+      "workoutSplit": {
+        "id": "FROZEN-ID",
+        "name": "WorkoutSplit NaN name",
+      },
+    },
+    "success": "Exercise created successfully",
+  },
+}
+`;

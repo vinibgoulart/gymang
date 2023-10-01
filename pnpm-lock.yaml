@@ -135,6 +135,9 @@ importers:
       '@gymang/enums':
         specifier: workspace:*
         version: link:../../packages/enums
+      '@gymang/exercise':
+        specifier: workspace:*
+        version: link:../../packages/exercise
       '@gymang/graphql':
         specifier: workspace:*
         version: link:../../packages/graphql
@@ -476,6 +479,34 @@ importers:
       eslint-config-turbo:
         specifier: ^1.10.12
         version: 1.10.12(eslint@8.49.0)
+
+  packages/exercise:
+    dependencies:
+      '@gymang/babel':
+        specifier: workspace:*
+        version: link:../babel
+      '@gymang/config':
+        specifier: workspace:*
+        version: link:../config
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
+      '@gymang/graphql':
+        specifier: workspace:*
+        version: link:../graphql
+      '@gymang/types':
+        specifier: workspace:*
+        version: link:../types
+      '@gymang/user':
+        specifier: workspace:*
+        version: link:../user
+      '@gymang/workout-split':
+        specifier: workspace:*
+        version: link:../workoutSplit
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/form:
     dependencies:

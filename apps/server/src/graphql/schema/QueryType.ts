@@ -3,6 +3,7 @@ import { nodeField, nodesField } from '@gymang/graphql';
 import { GraphQLObjectType } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
+import ExerciseQueries from '../../modules/exercise/ExerciseQueries';
 import UserQueries from '../../modules/user/UserQueries';
 import WorkoutQueries from '../../modules/workout/WorkoutQueries';
 import WorkoutSplitQueries from '../../modules/workoutSplit/WorkoutSplitQueries';
@@ -20,6 +21,7 @@ const QueryType = new GraphQLObjectType<
     ...UserQueries,
     ...WorkoutQueries,
     ...WorkoutSplitQueries,
+    ...ExerciseQueries,
   }),
 });
 

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should get a list of exercies 1`] = `
+{
+  "exercises": {
+    "edges": [
+      {
+        "node": {
+          "breakTime": "60",
+          "id": "FROZEN-ID",
+          "muscleGroup": "Chest",
+          "name": "Supino Reto",
+          "repetitions": "10",
+          "series": "3",
+          "user": {
+            "id": "FROZEN-ID",
+          },
+          "weight": "20",
+          "workoutSplit": {
+            "id": "FROZEN-ID",
+            "name": "WorkoutSplit NaN name",
+          },
+        },
+      },
+      {
+        "node": {
+          "breakTime": "60",
+          "id": "FROZEN-ID",
+          "muscleGroup": "Back",
+          "name": "Pull Down",
+          "repetitions": "10",
+          "series": "3",
+          "user": {
+            "id": "FROZEN-ID",
+          },
+          "weight": "50",
+          "workoutSplit": {
+            "id": "FROZEN-ID",
+            "name": "WorkoutSplit NaN name",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
