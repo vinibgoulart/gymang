@@ -1,6 +1,6 @@
 import type { GraphQLContext } from '@gymang/core';
 import type { IExercise } from '@gymang/exercise';
-import { ExerciseLoader } from '@gymang/exercise';
+import { ExerciseLoader, ExerciseMuscleGroupEnum } from '@gymang/exercise';
 import {
   connectionDefinitions,
   nodeInterface,
@@ -34,7 +34,7 @@ const ExerciseType = new GraphQLObjectType<IExercise, GraphQLContext>({
       resolve: (workoutSplit) => workoutSplit.breakTime,
     },
     muscleGroup: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(ExerciseMuscleGroupEnum),
       resolve: (workoutSplit) => workoutSplit.muscleGroup,
     },
     weight: {

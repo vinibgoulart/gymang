@@ -1,4 +1,4 @@
-import { Stack } from '@chakra-ui/react';
+import { Stack, useDisclosure } from '@chakra-ui/react';
 import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
 import type { PreloadedQuery } from 'react-relay';
@@ -6,6 +6,7 @@ import { graphql, usePreloadedQuery } from 'react-relay';
 
 import type { DetailWorkoutSplitQuery } from '../../../../../../__generated__/DetailWorkoutSplitQuery.graphql';
 import DetailWorkoutSplitPreloadedQuery from '../../../../../../__generated__/DetailWorkoutSplitQuery.graphql';
+import { ExerciseAddModalForm } from '../../../../../components/exercise/ExerciseAddModalForm';
 import { ExerciseTable } from '../../../../../components/exercise/ExerciseTable';
 import { PageHeader } from '../../../../../components/PageHeader';
 import { WorkoutSplitDetail } from '../../../../../components/workoutSplit/WorkoutSplitDetail';
@@ -19,6 +20,8 @@ type DetailWorkoutSplitProps = {
 };
 
 const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const query = usePreloadedQuery<DetailWorkoutSplitQuery>(
     graphql`
       query DetailWorkoutSplitQuery($id: ID!, $exerciseFilters: ExerciseFilter)
@@ -31,6 +34,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
               name
             }
             ...WorkoutSplitDetail_workoutSplit
+            ...ExerciseAddModalForm_workoutSplit
           }
         }
         ...ExerciseTable_query @arguments(filters: $exerciseFilters)
@@ -47,8 +51,17 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
 
   const actions = (
     <>
-      <ActionButton variant={'outline'}>Adicionar exercicio</ActionButton>
+      <ActionButton variant={'outline'} onClick={onOpen}>
+        Adicionar exercicio
+      </ActionButton>
       <ActionButton>Iniciar treino</ActionButton>
+      {isOpen && (
+        <ExerciseAddModalForm
+          isOpen={isOpen}
+          onClose={onClose}
+          workoutSplit={workoutSplit}
+        />
+      )}
     </>
   );
 

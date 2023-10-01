@@ -1,3 +1,4 @@
+import { MUSCLE_GROUP } from '@gymang/enums';
 import { writeConcern } from '@gymang/graphql';
 import type { IUser } from '@gymang/user';
 import type { IWorkoutSplit } from '@gymang/workout-split';
@@ -13,7 +14,7 @@ type Exercise = {
   repetitions: string;
   weight?: string;
   breakTime?: string;
-  muscleGroup?: string;
+  muscleGroup: keyof typeof MUSCLE_GROUP;
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
@@ -60,6 +61,8 @@ const ExerciseSchema = new Schema<IExercise>(
     },
     muscleGroup: {
       type: String,
+      enum: MUSCLE_GROUP,
+      required: true,
       index: true,
     },
     removedAt: {

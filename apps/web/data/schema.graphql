@@ -256,10 +256,29 @@ type Exercise implements Node {
   series: String!
   repetitions: String!
   breakTime: String
-  muscleGroup: String
+  muscleGroup: ExerciseMuscleGroupEnum!
   weight: String
   user: User
   workoutSplit: WorkoutSplit
+}
+
+enum ExerciseMuscleGroupEnum {
+  CHEST
+  BACK
+  LEGS
+  ARMS
+  SHOULDERS
+  CORE
+  CALVES
+  GLUTES
+  POSTERIOR_LEGS
+  QUADRICEPS
+  BICEPS
+  TRICEPS
+  TRAPEZIUS
+  LUMBAR
+  FOREARMS
+  OTHER
 }
 
 """Used to filter exercises"""
@@ -364,7 +383,7 @@ input ExerciseAddInput {
   repetitions: String!
   series: String!
   breakTime: String
-  muscleGroup: String
+  muscleGroup: ExerciseMuscleGroupEnum!
   weight: String
   clientMutationId: String
 }

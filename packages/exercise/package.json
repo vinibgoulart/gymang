@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@gymang/core": "workspace:*",
+    "@gymang/enums": "workspace:*",
     "@gymang/config": "workspace:*",
     "@gymang/workout-split": "workspace:*",
     "@gymang/user": "workspace:*",

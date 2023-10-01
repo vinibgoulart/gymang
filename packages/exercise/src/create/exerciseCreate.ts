@@ -13,7 +13,7 @@ type ExerciseCreatePayload = {
   repetitions: string;
   weight?: string;
   breakTime?: string;
-  muscleGroup?: string;
+  muscleGroup: string;
 };
 
 export type ExerciseCreateArgs = {

@@ -1,5 +1,6 @@
 import type { GraphQLContext } from '@gymang/core';
-import { exerciseCreate } from '@gymang/exercise';
+import type { MUSCLE_GROUP } from '@gymang/enums';
+import { ExerciseMuscleGroupEnum, exerciseCreate } from '@gymang/exercise';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
 import { WorkoutSplit } from '@gymang/workout-split';
 import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
@@ -7,14 +8,13 @@ import { mutationWithClientMutationId } from 'graphql-relay';
 
 import { exerciseTypeField } from '../ExerciseFields';
 
-
 type ExerciseAddMutationArgs = {
   name: string;
   workoutSplit: string;
   repetitions: string;
   series: string;
   breakTime?: string;
-  muscleGroup?: string;
+  muscleGroup: keyof typeof MUSCLE_GROUP;
   weight?: string;
 };
 
@@ -37,7 +37,7 @@ const mutation = mutationWithClientMutationId({
       type: GraphQLString,
     },
     muscleGroup: {
-      type: GraphQLString,
+      type: new GraphQLNonNull(ExerciseMuscleGroupEnum),
     },
     weight: {
       type: GraphQLString,
