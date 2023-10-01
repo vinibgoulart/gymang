@@ -53,8 +53,6 @@ export const SelectForm = ({ name, placeholder, options }: Props) => {
     ...getErrorProps(),
   };
 
-  console.log({ value: getValues() });
-
   const getColor = () => {
     if (getValues(name)) {
       return { color: 'text.main' };
