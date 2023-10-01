@@ -18,87 +18,84 @@ export const validateExerciseCreate = async ({
     weight,
   } = payload;
 
+  const nullPayload = {
+    name: null,
+    user: null,
+    workoutSplit: null,
+    repetitions: null,
+    series: null,
+    breakTime: null,
+    muscleGroup: null,
+    weight: null,
+  };
+
   if (!name) {
     return {
-      name: null,
-      user: null,
-      workoutSplit: null,
-      repetitions: null,
-      series: null,
-      breakTime: null,
-      muscleGroup: null,
-      weight: null,
+      ...nullPayload,
       error: t('Name is required'),
     };
   }
 
   if (!user) {
     return {
-      name: null,
-      user: null,
-      workoutSplit: null,
-      repetitions: null,
-      series: null,
-      breakTime: null,
-      muscleGroup: null,
-      weight: null,
+      ...nullPayload,
       error: t('User is required'),
     };
   }
 
   if (!workoutSplit) {
     return {
-      name: null,
-      user: null,
-      workoutSplit: null,
-      repetitions: null,
-      series: null,
-      breakTime: null,
-      muscleGroup: null,
-      weight: null,
+      ...nullPayload,
       error: t('Workout Split is required'),
     };
   }
 
   if (!repetitions) {
     return {
-      name: null,
-      user: null,
-      workoutSplit: null,
-      repetitions: null,
-      series: null,
-      breakTime: null,
-      muscleGroup: null,
-      weight: null,
+      ...nullPayload,
       error: t('Repetitions is required'),
     };
   }
 
   if (!series) {
     return {
-      name: null,
-      user: null,
-      workoutSplit: null,
-      repetitions: null,
-      series: null,
-      breakTime: null,
-      muscleGroup: null,
-      weight: null,
+      ...nullPayload,
       error: t('Series is required'),
     };
   }
 
   if (!muscleGroup) {
     return {
-      name: null,
-      user: null,
-      workoutSplit: null,
-      repetitions: null,
-      series: null,
-      breakTime: null,
-      muscleGroup: null,
-      weight: null,
+      ...nullPayload,
       error: t('Muscle Group is required'),
+    };
+  }
+
+  if (weight && isNaN(Number(weight))) {
+    return {
+      ...nullPayload,
+      error: t('Weight must be a number'),
+    };
+  }
+
+  if (breakTime && isNaN(Number(breakTime))) {
+    return {
+      ...nullPayload,
+      error: t('Break Time must be a number'),
+    };
+  }
+
+  if (repetitions && isNaN(Number(repetitions))) {
+    return {
+      ...nullPayload,
+      error: t('Repetitions must be a number'),
+    };
+  }
+
+  if (series && isNaN(Number(series))) {
+    return {
+      ...nullPayload,
+      error: t('Series must be a number'),
     };
   }
 
