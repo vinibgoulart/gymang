@@ -47,11 +47,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
 
   const actions = (
     <>
-      <ActionButton
-        link={`/workout/${workout.id}/split/create`}
-        variant={'solid'}
-        size={{ base: 'sm', md: 'md' }}
-      >
+      <ActionButton link={`/workout/${workout.id}/split/create`}>
         Adicionar divisão
       </ActionButton>
     </>

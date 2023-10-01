@@ -6,13 +6,7 @@ import { RootLayout } from '../layouts/RootLayout';
 const Home = () => {
   const actions = (
     <>
-      <ActionButton
-        link="/workout/create"
-        variant={'solid'}
-        size={{ base: 'sm', md: 'md' }}
-      >
-        Adicionar treino
-      </ActionButton>
+      <ActionButton link="/workout/create">Adicionar treino</ActionButton>
     </>
   );
 
