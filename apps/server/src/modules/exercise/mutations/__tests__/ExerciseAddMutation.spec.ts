@@ -92,3 +92,47 @@ it('should add a new exercise', async () => {
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
+
+it('should not add a new exercise for another user', async () => {
+  const user = await handleCreateUser();
+  const anotherUser = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    user: anotherUser,
+  });
+
+  const input = {
+    name: 'Pull Down',
+    workoutSplit: toGlobalId('WorkoutSplit', workoutSplit._id),
+    series: '3',
+    repetitions: '10',
+    weight: '50',
+    breakTime: '60',
+    muscleGroup: MUSCLE_GROUP.BACK,
+  };
+
+  const variables = {
+    input,
+  };
+
+  const context = await getContext({
+    graphql: GRAPHQL_TYPE.WEB,
+    user,
+  });
+
+  const rootValue = {};
+
+  const result = await graphql({
+    schema: schemaWeb,
+    source: query,
+    rootValue,
+    contextValue: context,
+    variableValues: variables,
+  });
+
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.ExerciseAdd.error).toEqual(
+    'You can not create a Exercise for another user',
+  );
+  expect(result.data.ExerciseAdd.success).toBeNull();
+});

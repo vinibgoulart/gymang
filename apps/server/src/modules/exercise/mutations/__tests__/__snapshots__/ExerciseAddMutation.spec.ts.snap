@@ -7,7 +7,7 @@ exports[`should add a new exercise 1`] = `
     "exercise": {
       "breakTime": "60",
       "id": "FROZEN-ID",
-      "muscleGroup": "Back",
+      "muscleGroup": "BACK",
       "name": "Pull Down",
       "repetitions": "10",
       "series": "3",
