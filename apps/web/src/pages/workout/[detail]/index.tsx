@@ -7,8 +7,8 @@ import { graphql, usePreloadedQuery } from 'react-relay';
 import type { DetailWorkoutQuery } from '../../../../__generated__/DetailWorkoutQuery.graphql';
 import DetailWorkoutPreloadedQuery from '../../../../__generated__/DetailWorkoutQuery.graphql';
 import { PageHeader } from '../../../components/PageHeader';
+import { WorkoutData } from '../../../components/workout/WorkoutData';
 import { WorkoutDetail } from '../../../components/workout/WorkoutDetail';
-import { WorkoutSplitData } from '../../../components/workoutSplit/WorkoutSplitData';
 import { RootLayout } from '../../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../../relay/network';
 
@@ -30,9 +30,10 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
             id
             name
             ...WorkoutDetail_workout
+            ...WorkoutData_workout
           }
         }
-        ...WorkoutSplitData_query @arguments(filters: $workoutSplitFilters)
+        ...WorkoutData_query @arguments(filters: $workoutSplitFilters)
       }
     `,
     props.preloadedQueries.detailWorkout,
@@ -61,7 +62,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
       <PageHeader title={workout.name} actions={actions} />
       <Stack spacing={4}>
         <WorkoutDetail workout={query.workout} />
-        <WorkoutSplitData query={query} />
+        <WorkoutData query={query} workout={workout} />
       </Stack>
     </RootLayout>
   );

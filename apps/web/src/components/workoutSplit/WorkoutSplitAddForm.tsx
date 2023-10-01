@@ -9,12 +9,16 @@ import { ActionButton } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
-import { graphql, useFragment } from 'react-relay';
+import { graphql, useFragment, ConnectionHandler } from 'react-relay';
+import { ROOT_ID } from 'relay-runtime';
 import { z } from 'zod';
 
 import { WorkoutSplitAdd } from './mutations/WorkoutSplitAddMutation';
 import type { WorkoutSplitAddForm_workout$key } from '../../../__generated__/WorkoutSplitAddForm_workout.graphql';
-import type { WorkoutSplitAddMutation } from '../../../__generated__/WorkoutSplitAddMutation.graphql';
+import type {
+  WorkoutSplitAddMutation,
+  WorkoutSplitAddMutation$data,
+} from '../../../__generated__/WorkoutSplitAddMutation.graphql';
 
 type WorkoutSplitAddFormProps = {
   workout: WorkoutSplitAddForm_workout$key;
@@ -47,8 +51,10 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
     useMutationCallbacks<WorkoutSplitAddMutation>({
       name: 'WorkoutSplitAdd',
       mutation: WorkoutSplitAdd,
-      afterCompleted: () => {
-        router.push('/');
+      afterCompleted: ({ WorkoutSplitAdd }: WorkoutSplitAddMutation$data) => {
+        router.push(
+          `/workout/${workout.id}/split/${WorkoutSplitAdd?.workoutSplit?.id}`,
+        );
       },
     });
 
@@ -68,6 +74,11 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
   } = formBag;
 
   const onSubmit = handleSubmit(({ name, modality }: Values) => {
+    const workoutDataConnectionId = ConnectionHandler.getConnectionID(
+      ROOT_ID,
+      'WorkoutData_workoutSplits',
+    );
+
     const config = {
       variables: {
         input: {
@@ -75,6 +86,7 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
           modality,
           workout: workout.id,
         },
+        connections: [workoutDataConnectionId],
       },
     };
 

@@ -1,4 +1,4 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Stack } from '@chakra-ui/react';
 
 type PageHeaderProps = {
   title: string;
@@ -18,10 +18,11 @@ export const PageHeader = (props: PageHeaderProps) => {
 
     return <Heading size={'lg'}>{props.title}</Heading>;
   };
+
   return (
-    <Flex justifyContent={'space-between'} mb={4}>
+    <Flex justifyContent={'space-between'} mb={2} minH={{ base: 3, md: 10 }}>
       {getHeading()}
-      {props.actions}
+      <Stack flexDir={'row'}>{props.actions}</Stack>
     </Flex>
   );
 };

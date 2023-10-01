@@ -48,7 +48,9 @@ const Login = () => {
           </Stack>
           <Stack>
             <UserLoginForm />
-            <ActionButton link="/register">Não tenho uma conta</ActionButton>
+            <ActionButton variant={'link'} link="/register">
+              Não tenho uma conta
+            </ActionButton>
           </Stack>
         </Card>
       </Container>
