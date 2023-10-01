@@ -60,7 +60,7 @@ function Hydrate<T>({
       queryRefs[queryName] = {
         environment,
         fetchKey: params.id,
-        fetchPolicy: 'store-or-network',
+        fetchPolicy: 'store-and-network',
         isDisposed: false,
         name: params.name,
         kind: 'PreloadedQuery',

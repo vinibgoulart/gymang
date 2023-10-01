@@ -1,4 +1,6 @@
-import { Flex, Heading, Stack } from '@chakra-ui/react';
+import { Flex, Heading, Stack, useBreakpointValue } from '@chakra-ui/react';
+import { MenuActionButton } from '@gymang/ui';
+import { Children } from 'react';
 
 type PageHeaderProps = {
   title: string;
@@ -7,6 +9,20 @@ type PageHeaderProps = {
 };
 
 export const PageHeader = (props: PageHeaderProps) => {
+  const useVariant = () => {
+    const variant = useBreakpointValue(
+      {
+        base: <MenuActionButton actions={props.actions} />,
+        md: <Stack flexDir={'row'}>{props.actions}</Stack>,
+      },
+      {
+        fallback: 'md',
+      },
+    );
+
+    return [variant];
+  };
+
   const getHeading = () => {
     if (props.subtitle) {
       return (
@@ -19,10 +35,26 @@ export const PageHeader = (props: PageHeaderProps) => {
     return <Heading size={'lg'}>{props.title}</Heading>;
   };
 
+  const [variant] = useVariant();
+
+  const getActions = () => {
+    if (!props.actions) {
+      return null;
+    }
+
+    const actionsCount = Children.count(props.actions.props.children);
+
+    if (actionsCount === 1) {
+      return props.actions;
+    }
+
+    return variant;
+  };
+
   return (
     <Flex justifyContent={'space-between'} mb={2} minH={{ base: 3, md: 10 }}>
       {getHeading()}
-      <Stack flexDir={'row'}>{props.actions}</Stack>
+      {getActions()}
     </Flex>
   );
 };

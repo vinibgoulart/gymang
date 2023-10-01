@@ -15,11 +15,15 @@ export const ActionButton = ({
   external = false,
   ...props
 }: Props) => {
-  const getColor = (variant = props.variant) => {
+  const commonProps = {
+    size: { base: 'sm', md: 'md' },
+  };
+
+  const getPropsByVariant = (variant = props.variant) => {
     if (variant === 'link') {
       return {
         color: 'primary.main',
-      }
+      };
     }
 
     if (variant === 'outline') {
@@ -44,7 +48,13 @@ export const ActionButton = ({
   if (link) {
     if (external) {
       return (
-        <Button target="_blank" href={link} disableElevation {...props}>
+        <Button
+          target="_blank"
+          href={link}
+          disableElevation
+          {...commonProps}
+          {...props}
+        >
           {children}
         </Button>
       );
@@ -56,7 +66,8 @@ export const ActionButton = ({
         variant={'link'}
         href={link}
         disableElevation
-        {...getColor()}
+        {...getPropsByVariant()}
+        {...commonProps}
         {...props}
       >
         {children}
@@ -65,13 +76,7 @@ export const ActionButton = ({
   }
 
   return (
-    <Button
-      _hover={{
-        boxShadow: 'md',
-      }}
-      {...getColor()}
-      {...props}
-    >
+    <Button {...getPropsByVariant()} {...commonProps} {...props}>
       {children}
     </Button>
   );

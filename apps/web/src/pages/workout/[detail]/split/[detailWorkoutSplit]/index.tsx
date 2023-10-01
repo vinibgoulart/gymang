@@ -47,12 +47,8 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
 
   const actions = (
     <>
-      <ActionButton variant={'outline'} size={{ base: 'sm', md: 'md' }}>
-        Adicionar exercicio
-      </ActionButton>
-      <ActionButton size={{ base: 'sm', md: 'md' }}>
-        Iniciar treino
-      </ActionButton>
+      <ActionButton variant={'outline'}>Adicionar exercicio</ActionButton>
+      <ActionButton>Iniciar treino</ActionButton>
     </>
   );
 
