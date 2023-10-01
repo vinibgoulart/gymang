@@ -1,0 +1,23 @@
+{
+  "name": "@gymang/exercise",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "generate:component": "turbo gen react-component"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "@gymang/core": "workspace:*",
+    "@gymang/config": "workspace:*",
+    "@gymang/workout-split": "workspace:*",
+    "@gymang/user": "workspace:*",
+    "@gymang/types": "workspace:*",
+    "@gymang/graphql": "workspace:*",
+    "@gymang/babel": "workspace:*"
+  }
+}
