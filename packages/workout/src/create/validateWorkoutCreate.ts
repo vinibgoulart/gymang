@@ -7,13 +7,14 @@ export const validateWorkoutCreate = async ({
   context,
 }: ValidateWorkoutCreateArgs) => {
   const { t } = context;
-  const { name, user, createdBy } = payload;
+  const { name, user, createdBy, isPublic } = payload;
 
   if (!name) {
     return {
       name: null,
       user: null,
       createdBy: null,
+      isPublic: null,
       error: t('Name is required'),
     };
   }
@@ -23,6 +24,7 @@ export const validateWorkoutCreate = async ({
       name: null,
       user: null,
       createdBy: null,
+      isPublic: null,
       error: t('User is required'),
     };
   }
@@ -32,7 +34,18 @@ export const validateWorkoutCreate = async ({
       name: null,
       user: null,
       createdBy: null,
+      isPublic: null,
       error: t('Created by is required'),
+    };
+  }
+
+  if (!isPublic) {
+    return {
+      name: null,
+      user: null,
+      createdBy: null,
+      isPublic: null,
+      error: t('Is public is required'),
     };
   }
 
@@ -40,6 +53,7 @@ export const validateWorkoutCreate = async ({
     name,
     user,
     createdBy,
+    isPublic,
     error: null,
   };
 };

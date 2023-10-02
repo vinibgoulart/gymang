@@ -30,7 +30,7 @@ export const workoutEdgeField = () =>
     name: 'Workout',
   });
 
-export const myWorkoutConnectionField = (customResolver = null) => ({
+export const meWorkoutConnectionField = (customResolver = null) => ({
   meWorkouts: {
     type: new GraphQLNonNull(WorkoutConnection.connectionType),
     args: {

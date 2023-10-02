@@ -8,6 +8,7 @@ type WorkoutCreatePayload = {
   name: string;
   user: IUser;
   createdBy: IUser;
+  isPublic: boolean;
 };
 
 export type WorkoutCreateArgs = {
@@ -25,6 +26,7 @@ export const workoutCreate = async ({
     name,
     createdBy,
     user,
+    isPublic,
     error: errorValidateWorkoutCreate,
   } = await validateWorkoutCreate({
     payload,
@@ -43,6 +45,7 @@ export const workoutCreate = async ({
     name,
     createdBy,
     user,
+    isPublic,
   }).save();
 
   return {

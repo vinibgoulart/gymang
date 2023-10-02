@@ -48,7 +48,9 @@ const Register = () => {
           </Stack>
           <Stack>
             <UserRegisterForm />
-            <ActionButton link="/login">Já tenho uma conta</ActionButton>
+            <ActionButton variant={'link'} link="/login">
+              Já tenho uma conta
+            </ActionButton>
           </Stack>
         </Card>
       </Container>

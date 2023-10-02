@@ -45,6 +45,7 @@ it('should add a new workout', async () => {
 
   const input = {
     name: 'Chest Workout',
+    isPublic: true,
   };
 
   const variables = {
@@ -100,6 +101,7 @@ it('should add a new workout created by other user and duplicate splits and exer
 
   const input = {
     name: 'Chest Workout',
+    isPublic: true,
     originalWorkout: toGlobalId('Workout', existentWorkout._id),
   };
 

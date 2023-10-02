@@ -1,7 +1,12 @@
 import type { GraphQLContext } from '@gymang/core';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
 import { Workout, duplicateWorkout, workoutCreate } from '@gymang/workout';
-import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
+import {
+  GraphQLBoolean,
+  GraphQLID,
+  GraphQLNonNull,
+  GraphQLString,
+} from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
 import { workoutTypeField } from '../WorkoutFields';
@@ -9,6 +14,7 @@ import { workoutTypeField } from '../WorkoutFields';
 type WorkoutAddMutationArgs = {
   name: string;
   originalWorkout?: string;
+  isPublic: boolean;
 };
 
 const mutation = mutationWithClientMutationId({
@@ -17,12 +23,15 @@ const mutation = mutationWithClientMutationId({
     name: {
       type: new GraphQLNonNull(GraphQLString),
     },
+    isPublic: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+    },
     originalWorkout: {
       type: GraphQLID,
     },
   },
   mutateAndGetPayload: async (
-    { name, originalWorkout }: WorkoutAddMutationArgs,
+    { name, originalWorkout, isPublic }: WorkoutAddMutationArgs,
     context: GraphQLContext,
   ) => {
     const { t, user } = context;
@@ -44,6 +53,7 @@ const mutation = mutationWithClientMutationId({
     const payload = {
       name,
       user,
+      isPublic,
       ...(await getCreatedBy()),
     };
 
@@ -61,14 +71,11 @@ const mutation = mutationWithClientMutationId({
     }
 
     if (originalWorkout) {
-      console.log({ originalWorkout });
       const { error } = await duplicateWorkout({
         workout,
         originalWorkout,
         t,
       });
-
-      console.log({ error });
 
       if (error) {
         return {
