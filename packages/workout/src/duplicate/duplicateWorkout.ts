@@ -13,14 +13,12 @@ type DuplicateWorkoutArgs = {
 
 export const duplicateWorkout = async (args: DuplicateWorkoutArgs) => {
   const { t } = args;
-  console.log('comeco');
 
   const workout = await WorkoutModel.findOne({
     _id: getObjectId(args.workout),
   });
 
   if (!workout) {
-    console.log('voltou');
     return {
       workoutSplit: null,
       error: t('Workout not found'),
@@ -32,10 +30,8 @@ export const duplicateWorkout = async (args: DuplicateWorkoutArgs) => {
     removedAt: null,
   });
 
-  console.log('vai coisa');
   const newWorkoutSplits = await Promise.all(
     originalWorkoutSplits.map(async (workoutSplit) => {
-      console.log({ workoutSplit });
       const newWorkoutSplit = await new WorkoutSplit({
         ...workoutSplit,
         workout,
@@ -44,7 +40,6 @@ export const duplicateWorkout = async (args: DuplicateWorkoutArgs) => {
         modality: workoutSplit.modality,
       }).save();
 
-      console.log({ newWorkoutSplit });
 
       const originalExercises = await Exercise.find({
         workoutSplit: workoutSplit._id,
@@ -69,8 +64,6 @@ export const duplicateWorkout = async (args: DuplicateWorkoutArgs) => {
       return newWorkoutSplit;
     }),
   );
-
-  console.log({ newWorkoutSplits });
 
   return {
     workoutSplit: newWorkoutSplits,

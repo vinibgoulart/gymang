@@ -6,7 +6,12 @@ import {
 } from '@gymang/graphql';
 import type { IWorkout } from '@gymang/workout';
 import { WorkoutLoader } from '@gymang/workout';
-import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
+import {
+  GraphQLBoolean,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
 import { userTypeField } from '../user/UserFields';
@@ -19,6 +24,10 @@ const WorkoutType = new GraphQLObjectType<IWorkout, GraphQLContext>({
     name: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (workout) => workout.name,
+    },
+    isPublic: {
+      type: new GraphQLNonNull(GraphQLBoolean),
+      resolve: (workout) => workout.isPublic,
     },
     ...userTypeField('createdBy'),
     ...userTypeField(),

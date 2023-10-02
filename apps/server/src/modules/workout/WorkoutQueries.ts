@@ -1,7 +1,7 @@
-import { myWorkoutConnectionField } from './WorkoutFields';
+import { meWorkoutConnectionField } from './WorkoutFields';
 
 const WorkoutQueries = {
-  ...myWorkoutConnectionField(),
+  ...meWorkoutConnectionField(),
 };
 
 export default WorkoutQueries;

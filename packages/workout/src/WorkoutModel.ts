@@ -3,12 +3,12 @@ import type { IUser } from '@gymang/user';
 import type { Document, Types } from 'mongoose';
 import { Schema, model } from 'mongoose';
 
-
 type Workout = {
   _id: Types.ObjectId;
   name: string;
   createdBy: IUser;
   user: IUser;
+  isPublic: boolean;
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
@@ -34,6 +34,12 @@ const WorkoutSchema = new Schema<IWorkout>(
       ref: 'User',
       required: true,
       index: true,
+    },
+    isPublic: {
+      type: Boolean,
+      required: true,
+      index: true,
+      default: true,
     },
     removedAt: {
       type: Date,

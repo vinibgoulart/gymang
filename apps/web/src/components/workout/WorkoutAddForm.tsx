@@ -1,5 +1,5 @@
 import { Stack } from '@chakra-ui/react';
-import { TextForm } from '@gymang/form';
+import { RadioForm, TextForm } from '@gymang/form';
 import { useMutationCallbacks } from '@gymang/relay';
 import { ActionButton } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +15,12 @@ import type {
 
 const validationSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter no mínimo 2 caracteres' }),
+  isPublic: z.string().refine(
+    (value) => {
+      return ['true', 'false'].includes(value);
+    },
+    { message: 'Deve ser público ou privado' },
+  ),
 });
 
 type Values = z.infer<typeof validationSchema>;
@@ -24,6 +30,7 @@ export const WorkoutAddForm = () => {
 
   const defaultValues = {
     name: '',
+    isPublic: 'true',
   };
 
   const [workoutAdd, isPending] = useMutationCallbacks<WorkoutAddMutation>({
@@ -45,11 +52,12 @@ export const WorkoutAddForm = () => {
     formState: { isValid },
   } = formBag;
 
-  const onSubmit = handleSubmit(({ name }: Values) => {
+  const onSubmit = handleSubmit(({ name, isPublic }: Values) => {
     const config = {
       variables: {
         input: {
           name,
+          isPublic: isPublic === 'true',
         },
       },
     };
@@ -59,10 +67,22 @@ export const WorkoutAddForm = () => {
 
   const disabled = isPending || !isValid;
 
+  const options = [
+    {
+      label: 'Público',
+      value: 'true',
+    },
+    {
+      label: 'Privado',
+      value: 'false',
+    },
+  ];
+
   return (
     <FormProvider {...formBag}>
       <Stack spacing={4}>
         <TextForm name="name" placeholder="Nome" />
+        <RadioForm name="isPublic" options={options} />
         <ActionButton
           isDisabled={disabled}
           onClick={onSubmit}

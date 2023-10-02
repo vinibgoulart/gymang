@@ -51,6 +51,7 @@ export const WorkoutDuplicateModal = (props: WorkoutDuplicateModalProps) => {
         connections: [connectionID],
         input: {
           originalWorkout: workout.id,
+          isPublic: true,
           name: workout.name,
         },
       },

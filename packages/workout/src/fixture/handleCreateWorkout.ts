@@ -11,7 +11,7 @@ type HandleCreateWorkoutArgs = DeepPartial<IWorkout> & WorkoutOptions;
 export const handleCreateWorkout = async (
   args: HandleCreateWorkoutArgs = {},
 ): Promise<IWorkout> => {
-  let { name, createdBy, user, ...payload } = args;
+  let { name, createdBy, user, isPublic, ...payload } = args;
 
   // const n = getCounter('workout');
   const n = (global.__COUNTERS__.workout += 1);
@@ -40,10 +40,15 @@ export const handleCreateWorkout = async (
     user = existentUser;
   }
 
+  if (isPublic === undefined) {
+    isPublic = true;
+  }
+
   return new Workout({
     name,
     createdBy,
     user,
+    isPublic,
     ...payload,
   }).save();
 };
