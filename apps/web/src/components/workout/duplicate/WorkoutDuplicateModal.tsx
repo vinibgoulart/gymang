@@ -75,7 +75,7 @@ export const WorkoutDuplicateModal = (props: WorkoutDuplicateModalProps) => {
 
   return (
     <Modal
-      title="Adicionar exercício"
+      title="Duplicar treino"
       actions={actions}
       isOpen={props.isOpen}
       onClose={props.onClose}
