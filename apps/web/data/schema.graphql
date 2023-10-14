@@ -134,6 +134,7 @@ type Workout implements Node {
 """Used to filter workout"""
 input WorkoutFilter {
   isPublic: Boolean
+  fromLoggedUser: Boolean
   orderBy: [WorkoutOrdering!]
 }
 

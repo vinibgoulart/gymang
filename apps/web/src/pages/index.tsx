@@ -1,12 +1,10 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
 import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
-import type { PreloadedQuery} from 'react-relay';
+import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
-import type {
-  pagesQuery,
-} from '../../__generated__/pagesQuery.graphql';
+import type { pagesQuery } from '../../__generated__/pagesQuery.graphql';
 import pagesPreloadedQuery from '../../__generated__/pagesQuery.graphql';
 import { PageHeader } from '../components/PageHeader';
 import { WorkoutGridList } from '../components/workout/WorkoutGridList';
@@ -56,7 +54,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       preloadedQueries: {
-        home: await getPreloadedQuery(pagesPreloadedQuery, {}, context),
+        home: await getPreloadedQuery(
+          pagesPreloadedQuery,
+          {
+            workoutFilters: {
+              fromLoggedUser: true,
+              isPublic: null,
+            },
+          },
+          context,
+        ),
       },
     },
   };

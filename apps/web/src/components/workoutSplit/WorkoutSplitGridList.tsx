@@ -1,4 +1,7 @@
-import { SimpleGrid } from '@gymang/ui';
+import { Text } from '@chakra-ui/react';
+import { Card, SimpleGrid, TextWithIcon } from '@gymang/ui';
+import { useRouter } from 'next/router';
+import { CgAddR } from 'react-icons/cg';
 import { graphql, useFragment, usePaginationFragment } from 'react-relay';
 
 import { WorkoutSplitCard } from './WorkoutSplitCard';
@@ -12,9 +15,12 @@ type WorkoutSplitGridListProps = {
 };
 
 export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
+  const router = useRouter();
+
   const workout = useFragment<WorkoutSplitGridList_workout$key>(
     graphql`
       fragment WorkoutSplitGridList_workout on Workout {
+        id
         ...WorkoutSplitCard_workout
       }
     `,
@@ -49,7 +55,17 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
   const { workoutSplits } = data;
 
   if (!workoutSplits.edges.length) {
-    return null;
+    const onClick = () => {
+      router.push(`/workout/${workout.id}/split/create`);
+    };
+
+    return (
+      <Card align="center" onClick={onClick} backgroundColor={'white'}>
+        <TextWithIcon iconLeft={CgAddR}>
+          <Text>Adicione sua primeira divisão</Text>
+        </TextWithIcon>
+      </Card>
+    );
   }
 
   return (

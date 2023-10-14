@@ -39,7 +39,7 @@ export const validateWorkoutCreate = async ({
     };
   }
 
-  if (!isPublic) {
+  if (isPublic === undefined) {
     return {
       name: null,
       user: null,
