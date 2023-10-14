@@ -17,6 +17,7 @@ type Query {
   me: User
   users(after: String, first: Int, before: String, last: Int): UserConnection!
   meWorkouts(after: String, first: Int, before: String, last: Int): WorkoutConnection!
+  workouts(after: String, first: Int, before: String, last: Int, filters: WorkoutFilter): WorkoutConnection!
   workoutSplits(after: String, first: Int, before: String, last: Int, filters: WorkoutSplitFilter): WorkoutSplitConnection!
   exercises(after: String, first: Int, before: String, last: Int, filters: ExerciseFilter): ExerciseConnection!
 }
@@ -125,8 +126,30 @@ type Workout implements Node {
   """The ID of an object"""
   id: ID!
   name: String!
+  isPublic: Boolean!
   createdBy: User
   user: User
+}
+
+"""Used to filter workout"""
+input WorkoutFilter {
+  isPublic: Boolean
+  orderBy: [WorkoutOrdering!]
+}
+
+input WorkoutOrdering {
+  sort: WorkoutSort!
+  direction: DirectionEnum!
+}
+
+enum WorkoutSort {
+  createdAt
+  updatedAt
+}
+
+enum DirectionEnum {
+  ASC
+  DESC
 }
 
 """A connection to a list of items."""
@@ -206,11 +229,6 @@ input WorkoutSplitOrdering {
 enum WorkoutSplitSort {
   createdAt
   updatedAt
-}
-
-enum DirectionEnum {
-  ASC
-  DESC
 }
 
 """A connection to a list of items."""
@@ -352,6 +370,7 @@ type WorkoutAddPayload {
 
 input WorkoutAddInput {
   name: String!
+  isPublic: Boolean!
   originalWorkout: ID
   clientMutationId: String
 }

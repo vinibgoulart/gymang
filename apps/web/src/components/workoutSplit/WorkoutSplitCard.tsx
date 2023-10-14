@@ -44,15 +44,7 @@ export const WorkoutSplitCard = (props: WorkoutSplitCardProps) => {
   };
 
   return (
-    <Card
-      align="center"
-      backgroundColor={'white'}
-      cursor={'pointer'}
-      onClick={handleClick}
-      _hover={{
-        boxShadow: 'md',
-      }}
-    >
+    <Card align="center" backgroundColor={'white'} onClick={handleClick}>
       <Heading size={'md'} as={'h4'}>
         {workoutSplit.name}
       </Heading>

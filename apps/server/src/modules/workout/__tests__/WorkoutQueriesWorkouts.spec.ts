@@ -19,8 +19,8 @@ beforeEach(clearDbAndRestartCounters);
 afterAll(disconnectMongoose);
 
 const query = `
-  query WorkoutQueriesSpecQuery {
-    meWorkouts(first: 10) {
+  query WorkoutQueriesWorkoutsSpecQuery {
+    workouts(first: 10) {
       edges {
         node {
           id
@@ -39,11 +39,22 @@ const query = `
   }
 `;
 
-it('should get a list of workouts', async () => {
+it('should get a list of public workouts', async () => {
   const user = await handleCreateUser();
   await handleCreateWorkout({
     user,
     createdBy: user,
+  });
+
+  await handleCreateWorkout({
+    user,
+    createdBy: user,
+  });
+
+  await handleCreateWorkout({
+    user,
+    createdBy: user,
+    isPublic: false,
   });
 
   const context = await getContext({
@@ -62,21 +73,18 @@ it('should get a list of workouts', async () => {
 
   expect(result.errors).toBeUndefined();
 
-  const [workout] = result.data.meWorkouts.edges;
-
-  expect(workout.node.user.firstName).toEqual(user.firstName);
-  expect(workout.node.createdBy.firstName).toEqual(user.firstName);
+  expect(result.data.workouts.edges).toHaveLength(2);
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
 
-it('should not get a list of workouts in a user that not create this workout', async () => {
+it('should get a mepty list of public workouts', async () => {
   const user = await handleCreateUser();
-  const userWithWorkout = await handleCreateUser();
 
   await handleCreateWorkout({
-    user: userWithWorkout,
-    createdBy: userWithWorkout,
+    user,
+    createdBy: user,
+    isPublic: false,
   });
 
   const context = await getContext({
@@ -93,6 +101,9 @@ it('should not get a list of workouts in a user that not create this workout', a
     contextValue: context,
   });
 
-  expect(result.data.meWorkouts.edges).toHaveLength(0);
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.workouts.edges).toHaveLength(0);
+
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

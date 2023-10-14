@@ -24,11 +24,13 @@ export const WorkoutDuplicateButton = (props: WorkoutDuplicateButtonProps) => {
   return (
     <>
       <ActionButton onClick={onOpen}>Duplicar treino</ActionButton>
-      <WorkoutDuplicateModal
-        workout={workout}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+      {isOpen && (
+        <WorkoutDuplicateModal
+          workout={workout}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      )}
     </>
   );
 };
