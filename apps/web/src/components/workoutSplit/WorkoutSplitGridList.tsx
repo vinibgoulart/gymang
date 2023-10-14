@@ -1,4 +1,4 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid } from '@gymang/ui';
 import { graphql, useFragment, usePaginationFragment } from 'react-relay';
 
 import { WorkoutSplitCard } from './WorkoutSplitCard';
@@ -53,7 +53,7 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
   }
 
   return (
-    <SimpleGrid minChildWidth={300} spacing={4}>
+    <SimpleGrid>
       {workoutSplits.edges.map(({ node }) => (
         <WorkoutSplitCard key={node.id} workoutSplit={node} workout={workout} />
       ))}
