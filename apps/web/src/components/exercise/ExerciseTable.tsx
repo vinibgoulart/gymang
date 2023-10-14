@@ -89,7 +89,6 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
         name: 'Grupo muscular',
         property: 'muscleGroup',
         renderCell: (value) => {
-          console.log({ value });
           return <Text>{MUSCLE_GROUP_LABEL[value]}</Text>;
         },
       },
