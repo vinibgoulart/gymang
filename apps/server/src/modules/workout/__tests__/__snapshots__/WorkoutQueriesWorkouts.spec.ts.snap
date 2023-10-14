@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should get a empty list of public workouts 1`] = `
+{
+  "workouts": {
+    "edges": [],
+  },
+}
+`;
+
 exports[`should get a list of public workouts 1`] = `
 {
   "workouts": {
@@ -37,10 +45,39 @@ exports[`should get a list of public workouts 1`] = `
 }
 `;
 
-exports[`should get a mepty list of public workouts 1`] = `
+exports[`should get only my workouts when filter fromCurrentUser 1`] = `
 {
   "workouts": {
-    "edges": [],
+    "edges": [
+      {
+        "node": {
+          "createdBy": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+          "id": "FROZEN-ID",
+          "name": "Workout 3 name",
+          "user": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+        },
+      },
+      {
+        "node": {
+          "createdBy": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+          "id": "FROZEN-ID",
+          "name": "Workout 2 name",
+          "user": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+        },
+      },
+    ],
   },
 }
 `;

@@ -1,4 +1,4 @@
-import type { GraphQLContext} from '@gymang/core';
+import type { GraphQLContext } from '@gymang/core';
 import { isLoggedIn } from '@gymang/core';
 import {
   edgeField,
@@ -59,6 +59,8 @@ export const workoutConnectionField = <T extends unknown>(
       const argsWithFilter = withFilter(args, {
         isPublic: true,
       });
+
+      console.log({ args });
 
       return WorkoutLoader.loadAll(context, argsWithFilter);
     },

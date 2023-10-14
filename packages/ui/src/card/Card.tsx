@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
+  link?: string;
 } & CardProps;
 
 export const Card = ({ children, ...props }: Props) => {
@@ -21,7 +22,7 @@ export const Card = ({ children, ...props }: Props) => {
   };
 
   return (
-    <_Card bg={'neutral.light'} rounded={'xl'} p={6} {...getProps()} {...props}>
+    <_Card bg={'neutral.light'} rounded={'xl'} p={6} minBlockSize={100} justifyContent={'center'} {...getProps()} {...props}>
       {children}
     </_Card>
   );
