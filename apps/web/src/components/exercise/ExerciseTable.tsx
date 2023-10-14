@@ -1,3 +1,5 @@
+import { Text } from '@chakra-ui/react';
+import { MUSCLE_GROUP_LABEL } from '@gymang/enums';
 import { useRefetchTransition } from '@gymang/hooks';
 import { TableInfiniteScroll } from '@gymang/ui';
 import { useMemo } from 'react';
@@ -86,6 +88,10 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
       {
         name: 'Grupo muscular',
         property: 'muscleGroup',
+        renderCell: (value) => {
+          console.log({ value });
+          return <Text>{MUSCLE_GROUP_LABEL[value]}</Text>;
+        },
       },
     ],
     [],

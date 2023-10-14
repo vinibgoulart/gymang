@@ -20,6 +20,7 @@ type TableConnection<T> = {
 export type TableColumns = {
   name: string;
   property: string;
+  renderCell?: (value: unknown) => JSX.Element;
 };
 
 type TableInfiniteScrollProps<T> = {
@@ -80,11 +81,19 @@ export const TableInfiniteScroll = <T extends unknown>(
   };
 
   const renderRows = () => {
+    const getValue = (row, column) => {
+      if (column.renderCell) {
+        return column.renderCell(row[column.property]);
+      }
+
+      return row[column.property] || '-';
+    };
+
     return rows.map((row) => {
       return (
         <Tr key={row?.id}>
           {columns.map((column) => (
-            <Td key={column.property}>{row[column.property] || '-'}</Td>
+            <Td key={column.property}>{getValue(row, column)}</Td>
           ))}
         </Tr>
       );
