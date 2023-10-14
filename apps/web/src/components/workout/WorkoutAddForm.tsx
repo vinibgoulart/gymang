@@ -5,6 +5,7 @@ import { ActionButton } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
+import { ConnectionHandler, ROOT_ID } from 'relay-runtime';
 import { z } from 'zod';
 
 import { WorkoutAdd } from './mutations/WorkoutAddMutation';
@@ -53,8 +54,19 @@ export const WorkoutAddForm = () => {
   } = formBag;
 
   const onSubmit = handleSubmit(({ name, isPublic }: Values) => {
+    const connectionIDMeWorkouts = ConnectionHandler.getConnectionID(
+      ROOT_ID,
+      'WorkoutList_meWorkouts',
+    );
+
+    const connectionIDWorkouts = ConnectionHandler.getConnectionID(
+      ROOT_ID,
+      'WorkoutList_workouts',
+    );
+
     const config = {
       variables: {
+        connections: [connectionIDMeWorkouts, connectionIDWorkouts],
         input: {
           name,
           isPublic: isPublic === 'true',

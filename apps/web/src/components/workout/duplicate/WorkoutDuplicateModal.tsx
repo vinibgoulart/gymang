@@ -41,14 +41,19 @@ export const WorkoutDuplicateModal = (props: WorkoutDuplicateModalProps) => {
   }
 
   const onSubmit = () => {
-    const connectionID = ConnectionHandler.getConnectionID(
+    const connectionIDMeWorkouts = ConnectionHandler.getConnectionID(
       ROOT_ID,
-      'ExerciseTable_exercises',
+      'WorkoutList_meWorkouts',
+    );
+
+    const connectionIDWorkouts = ConnectionHandler.getConnectionID(
+      ROOT_ID,
+      'WorkoutList_workouts',
     );
 
     const config = {
       variables: {
-        connections: [connectionID],
+        connections: [connectionIDMeWorkouts, connectionIDWorkouts],
         input: {
           originalWorkout: workout.id,
           isPublic: true,
