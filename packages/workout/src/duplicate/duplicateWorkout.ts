@@ -28,7 +28,7 @@ export const duplicateWorkout = async (args: DuplicateWorkoutArgs) => {
   const originalWorkoutSplits = await WorkoutSplit.find({
     workout: getObjectId(args.originalWorkout),
     removedAt: null,
-  });
+  }).sort({ createdAt: -1 });
 
   const newWorkoutSplits = await Promise.all(
     originalWorkoutSplits.map(async (workoutSplit) => {
@@ -39,7 +39,6 @@ export const duplicateWorkout = async (args: DuplicateWorkoutArgs) => {
         name: workoutSplit.name,
         modality: workoutSplit.modality,
       }).save();
-
 
       const originalExercises = await Exercise.find({
         workoutSplit: workoutSplit._id,
