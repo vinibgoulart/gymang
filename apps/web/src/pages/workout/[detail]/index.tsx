@@ -40,6 +40,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
         }
         me {
           id
+          ...WorkoutDetail_user
         }
         ...WorkoutSplitGridList_query @arguments(filters: $workoutSplitFilters)
       }
@@ -69,7 +70,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
     <RootLayout>
       <PageHeader title={workout.name} actions={getActions()} />
       <Stack spacing={4}>
-        <WorkoutDetail workout={query.workout} />
+        <WorkoutDetail workout={query.workout} user={query.me} />
         <WorkoutSplitGridList query={query} workout={workout} />
       </Stack>
     </RootLayout>

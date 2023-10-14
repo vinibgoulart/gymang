@@ -37,6 +37,9 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
             ...ExerciseAddModalForm_workoutSplit
           }
         }
+        me {
+          ...WorkoutSplitDetail_user
+        }
         ...ExerciseTable_query @arguments(filters: $exerciseFilters)
       }
     `,
@@ -73,7 +76,10 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
         actions={actions}
       />
       <Stack spacing={4}>
-        <WorkoutSplitDetail workoutSplit={query.workoutSplit} />
+        <WorkoutSplitDetail
+          workoutSplit={query.workoutSplit}
+          user={query.me}
+        />
         <ExerciseTable query={query} />
       </Stack>
     </RootLayout>
