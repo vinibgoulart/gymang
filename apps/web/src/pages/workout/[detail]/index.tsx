@@ -8,8 +8,8 @@ import type { DetailWorkoutQuery } from '../../../../__generated__/DetailWorkout
 import DetailWorkoutPreloadedQuery from '../../../../__generated__/DetailWorkoutQuery.graphql';
 import { PageHeader } from '../../../components/PageHeader';
 import { WorkoutDuplicateButton } from '../../../components/workout/duplicate/WorkoutDuplicateButton';
-import { WorkoutData } from '../../../components/workout/WorkoutData';
 import { WorkoutDetail } from '../../../components/workout/WorkoutDetail';
+import { WorkoutSplitGridList } from '../../../components/workoutSplit/WorkoutSplitGridList';
 import { RootLayout } from '../../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../../relay/network';
 
@@ -35,13 +35,13 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
             }
             ...WorkoutDuplicateButton_workout
             ...WorkoutDetail_workout
-            ...WorkoutData_workout
+            ...WorkoutSplitGridList_workout
           }
         }
         me {
           id
         }
-        ...WorkoutData_query @arguments(filters: $workoutSplitFilters)
+        ...WorkoutSplitGridList_query @arguments(filters: $workoutSplitFilters)
       }
     `,
     props.preloadedQueries.detailWorkout,
@@ -70,7 +70,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
       <PageHeader title={workout.name} actions={getActions()} />
       <Stack spacing={4}>
         <WorkoutDetail workout={query.workout} />
-        <WorkoutData query={query} workout={workout} />
+        <WorkoutSplitGridList query={query} workout={workout} />
       </Stack>
     </RootLayout>
   );

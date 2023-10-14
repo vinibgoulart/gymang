@@ -76,7 +76,7 @@ export const WorkoutSplitAddForm = (props: WorkoutSplitAddFormProps) => {
   const onSubmit = handleSubmit(({ name, modality }: Values) => {
     const connectionID = ConnectionHandler.getConnectionID(
       ROOT_ID,
-      'WorkoutData_workoutSplits',
+      'WorkoutSplitGridList_workoutSplits',
     );
 
     const config = {
