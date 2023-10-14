@@ -2,6 +2,7 @@ import type { BoxProps } from '@chakra-ui/react';
 import { Box, CloseButton, Divider, Flex, Stack } from '@chakra-ui/react';
 import Image from 'next/image';
 import { AiOutlinePlus, AiOutlineHome } from 'react-icons/ai';
+import { GiGymBag } from 'react-icons/gi';
 
 import type { NavItemProps } from './NavItem';
 import { NavItem } from './NavItem';
@@ -38,12 +39,9 @@ export const SidebarContent = ({
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       <Stack spacing={1}>
-      <NavItem
-          icon={AiOutlineHome}
-          href="/"
-          name="Home"
-        />
-      <Divider />
+        <NavItem icon={AiOutlineHome} href="/" name="Home" />
+        <NavItem icon={GiGymBag} href="/workout/list" name="Treinos" />
+        <Divider />
         <NavItems navItems={navItems} />
         <NavItem
           icon={AiOutlinePlus}

@@ -52,7 +52,7 @@ export const PageHeader = (props: PageHeaderProps) => {
   };
 
   return (
-    <Flex justifyContent={'space-between'} mb={2} minH={{ base: 3, md: 10 }}>
+    <Flex justifyContent={'space-between'} mb={4} minH={{ base: 3, md: 10 }}>
       {getHeading()}
       {getActions()}
     </Flex>

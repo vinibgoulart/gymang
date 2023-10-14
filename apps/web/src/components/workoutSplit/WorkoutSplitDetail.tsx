@@ -24,7 +24,7 @@ export const WorkoutSplitDetail = (props: WorkoutSplitDetailProps) => {
       fragment WorkoutSplitDetail_workoutSplit on WorkoutSplit {
         name
         workout {
-          createdBy {
+          user {
             id
             firstName
           }
@@ -38,13 +38,13 @@ export const WorkoutSplitDetail = (props: WorkoutSplitDetailProps) => {
     return null;
   }
 
-  if (workoutSplit.workout.createdBy?.id !== me.id) {
+  if (workoutSplit.workout.user?.id === me.id) {
     return null;
   }
 
   return (
     <Box>
-      <Text>Criado por: {workoutSplit.workout.createdBy.firstName}</Text>
+      <Text>Treino de: {workoutSplit.workout.user.firstName}</Text>
     </Box>
   );
 };

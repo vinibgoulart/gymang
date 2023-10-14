@@ -7,8 +7,21 @@ type Props = {
 } & CardProps;
 
 export const Card = ({ children, ...props }: Props) => {
+  const getProps = () => {
+    if (props.onClick) {
+      return {
+        cursor: 'pointer',
+        _hover: {
+          boxShadow: 'md',
+        },
+      };
+    }
+
+    return {};
+  };
+
   return (
-    <_Card bg={'neutral.light'} rounded={'xl'} p={6} {...props}>
+    <_Card bg={'neutral.light'} rounded={'xl'} p={6} {...getProps()} {...props}>
       {children}
     </_Card>
   );

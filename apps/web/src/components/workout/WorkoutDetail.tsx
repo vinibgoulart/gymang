@@ -23,7 +23,7 @@ export const WorkoutDetail = (props: WorkoutDetailProps) => {
     graphql`
       fragment WorkoutDetail_workout on Workout {
         name
-        createdBy {
+        user {
           id
           firstName
         }
@@ -36,13 +36,13 @@ export const WorkoutDetail = (props: WorkoutDetailProps) => {
     return null;
   }
 
-  if (workout.createdBy?.id !== me.id) {
+  if (workout.user?.id === me.id) {
     return null;
   }
 
   return (
     <Box>
-      <Text>Criado por: {workout.createdBy?.firstName}</Text>
+      <Text>Treino de: {workout.user?.firstName}</Text>
     </Box>
   );
 };

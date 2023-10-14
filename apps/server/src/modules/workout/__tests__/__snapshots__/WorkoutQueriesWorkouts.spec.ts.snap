@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should get a list of public workouts 1`] = `
+{
+  "workouts": {
+    "edges": [
+      {
+        "node": {
+          "createdBy": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+          "id": "FROZEN-ID",
+          "name": "Workout NaN name",
+          "user": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+        },
+      },
+      {
+        "node": {
+          "createdBy": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+          "id": "FROZEN-ID",
+          "name": "Workout NaN name",
+          "user": {
+            "firstName": "User 1 firstName",
+            "id": "FROZEN-ID",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`should get a mepty list of public workouts 1`] = `
+{
+  "workouts": {
+    "edges": [],
+  },
+}
+`;

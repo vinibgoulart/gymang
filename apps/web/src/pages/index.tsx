@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <RootLayout>
       <PageHeader title="Bem vindo!" actions={actions} />
-      Bem vindo
+      O que iremos treinar hoje?
     </RootLayout>
   );
 };
