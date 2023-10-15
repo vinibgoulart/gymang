@@ -1,13 +1,12 @@
-import { Stack } from '@chakra-ui/react';
+import { Divider, Stack } from '@chakra-ui/react';
 import type { GetServerSideProps } from 'next';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
-import type {
-  settingsWorkoutQuery,
-} from '../../../../__generated__/settingsWorkoutQuery.graphql';
+import type { settingsWorkoutQuery } from '../../../../__generated__/settingsWorkoutQuery.graphql';
 import settingsWorkoutPreloadedQuery from '../../../../__generated__/settingsWorkoutQuery.graphql';
 import { PageHeader } from '../../../components/PageHeader';
+import { WorkoutDangerZoneSection } from '../../../components/workout/settings/WorkoutDangerZoneSection';
 import { WorkoutShareSection } from '../../../components/workout/settings/WorkoutShareSection';
 import { RootLayout } from '../../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../../relay/network';
@@ -27,6 +26,7 @@ const SettingsWorkout = (props: SettingsWorkoutProps) => {
             id
             name
             ...WorkoutShareSection_workout
+            ...WorkoutDangerZoneSection_workout
           }
         }
       }
@@ -58,6 +58,8 @@ const SettingsWorkout = (props: SettingsWorkoutProps) => {
       <PageHeader title={'Ajustes'} tabs={getTabs()} />
       <Stack spacing={8}>
         <WorkoutShareSection workout={workout} />
+        <Divider />
+        <WorkoutDangerZoneSection workout={workout} />
       </Stack>
     </RootLayout>
   );

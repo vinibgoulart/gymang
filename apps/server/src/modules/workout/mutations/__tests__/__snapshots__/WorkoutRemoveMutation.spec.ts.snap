@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not remove a workout already removed 1`] = `
+{
+  "WorkoutRemove": {
+    "error": "Workout already removed",
+    "success": "EMPTY",
+    "workout": "EMPTY",
+  },
+}
+`;
+
+exports[`should not remove a workout from another user 1`] = `
+{
+  "WorkoutRemove": {
+    "error": "You are not allowed to remove this workout",
+    "success": "EMPTY",
+    "workout": "EMPTY",
+  },
+}
+`;
+
+exports[`should remove a workout 1`] = `
+{
+  "WorkoutRemove": {
+    "error": "EMPTY",
+    "success": "Workout removed successfully",
+    "workout": {
+      "createdBy": {
+        "firstName": "User 1 firstName",
+      },
+      "id": "FROZEN-ID",
+      "name": "Workout NaN name",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+    },
+  },
+}
+`;
