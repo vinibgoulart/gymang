@@ -1,6 +1,5 @@
-import { MUSCLE_GROUP } from '@gymang/enums';
 import { writeConcern } from '@gymang/graphql';
-import type { Document} from 'mongoose';
+import type { Document } from 'mongoose';
 import { Schema } from 'mongoose';
 
 type Session = {
@@ -8,7 +7,6 @@ type Session = {
   repetitions: string;
   weight: string;
   breakTime: string;
-  muscleGroup: keyof typeof MUSCLE_GROUP;
   createdAt: Date;
   finishedAt: Date;
 };
@@ -33,12 +31,6 @@ export const SessionSchema = new Schema<ISession>(
     },
     breakTime: {
       type: String,
-      index: true,
-    },
-    muscleGroup: {
-      type: String,
-      enum: MUSCLE_GROUP,
-      required: true,
       index: true,
     },
     finishedAt: {

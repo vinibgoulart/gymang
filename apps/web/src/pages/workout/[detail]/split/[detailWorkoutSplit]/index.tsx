@@ -70,10 +70,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
 
     return (
       <>
-        <ActionButton variant={'outline'} onClick={onOpen}>
-          Adicionar exercicio
-        </ActionButton>
-        <ActionButton>Iniciar treino</ActionButton>
+        <ActionButton onClick={onOpen}>Adicionar exercicio</ActionButton>
         {isOpen && (
           <ExerciseAddModalForm
             isOpen={isOpen}
