@@ -1,5 +1,5 @@
-import { Heading, Stack, Text } from '@chakra-ui/react';
-import { ActionButton } from '@gymang/ui';
+import { Stack, Text } from '@chakra-ui/react';
+import { ActionButton, Section } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
@@ -39,12 +39,9 @@ const Home = (props: HomeProps) => {
       <Stack spacing={8}>
         <Text>O que iremos treinar hoje?</Text>
 
-        <Stack spacing={4}>
-          <Heading size={'md'} as={'h4'}>
-            Meus treinos
-          </Heading>
+        <Section title="Meus treinos">
           <WorkoutGridList query={query} />
-        </Stack>
+        </Section>
       </Stack>
     </RootLayout>
   );

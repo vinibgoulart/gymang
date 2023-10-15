@@ -1,14 +1,31 @@
-import { Flex, Heading, Stack, useBreakpointValue } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Stack,
+  Tab,
+  TabList,
+  Tabs,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { MenuActionButton } from '@gymang/ui';
+import { useRouter } from 'next/router';
 import { Children } from 'react';
+
+type Tab = {
+  label: string;
+  link: string;
+};
 
 type PageHeaderProps = {
   title: string;
   subtitle?: string;
   actions?: React.ReactNode;
+  tabs?: Tab[];
 };
 
 export const PageHeader = (props: PageHeaderProps) => {
+  const router = useRouter();
+
   const useVariant = () => {
     const variant = useBreakpointValue(
       {
@@ -51,10 +68,39 @@ export const PageHeader = (props: PageHeaderProps) => {
     return variant;
   };
 
+  const getTabs = () => {
+    if (!props.tabs) {
+      return null;
+    }
+
+    const onClick = (link: string) => {
+      router.push(link);
+    };
+
+    const activeIndex = props.tabs.findIndex(
+      (tab) => router.asPath === tab.link,
+    );
+
+    return (
+      <Tabs variant="enclosed" colorScheme="purple" defaultIndex={activeIndex}>
+        <TabList>
+          {props.tabs.map((tab) => (
+            <Tab onClick={() => onClick(tab.link)} key={tab.link}>
+              {tab.label}
+            </Tab>
+          ))}
+        </TabList>
+      </Tabs>
+    );
+  };
+
   return (
-    <Flex justifyContent={'space-between'} mb={3} minH={{ base: 3, md: 10 }}>
-      {getHeading()}
-      {getActions()}
-    </Flex>
+    <Stack mb={8}>
+      <Flex justifyContent={'space-between'} minH={{ base: 3, md: 10 }}>
+        {getHeading()}
+        {getActions()}
+      </Flex>
+      {getTabs()}
+    </Stack>
   );
 };

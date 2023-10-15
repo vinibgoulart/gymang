@@ -10,3 +10,4 @@ export { IconActionButton } from './button/IconActionButton';
 export { Modal } from './modal/Modal';
 export { SimpleGrid } from './grid/SimpleGrid';
 export { TextWithIcon } from './typography/TextWithIcon';
+export { Section } from './section/Section';
