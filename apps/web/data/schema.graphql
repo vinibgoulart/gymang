@@ -325,6 +325,7 @@ type Mutation {
   WorkoutSplitAdd(input: WorkoutSplitAddInput!): WorkoutSplitAddPayload
   WorkoutSplitRemove(input: WorkoutSplitRemoveInput!): WorkoutSplitRemovePayload
   ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
+  ExerciseSessionStart(input: ExerciseSessionStartInput!): ExerciseSessionStartPayload
 }
 
 type UserAddPayload {
@@ -431,5 +432,17 @@ input ExerciseAddInput {
   breakTime: String
   muscleGroup: ExerciseMuscleGroupEnum!
   weight: String
+  clientMutationId: String
+}
+
+type ExerciseSessionStartPayload {
+  exercise: Exercise
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input ExerciseSessionStartInput {
+  id: ID!
   clientMutationId: String
 }

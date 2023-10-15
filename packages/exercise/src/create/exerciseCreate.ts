@@ -4,6 +4,7 @@ import type { IWorkoutSplit } from '@gymang/workout-split';
 
 import { validateExerciseCreate } from './validateExerciseCreate';
 import Exercise from '../ExerciseModel';
+import type { ISession } from '../session/SessionSchema';
 
 type ExerciseCreatePayload = {
   name: string;
@@ -14,6 +15,7 @@ type ExerciseCreatePayload = {
   weight?: string;
   breakTime?: string;
   muscleGroup: string;
+  sessions?: ISession[]
 };
 
 export type ExerciseCreateArgs = {

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not start a session for a exercise from another user 1`] = `
+{
+  "ExerciseSessionStart": {
+    "error": "You can not initiate a Session for this exercise",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
+exports[`should not start a session for a exercise with a in progress session 1`] = `
+{
+  "ExerciseSessionStart": {
+    "error": "You already have a session in progress, finish it first",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
+exports[`should start a exercise session 1`] = `
+{
+  "ExerciseSessionStart": {
+    "error": "EMPTY",
+    "exercise": {
+      "breakTime": "EMPTY",
+      "id": "FROZEN-ID",
+      "muscleGroup": "BACK",
+      "name": "Exercise NaN name",
+      "repetitions": "12",
+      "series": "4",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "weight": "EMPTY",
+      "workoutSplit": {
+        "id": "FROZEN-ID",
+        "name": "WorkoutSplit NaN name",
+      },
+    },
+    "success": "Session created successfully",
+  },
+}
+`;
+
+exports[`should start a session for a exercise with a completed session 1`] = `
+{
+  "ExerciseSessionStart": {
+    "error": "EMPTY",
+    "exercise": {
+      "breakTime": "EMPTY",
+      "id": "FROZEN-ID",
+      "muscleGroup": "BACK",
+      "name": "Exercise 1 name",
+      "repetitions": "12",
+      "series": "4",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "weight": "EMPTY",
+      "workoutSplit": {
+        "id": "FROZEN-ID",
+        "name": "WorkoutSplit 2 name",
+      },
+    },
+    "success": "Session created successfully",
+  },
+}
+`;

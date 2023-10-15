@@ -12,3 +12,4 @@ export {
 } from './ExerciseOrderBy';
 export { ExerciseFilterInputType } from './ExerciseFilterInputType';
 export { ExerciseMuscleGroupEnum } from './ExerciseMuscleGroupEnum';
+export { sessionCreate } from './session/create/sessionCreate';
