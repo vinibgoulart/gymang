@@ -1,11 +1,10 @@
 import { Divider, Stack } from '@chakra-ui/react';
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
-import type {
-  settingsWorkoutSplitQuery,
-} from '../../../../../../__generated__/settingsWorkoutSplitQuery.graphql';
+import type { settingsWorkoutSplitQuery } from '../../../../../../__generated__/settingsWorkoutSplitQuery.graphql';
 import settingsWorkoutSplitPreloadedQuery from '../../../../../../__generated__/settingsWorkoutSplitQuery.graphql';
 import { PageHeader } from '../../../../../components/PageHeader';
 import { WorkoutSplitDangerZoneSection } from '../../../../../components/workoutSplit/settings/WorkoutSplitDangerZoneSection';
@@ -20,6 +19,8 @@ type SettingsWorkoutSplitProps = {
 };
 
 const SettingsWorkoutSplit = (props: SettingsWorkoutSplitProps) => {
+  const router = useRouter();
+
   const query = usePreloadedQuery<settingsWorkoutSplitQuery>(
     graphql`
       query settingsWorkoutSplitQuery($id: ID!) @preloadable {
@@ -46,22 +47,51 @@ const SettingsWorkoutSplit = (props: SettingsWorkoutSplitProps) => {
 
   const { workoutSplit } = query;
 
-  const getTabs = () => {
-    return [
-      {
-        label: 'Exercícios',
-        link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}`,
+  const tabs = [
+    {
+      label: 'Exercícios',
+      link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}`,
+    },
+    {
+      label: 'Ajustes',
+      link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}/settings`,
+    },
+  ];
+
+  const breadcrumbs = [
+    {
+      label: 'Treinos',
+      onClick: () => {
+        router.push('/workout/list');
       },
-      {
-        label: 'Ajustes',
-        link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}/settings`,
+    },
+    {
+      label: workoutSplit.workout.name,
+      onClick: () => {
+        router.push(`/workout/${workoutSplit.workout.id}`);
       },
-    ];
-  };
+    },
+    {
+      label: workoutSplit.name,
+      onClick: () => {
+        router.push(
+          `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}`,
+        );
+      },
+    },
+    {
+      label: 'Ajustes',
+      onClick: () => {
+        router.push(
+          `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}/settings`,
+        );
+      },
+    },
+  ];
 
   return (
     <RootLayout>
-      <PageHeader title={'Ajustes'} tabs={getTabs()} />
+      <PageHeader title={'Ajustes'} tabs={tabs} breadcrumbs={breadcrumbs} />
       <Stack spacing={8}>
         <WorkoutSplitShareSection workoutSplit={workoutSplit} />
         <Divider />

@@ -1,6 +1,7 @@
 import { Stack, Text } from '@chakra-ui/react';
 import { ActionButton, Section } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
@@ -18,6 +19,8 @@ type HomeProps = {
 };
 
 const Home = (props: HomeProps) => {
+  const router = useRouter();
+
   const query = usePreloadedQuery<pagesQuery>(
     graphql`
       query pagesQuery($workoutFilters: WorkoutFilter) @preloadable {
@@ -33,9 +36,22 @@ const Home = (props: HomeProps) => {
     </>
   );
 
+  const breadcrumbs = [
+    {
+      label: 'Home',
+      onClick: () => {
+        router.push('/');
+      },
+    },
+  ];
+
   return (
     <RootLayout>
-      <PageHeader title="Bem vindo!" actions={actions} />
+      <PageHeader
+        title="Bem vindo!"
+        actions={actions}
+        breadcrumbs={breadcrumbs}
+      />
       <Stack spacing={8}>
         <Text>O que iremos treinar hoje?</Text>
 
