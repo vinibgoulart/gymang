@@ -54,7 +54,6 @@ export const TextForm = ({ name, placeholder, type = 'text' }: Props) => {
         _placeholder={{
           color: 'text.light',
         }}
-        bg="neutral.semiLight"
         color="text.main"
         id={name}
         placeholder={placeholder}
@@ -62,6 +61,7 @@ export const TextForm = ({ name, placeholder, type = 'text' }: Props) => {
         {...register(name)}
         onChange={handleChange}
         {...textInputProps}
+        bg={'white'}
       />
       {error ? (
         <Text color="error.main" fontSize="sm">
