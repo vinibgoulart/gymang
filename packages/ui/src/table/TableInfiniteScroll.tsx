@@ -19,7 +19,7 @@ type TableConnection<T> = {
 
 export type TableColumns = {
   name: string;
-  property: string;
+  property?: string;
   renderCell?: (value: unknown) => JSX.Element;
 };
 
@@ -35,6 +35,7 @@ type TableInfiniteScrollProps<T> = {
   footer?: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export const TableInfiniteScroll = <T extends unknown>(
   props: TableInfiniteScrollProps<T>,
 ) => {
@@ -52,6 +53,7 @@ export const TableInfiniteScroll = <T extends unknown>(
     [connection?.edges],
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetchNewPage = () => {
     if (!pagination) {
       return;
@@ -83,7 +85,7 @@ export const TableInfiniteScroll = <T extends unknown>(
   const renderRows = () => {
     const getValue = (row, column) => {
       if (column.renderCell) {
-        return column.renderCell(row[column.property]);
+        return column.renderCell(row[column.property], row);
       }
 
       return row[column.property] || '-';

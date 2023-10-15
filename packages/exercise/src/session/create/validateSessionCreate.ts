@@ -19,7 +19,6 @@ export const validateSessionCreate = async ({
     repetitions: null,
     weight: null,
     breakTime: null,
-    muscleGroup: null,
   };
 
   const exercise = await ExerciseModel.findOne({
@@ -34,9 +33,18 @@ export const validateSessionCreate = async ({
     };
   }
 
-  const inProgressSession = exercise?.sessions.find(
-    (session) => !session.finishedAt || session.finishedAt === null,
-  );
+  const workoutSplitExercises = await ExerciseModel.find({
+    workoutSplit: exercise.workoutSplit,
+    removedAt: null,
+  });
+
+  const inProgressSession = workoutSplitExercises.some((exercise) => {
+    const { sessions } = exercise;
+
+    return sessions.some(
+      (session) => !session.finishedAt || session.finishedAt === null,
+    );
+  });
 
   if (inProgressSession) {
     return {
@@ -45,7 +53,7 @@ export const validateSessionCreate = async ({
     };
   }
 
-  const { series, repetitions, weight, breakTime, muscleGroup } = exercise;
+  const { series, repetitions, weight, breakTime } = exercise;
 
   if (!series) {
     return {
@@ -61,20 +69,12 @@ export const validateSessionCreate = async ({
     };
   }
 
-  if (!muscleGroup) {
-    return {
-      ...emptyPayload,
-      error: t('Muscle Group is required'),
-    };
-  }
-
   return {
     id,
     series,
     repetitions,
     weight,
     breakTime,
-    muscleGroup,
     error: null,
   };
 };

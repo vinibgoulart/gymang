@@ -5,7 +5,6 @@ import type { Types } from 'mongoose';
 import { validateSessionCreate } from './validateSessionCreate';
 import ExerciseModel from '../../ExerciseModel';
 
-
 type SessionCreatePayload = {
   id: Types.ObjectId;
 };
@@ -22,7 +21,6 @@ export const sessionCreate = async ({
   const {
     id,
     breakTime,
-    muscleGroup,
     repetitions,
     series,
     weight,
@@ -51,7 +49,6 @@ export const sessionCreate = async ({
           repetitions,
           weight,
           breakTime,
-          muscleGroup,
         },
       },
     },

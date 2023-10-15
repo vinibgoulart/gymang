@@ -20,6 +20,16 @@ exports[`should not start a session for a exercise with a in progress session 1`
 }
 `;
 
+exports[`should not start a session for a workout split with an exercise in progress 1`] = `
+{
+  "ExerciseSessionStart": {
+    "error": "You already have a session in progress, finish it first",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
 exports[`should start a exercise session 1`] = `
 {
   "ExerciseSessionStart": {

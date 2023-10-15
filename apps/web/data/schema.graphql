@@ -277,6 +277,7 @@ type Exercise implements Node {
   breakTime: String
   muscleGroup: ExerciseMuscleGroupEnum!
   weight: String
+  hasSessionInProgress: Boolean
   user: User
   workoutSplit: WorkoutSplit
 }

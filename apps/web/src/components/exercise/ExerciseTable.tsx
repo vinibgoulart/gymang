@@ -1,10 +1,12 @@
-import { Text } from '@chakra-ui/react';
+import { HStack, Icon, Text } from '@chakra-ui/react';
 import { MUSCLE_GROUP_LABEL } from '@gymang/enums';
 import { useRefetchTransition } from '@gymang/hooks';
 import { TableInfiniteScroll } from '@gymang/ui';
 import { useMemo } from 'react';
+import { FaStop } from 'react-icons/fa6';
 import { graphql, usePaginationFragment } from 'react-relay';
 
+import { ExerciseSessionStartButton } from './session/start/ExerciseSessionStartButton';
 import type { ExerciseTable_query$key } from '../../../__generated__/ExerciseTable_query.graphql';
 import type { ExerciseTablePaginationQuery } from '../../../__generated__/ExerciseTablePaginationQuery.graphql';
 
@@ -53,6 +55,8 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
               weight
               breakTime
               muscleGroup
+              hasSessionInProgress
+              ...ExerciseSessionStartButton_exercise
             }
           }
         }
@@ -88,9 +92,22 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
       {
         name: 'Grupo muscular',
         property: 'muscleGroup',
-        renderCell: (value) => {
-          return <Text>{MUSCLE_GROUP_LABEL[value]}</Text>;
+        renderCell: (muscleGroup: keyof typeof MUSCLE_GROUP_LABEL) => {
+          return <Text>{MUSCLE_GROUP_LABEL[muscleGroup]}</Text>;
         },
+      },
+      {
+        name: 'Ações',
+        property: 'hasSessionInProgress',
+        renderCell: (hasSessionInProgress: boolean, row) => (
+          <HStack>
+            {hasSessionInProgress ? (
+              <Icon as={FaStop} color={'error.main'} />
+            ) : (
+              <ExerciseSessionStartButton exercise={row} />
+            )}
+          </HStack>
+        ),
       },
     ],
     [],
