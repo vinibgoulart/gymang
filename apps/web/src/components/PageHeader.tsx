@@ -7,7 +7,8 @@ import {
   Tabs,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import { MenuActionButton } from '@gymang/ui';
+import type { BreadcrumbItem} from '@gymang/ui';
+import { Breadcrumb, MenuActionButton } from '@gymang/ui';
 import { useRouter } from 'next/router';
 import { Children } from 'react';
 
@@ -21,6 +22,7 @@ type PageHeaderProps = {
   subtitle?: string;
   actions?: React.ReactNode;
   tabs?: Tab[];
+  breadcrumbs?: BreadcrumbItem[];
 };
 
 export const PageHeader = (props: PageHeaderProps) => {
@@ -99,8 +101,17 @@ export const PageHeader = (props: PageHeaderProps) => {
     );
   };
 
+  const getBreadcrumbs = () => {
+    if (!props.breadcrumbs) {
+      return null;
+    }
+
+    return <Breadcrumb items={props.breadcrumbs} />;
+  };
+
   return (
     <Stack mb={8}>
+      {getBreadcrumbs()}
       <Flex justifyContent={'space-between'} minH={{ base: 3, md: 10 }}>
         {getHeading()}
         {getActions()}

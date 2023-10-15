@@ -1,5 +1,6 @@
 import { Divider, Stack } from '@chakra-ui/react';
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
@@ -18,6 +19,8 @@ type SettingsWorkoutProps = {
 };
 
 const SettingsWorkout = (props: SettingsWorkoutProps) => {
+  const router = useRouter();
+
   const query = usePreloadedQuery<settingsWorkoutQuery>(
     graphql`
       query settingsWorkoutQuery($id: ID!) @preloadable {
@@ -40,22 +43,41 @@ const SettingsWorkout = (props: SettingsWorkoutProps) => {
 
   const { workout } = query;
 
-  const getTabs = () => {
-    return [
-      {
-        label: 'Divisões',
-        link: `/workout/${workout.id}`,
+  const tabs = [
+    {
+      label: 'Divisões',
+      link: `/workout/${workout.id}`,
+    },
+    {
+      label: 'Ajustes',
+      link: `/workout/${workout.id}/settings`,
+    },
+  ];
+
+  const breadcrumbs = [
+    {
+      label: 'Treinos',
+      onClick: () => {
+        router.push('/workout/list');
       },
-      {
-        label: 'Ajustes',
-        link: `/workout/${workout.id}/settings`,
+    },
+    {
+      label: workout.name,
+      onClick: () => {
+        router.push(`/workout/${workout.id}`);
       },
-    ];
-  };
+    },
+    {
+      label: 'Ajustes',
+      onClick: () => {
+        router.push(`/workout/${workout.id}/settings`);
+      },
+    },
+  ];
 
   return (
     <RootLayout>
-      <PageHeader title={'Ajustes'} tabs={getTabs()} />
+      <PageHeader title={'Ajustes'} tabs={tabs} breadcrumbs={breadcrumbs} />
       <Stack spacing={8}>
         <WorkoutShareSection workout={workout} />
         <Divider />

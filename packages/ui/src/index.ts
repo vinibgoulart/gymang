@@ -11,3 +11,4 @@ export { Modal } from './modal/Modal';
 export { SimpleGrid } from './grid/SimpleGrid';
 export { TextWithIcon } from './typography/TextWithIcon';
 export { Section } from './section/Section';
+export { Breadcrumb, type BreadcrumbItem } from './breadcrumb/Breadcrumb';

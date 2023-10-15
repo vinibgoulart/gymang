@@ -1,6 +1,7 @@
 import { Stack } from '@chakra-ui/react';
 import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
 
@@ -20,6 +21,8 @@ type DetailWorkoutProps = {
 };
 
 const DetailWorkout = (props: DetailWorkoutProps) => {
+  const router = useRouter();
+
   const query = usePreloadedQuery<DetailWorkoutQuery>(
     graphql`
       query DetailWorkoutQuery(
@@ -77,9 +80,29 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
     },
   ];
 
+  const breadcrumbs = [
+    {
+      label: 'Treinos',
+      onClick: () => {
+        router.push('/workout/list');
+      },
+    },
+    {
+      label: workout.name,
+      onClick: () => {
+        router.push(`/workout/${workout.id}`);
+      },
+    },
+  ];
+
   return (
     <RootLayout>
-      <PageHeader title={workout.name} actions={getActions()} tabs={tabs} />
+      <PageHeader
+        title={workout.name}
+        actions={getActions()}
+        tabs={tabs}
+        breadcrumbs={breadcrumbs}
+      />
       <Stack spacing={4}>
         <WorkoutDetail workout={query.workout} user={query.me} />
         <WorkoutSplitGridList query={query} workout={workout} />

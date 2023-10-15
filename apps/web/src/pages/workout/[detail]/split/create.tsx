@@ -1,4 +1,5 @@
 import type { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 import type { PreloadedQuery } from 'react-relay';
 import { graphql, usePreloadedQuery } from 'react-relay';
@@ -18,6 +19,8 @@ type CreateWorkoutSplitProps = {
 };
 
 const CreateWorkoutSplit = ({ ...props }: CreateWorkoutSplitProps) => {
+  const router = useRouter();
+
   const query = usePreloadedQuery<createWorkoutSplitQuery>(
     graphql`
       query createWorkoutSplitQuery($id: ID!) @preloadable {
@@ -39,9 +42,30 @@ const CreateWorkoutSplit = ({ ...props }: CreateWorkoutSplitProps) => {
 
   const { workout } = query;
 
+  const breadcrumbs = [
+    {
+      label: 'Treinos',
+      onClick: () => {
+        router.push('/workout/list');
+      },
+    },
+    {
+      label: workout.name,
+      onClick: () => {
+        router.push(`/workout/${workout.id}`);
+      },
+    },
+    {
+      label: 'Adicionar divisão',
+      onClick: () => {
+        router.push(`/workout/${workout.id}/split/create`);
+      },
+    },
+  ];
+
   return (
     <RootLayout>
-      <PageHeader title={workout.name} subtitle={'Adicionar divisão'} />
+      <PageHeader title={'Adicionar divisão'} breadcrumbs={breadcrumbs} />
       <WorkoutSplitAddForm workout={query.workout} />
     </RootLayout>
   );
