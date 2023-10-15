@@ -39,6 +39,7 @@ const mutation = mutationWithClientMutationId({
 
     const workoutExistent = await Workout.findOne({
       _id: getObjectId(workout),
+      removedAt: null,
     });
 
     if (!workoutExistent) {

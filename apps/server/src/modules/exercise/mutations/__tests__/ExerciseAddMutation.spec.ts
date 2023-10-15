@@ -7,6 +7,7 @@ import {
   sanitizeTestObject,
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
+import { handleCreateWorkout } from '@gymang/workout';
 import { handleCreateWorkoutSplit } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
@@ -135,4 +136,94 @@ it('should not add a new exercise for another user', async () => {
     'You can not create a Exercise for another user',
   );
   expect(result.data.ExerciseAdd.success).toBeNull();
+});
+
+it('should not add a new exercise for removed workout split', async () => {
+  const user = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    removedAt: new Date(),
+  });
+
+  const input = {
+    name: 'Pull Down',
+    workoutSplit: toGlobalId('WorkoutSplit', workoutSplit._id),
+    series: '3',
+    repetitions: '10',
+    weight: '50',
+    breakTime: '60',
+    muscleGroup: MUSCLE_GROUP.BACK,
+  };
+
+  const variables = {
+    input,
+  };
+
+  const context = await getContext({
+    graphql: GRAPHQL_TYPE.WEB,
+    user,
+  });
+
+  const rootValue = {};
+
+  const result = await graphql({
+    schema: schemaWeb,
+    source: query,
+    rootValue,
+    contextValue: context,
+    variableValues: variables,
+  });
+
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.ExerciseAdd.error).toEqual('Workout Split not found');
+  expect(result.data.ExerciseAdd.success).toBeNull();
+
+  expect(sanitizeTestObject(result.data)).toMatchSnapshot();
+});
+
+it('should not add a new exercise for a workout split with removed workout', async () => {
+  const user = await handleCreateUser();
+  const workout = await handleCreateWorkout({
+    removedAt: new Date(),
+  });
+
+  const workoutSplit = await handleCreateWorkoutSplit({
+    workout,
+  });
+
+  const input = {
+    name: 'Pull Down',
+    workoutSplit: toGlobalId('WorkoutSplit', workoutSplit._id),
+    series: '3',
+    repetitions: '10',
+    weight: '50',
+    breakTime: '60',
+    muscleGroup: MUSCLE_GROUP.BACK,
+  };
+
+  const variables = {
+    input,
+  };
+
+  const context = await getContext({
+    graphql: GRAPHQL_TYPE.WEB,
+    user,
+  });
+
+  const rootValue = {};
+
+  const result = await graphql({
+    schema: schemaWeb,
+    source: query,
+    rootValue,
+    contextValue: context,
+    variableValues: variables,
+  });
+
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.ExerciseAdd.error).toEqual('Workout not found');
+  expect(result.data.ExerciseAdd.success).toBeNull();
+
+  expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

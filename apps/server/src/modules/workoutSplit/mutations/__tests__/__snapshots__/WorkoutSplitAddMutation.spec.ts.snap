@@ -20,3 +20,13 @@ exports[`should add a new workout split 1`] = `
   },
 }
 `;
+
+exports[`should not add a workout split for a removed workout 1`] = `
+{
+  "WorkoutSplitAdd": {
+    "error": "Workout not found",
+    "success": "EMPTY",
+    "workoutSplit": "EMPTY",
+  },
+}
+`;

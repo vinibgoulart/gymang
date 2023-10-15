@@ -24,3 +24,23 @@ exports[`should add a new exercise 1`] = `
   },
 }
 `;
+
+exports[`should not add a new exercise for a workout split with removed workout 1`] = `
+{
+  "ExerciseAdd": {
+    "error": "Workout not found",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
+exports[`should not add a new exercise for removed workout split 1`] = `
+{
+  "ExerciseAdd": {
+    "error": "Workout Split not found",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;

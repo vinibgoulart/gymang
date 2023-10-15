@@ -12,7 +12,7 @@ import type { ConnectionArguments } from 'graphql-relay';
 
 import WorkoutType, { WorkoutConnection } from './WorkoutType';
 
-export const workoutTypeField = <T extends unknown>(
+export const workoutTypeField = <T>(
   key = 'workout',
   bypassViewerCanSee = false,
 ) => ({
@@ -36,9 +36,7 @@ type WorkoutConnectionArgs = {
   filters: WorkoutFilterInputType;
 } & ConnectionArguments;
 
-export const workoutConnectionField = <T extends unknown>(
-  customResolver = null,
-) => ({
+export const workoutConnectionField = <T>(customResolver = null) => ({
   workouts: {
     type: new GraphQLNonNull(WorkoutConnection.connectionType),
     args: {
@@ -59,8 +57,6 @@ export const workoutConnectionField = <T extends unknown>(
       const argsWithFilter = withFilter(args, {
         isPublic: true,
       });
-
-      console.log({ args });
 
       return WorkoutLoader.loadAll(context, argsWithFilter);
     },

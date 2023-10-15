@@ -321,6 +321,7 @@ type Mutation {
   UserLogin(input: UserLoginInput!): UserLoginPayload
   UserLogout(input: UserLogoutInput!): UserLogoutPayload
   WorkoutAdd(input: WorkoutAddInput!): WorkoutAddPayload
+  WorkoutRemove(input: WorkoutRemoveInput!): WorkoutRemovePayload
   WorkoutSplitAdd(input: WorkoutSplitAddInput!): WorkoutSplitAddPayload
   ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
 }
@@ -373,6 +374,18 @@ input WorkoutAddInput {
   name: String!
   isPublic: Boolean!
   originalWorkout: ID
+  clientMutationId: String
+}
+
+type WorkoutRemovePayload {
+  workout: Workout
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input WorkoutRemoveInput {
+  id: ID!
   clientMutationId: String
 }
 

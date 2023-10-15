@@ -82,7 +82,12 @@ export const PageHeader = (props: PageHeaderProps) => {
     );
 
     return (
-      <Tabs variant="enclosed" colorScheme="purple" defaultIndex={activeIndex}>
+      <Tabs
+        size={'sm'}
+        variant="enclosed"
+        colorScheme="purple"
+        defaultIndex={activeIndex}
+      >
         <TabList>
           {props.tabs.map((tab) => (
             <Tab onClick={() => onClick(tab.link)} key={tab.link}>
