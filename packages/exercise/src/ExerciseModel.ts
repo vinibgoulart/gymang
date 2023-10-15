@@ -5,6 +5,9 @@ import type { IWorkoutSplit } from '@gymang/workout-split';
 import type { Document, Types } from 'mongoose';
 import { Schema, model } from 'mongoose';
 
+import type { ISession } from './session/SessionSchema';
+import { SessionSchema } from './session/SessionSchema';
+
 type Exercise = {
   _id: Types.ObjectId;
   name: string;
@@ -15,9 +18,11 @@ type Exercise = {
   weight?: string;
   breakTime?: string;
   muscleGroup: keyof typeof MUSCLE_GROUP;
+  sessions: ISession[];
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
+  startSession: () => unknown;
 };
 
 export type IExercise = Document & Exercise;
@@ -64,6 +69,10 @@ const ExerciseSchema = new Schema<IExercise>(
       enum: MUSCLE_GROUP,
       required: true,
       index: true,
+    },
+    sessions: {
+      type: [SessionSchema],
+      default: [],
     },
     removedAt: {
       type: Date,

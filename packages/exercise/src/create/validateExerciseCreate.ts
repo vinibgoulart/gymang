@@ -1,6 +1,7 @@
 import type { ExerciseCreateArgs } from './exerciseCreate';
+import { validateSessionCreate } from '../session/create/validateSessionCreate';
 
-type ValidateExerciseCreateArgs = {} & ExerciseCreateArgs;
+type ValidateExerciseCreateArgs = ExerciseCreateArgs;
 
 export const validateExerciseCreate = async ({
   payload,
@@ -16,9 +17,10 @@ export const validateExerciseCreate = async ({
     breakTime,
     muscleGroup,
     weight,
+    sessions,
   } = payload;
 
-  const nullPayload = {
+  const emptyPayload = {
     name: null,
     user: null,
     workoutSplit: null,
@@ -27,76 +29,96 @@ export const validateExerciseCreate = async ({
     breakTime: null,
     muscleGroup: null,
     weight: null,
+    sessions: [],
   };
 
   if (!name) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Name is required'),
     };
   }
 
   if (!user) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('User is required'),
     };
   }
 
   if (!workoutSplit) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Workout Split is required'),
     };
   }
 
   if (!repetitions) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Repetitions is required'),
     };
   }
 
   if (!series) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Series is required'),
     };
   }
 
   if (!muscleGroup) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Muscle Group is required'),
     };
   }
 
   if (weight && isNaN(Number(weight))) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Weight must be a number'),
     };
   }
 
   if (breakTime && isNaN(Number(breakTime))) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Break Time must be a number'),
     };
   }
 
   if (repetitions && isNaN(Number(repetitions))) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Repetitions must be a number'),
     };
   }
 
   if (series && isNaN(Number(series))) {
     return {
-      ...nullPayload,
+      ...emptyPayload,
       error: t('Series must be a number'),
     };
+  }
+
+  if (sessions?.length) {
+    const sessionValidation = await Promise.all(
+      sessions.map((session) =>
+        validateSessionCreate({ payload: session, context }),
+      ),
+    );
+
+    const sessionWithError = sessionValidation.find(
+      (session) => !!session.error,
+    );
+
+    if (sessionWithError) {
+      return {
+        ...emptyPayload,
+        error: sessionWithError.error,
+      };
+    }
   }
 
   return {
@@ -108,6 +130,7 @@ export const validateExerciseCreate = async ({
     breakTime,
     muscleGroup,
     weight,
+    sessions,
     error: null,
   };
 };
