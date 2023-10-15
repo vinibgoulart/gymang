@@ -32,6 +32,7 @@
     "react-hook-form": "^7.46.1",
     "react-icons": "^4.11.0",
     "react-relay": "^15.0.0",
+    "react-share": "^4.4.1",
     "relay-compiler": "^15.0.0",
     "relay-runtime": "^15.0.0",
     "relay-test-utils": "^15.0.0",
