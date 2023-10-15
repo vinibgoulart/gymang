@@ -31,6 +31,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
             id
             name
             workout {
+              id
               name
             }
             ...WorkoutSplitDetail_workoutSplit
@@ -68,18 +69,27 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
     </>
   );
 
+  const tabs = [
+    {
+      label: 'Exercícios',
+      link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}`,
+    },
+    {
+      label: 'Ajustes',
+      link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}/settings`,
+    },
+  ];
+
   return (
     <RootLayout>
       <PageHeader
         title={workoutSplit.workout.name}
         subtitle={workoutSplit.name}
         actions={actions}
+        tabs={tabs}
       />
       <Stack spacing={4}>
-        <WorkoutSplitDetail
-          workoutSplit={query.workoutSplit}
-          user={query.me}
-        />
+        <WorkoutSplitDetail workoutSplit={query.workoutSplit} user={query.me} />
         <ExerciseTable query={query} />
       </Stack>
     </RootLayout>

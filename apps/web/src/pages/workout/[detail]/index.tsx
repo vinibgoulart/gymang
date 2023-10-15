@@ -66,9 +66,20 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
     );
   };
 
+  const tabs = [
+    {
+      label: 'Divisões',
+      link: `/workout/${workout.id}`,
+    },
+    {
+      label: 'Ajustes',
+      link: `/workout/${workout.id}/settings`,
+    },
+  ];
+
   return (
     <RootLayout>
-      <PageHeader title={workout.name} actions={getActions()} />
+      <PageHeader title={workout.name} actions={getActions()} tabs={tabs} />
       <Stack spacing={4}>
         <WorkoutDetail workout={query.workout} user={query.me} />
         <WorkoutSplitGridList query={query} workout={workout} />
