@@ -1,4 +1,5 @@
 import { HStack, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 type Option = {
@@ -18,6 +19,7 @@ export const RadioForm = ({ name, options }: Props) => {
     setValue,
     getValues,
   } = useFormContext();
+  const [currentValue, setCurrentValue] = useState<string>(getValues(name));
 
   const error = errors[name]?.message;
 
@@ -39,6 +41,7 @@ export const RadioForm = ({ name, options }: Props) => {
 
   const handleChange = (value: string) => {
     setValue(name, value);
+    setCurrentValue(value);
   };
 
   const dataTestIdInputProps = {
@@ -56,7 +59,7 @@ export const RadioForm = ({ name, options }: Props) => {
         onChange={handleChange}
         {...getErrorProps()}
         {...textInputProps}
-        value={getValues(name)}
+        value={currentValue}
       >
         <HStack>
           {options.map((option) => (

@@ -45,7 +45,7 @@ export const WorkoutAddForm = () => {
   const formBag = useForm<Values>({
     defaultValues,
     resolver: zodResolver(validationSchema),
-    mode: 'onBlur',
+    mode: 'all',
   });
 
   const {

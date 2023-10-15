@@ -1,4 +1,5 @@
 import { Select, Stack, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 type Option = {
@@ -17,8 +18,9 @@ export const SelectForm = ({ name, placeholder, options }: Props) => {
     register,
     formState: { errors },
     setValue,
-    getValues
+    getValues,
   } = useFormContext();
+  const [currentValue, setCurrentValue] = useState<string>(getValues(name));
 
   const error = errors[name]?.message;
 
@@ -42,6 +44,7 @@ export const SelectForm = ({ name, placeholder, options }: Props) => {
     const { value } = event.target;
 
     setValue(name, value);
+    setCurrentValue(value);
   };
 
   const dataTestIdInputProps = {
@@ -54,7 +57,7 @@ export const SelectForm = ({ name, placeholder, options }: Props) => {
   };
 
   const getColor = () => {
-    if (getValues(name)) {
+    if (currentValue) {
       return { color: 'text.main' };
     }
 
@@ -64,7 +67,7 @@ export const SelectForm = ({ name, placeholder, options }: Props) => {
   return (
     <Stack spacing={1}>
       <Select
-        bg="neutral.semiLight"
+        bg={'white'}
         id={name}
         placeholder={placeholder}
         {...getColor()}
