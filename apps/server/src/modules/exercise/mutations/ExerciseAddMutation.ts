@@ -2,6 +2,7 @@ import type { GraphQLContext } from '@gymang/core';
 import type { MUSCLE_GROUP } from '@gymang/enums';
 import { ExerciseMuscleGroupEnum, exerciseCreate } from '@gymang/exercise';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
+import { Workout } from '@gymang/workout';
 import { WorkoutSplit } from '@gymang/workout-split';
 import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
@@ -59,6 +60,7 @@ const mutation = mutationWithClientMutationId({
 
     const workoutSplitExistent = await WorkoutSplit.findOne({
       _id: getObjectId(workoutSplit),
+      removedAt: null,
     });
 
     if (!workoutSplitExistent) {
@@ -66,6 +68,19 @@ const mutation = mutationWithClientMutationId({
         exercise: null,
         success: null,
         error: t('Workout Split not found'),
+      };
+    }
+
+    const workout = await Workout.findOne({
+      _id: workoutSplitExistent.workout,
+      removedAt: null,
+    });
+
+    if (!workout) {
+      return {
+        exercise: null,
+        success: null,
+        error: t('Workout not found'),
       };
     }
 

@@ -171,3 +171,42 @@ it('should not add a new workout split for another user', async () => {
   );
   expect(result.data.WorkoutSplitAdd.success).toBeNull();
 });
+
+it('should not add a workout split for a removed workout', async () => {
+  const user = await handleCreateUser();
+  const workout = await handleCreateWorkout({
+    removedAt: new Date(),
+  });
+
+  const input = {
+    name: 'Chest Workout',
+    workout: toGlobalId('Workout', workout._id),
+    modality: WORKOUT_SPLIT_MODALITY.BODYBUILDING,
+  };
+
+  const variables = {
+    input,
+  };
+
+  const context = await getContext({
+    graphql: GRAPHQL_TYPE.WEB,
+    user,
+  });
+
+  const rootValue = {};
+
+  const result = await graphql({
+    schema: schemaWeb,
+    source: query,
+    rootValue,
+    contextValue: context,
+    variableValues: variables,
+  });
+
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.WorkoutSplitAdd.error).toEqual('Workout not found');
+  expect(result.data.WorkoutSplitAdd.success).toBeNull();
+
+  expect(sanitizeTestObject(result.data)).toMatchSnapshot();
+});
