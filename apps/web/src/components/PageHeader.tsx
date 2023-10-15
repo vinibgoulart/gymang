@@ -7,7 +7,7 @@ import {
   Tabs,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import type { BreadcrumbItem} from '@gymang/ui';
+import type { BreadcrumbItem } from '@gymang/ui';
 import { Breadcrumb, MenuActionButton } from '@gymang/ui';
 import { useRouter } from 'next/router';
 import { Children } from 'react';
@@ -15,6 +15,7 @@ import { Children } from 'react';
 type Tab = {
   label: string;
   link: string;
+  hidden?: boolean;
 };
 
 type PageHeaderProps = {
@@ -91,11 +92,17 @@ export const PageHeader = (props: PageHeaderProps) => {
         defaultIndex={activeIndex}
       >
         <TabList>
-          {props.tabs.map((tab) => (
-            <Tab onClick={() => onClick(tab.link)} key={tab.link}>
-              {tab.label}
-            </Tab>
-          ))}
+          {props.tabs.map((tab) => {
+            if (tab.hidden) {
+              return null;
+            }
+
+            return (
+              <Tab onClick={() => onClick(tab.link)} key={tab.link}>
+                {tab.label}
+              </Tab>
+            );
+          })}
         </TabList>
       </Tabs>
     );
