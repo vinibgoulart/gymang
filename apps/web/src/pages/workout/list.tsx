@@ -1,4 +1,5 @@
 import { Stack } from '@chakra-ui/react';
+import { ActionButton } from '@gymang/ui';
 import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import type { PreloadedQuery } from 'react-relay';
@@ -29,6 +30,12 @@ const ListWorkout = (props: ListWorkoutProps) => {
     props.preloadedQueries.listWorkout,
   );
 
+  const actions = (
+    <>
+      <ActionButton link="/workout/create">Adicionar treino</ActionButton>
+    </>
+  );
+
   const breadcrumbs = [
     {
       label: 'Treinos',
@@ -40,7 +47,11 @@ const ListWorkout = (props: ListWorkoutProps) => {
 
   return (
     <RootLayout>
-      <PageHeader title={'Treinos'} breadcrumbs={breadcrumbs} />
+      <PageHeader
+        title={'Treinos'}
+        actions={actions}
+        breadcrumbs={breadcrumbs}
+      />
       <Stack spacing={4}>
         <WorkoutList query={query} />
       </Stack>
