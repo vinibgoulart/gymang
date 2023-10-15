@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not remove a workout split already removed 1`] = `
+{
+  "WorkoutSplitRemove": {
+    "error": "Workout Split not found",
+    "success": "EMPTY",
+    "workoutSplit": "EMPTY",
+  },
+}
+`;
+
+exports[`should not remove a workout split from another user 1`] = `
+{
+  "WorkoutSplitRemove": {
+    "error": "You are not allowed to remove this workout split",
+    "success": "EMPTY",
+    "workoutSplit": "EMPTY",
+  },
+}
+`;
+
+exports[`should not remove a workout split using a removed workout 1`] = `
+{
+  "WorkoutSplitRemove": {
+    "error": "Workout not found",
+    "success": "EMPTY",
+    "workoutSplit": "EMPTY",
+  },
+}
+`;
+
+exports[`should remove a workout split 1`] = `
+{
+  "WorkoutSplitRemove": {
+    "error": "EMPTY",
+    "success": "Workout Split removed successfully",
+    "workoutSplit": {
+      "id": "FROZEN-ID",
+      "modality": "ObjectId",
+      "name": "WorkoutSplit NaN name",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "workout": {
+        "id": "FROZEN-ID",
+        "name": "Workout NaN name",
+      },
+    },
+  },
+}
+`;
