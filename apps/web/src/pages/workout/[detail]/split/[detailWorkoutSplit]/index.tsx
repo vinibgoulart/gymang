@@ -10,6 +10,7 @@ import DetailWorkoutSplitPreloadedQuery from '../../../../../../__generated__/De
 import { ExerciseAddModalForm } from '../../../../../components/exercise/ExerciseAddModalForm';
 import { ExerciseTable } from '../../../../../components/exercise/ExerciseTable';
 import { PageHeader } from '../../../../../components/PageHeader';
+import { WorkoutDuplicateButton } from '../../../../../components/workout/duplicate/WorkoutDuplicateButton';
 import { WorkoutSplitDetail } from '../../../../../components/workoutSplit/WorkoutSplitDetail';
 import { RootLayout } from '../../../../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../../../../relay/network';
@@ -35,12 +36,17 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
             workout {
               id
               name
+              user {
+                id
+              }
+              ...WorkoutDuplicateButton_workout
             }
             ...WorkoutSplitDetail_workoutSplit
             ...ExerciseAddModalForm_workoutSplit
           }
         }
         me {
+          id
           ...WorkoutSplitDetail_user
         }
         ...ExerciseTable_query @arguments(filters: $exerciseFilters)
@@ -55,21 +61,29 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
 
   const { workoutSplit } = query;
 
-  const actions = (
-    <>
-      <ActionButton variant={'outline'} onClick={onOpen}>
-        Adicionar exercicio
-      </ActionButton>
-      <ActionButton>Iniciar treino</ActionButton>
-      {isOpen && (
-        <ExerciseAddModalForm
-          isOpen={isOpen}
-          onClose={onClose}
-          workoutSplit={workoutSplit}
-        />
-      )}
-    </>
-  );
+  const isMine = workoutSplit.workout.user.id === query.me.id;
+
+  const getActions = () => {
+    if (!isMine) {
+      return <WorkoutDuplicateButton workout={workoutSplit.workout} />;
+    }
+
+    return (
+      <>
+        <ActionButton variant={'outline'} onClick={onOpen}>
+          Adicionar exercicio
+        </ActionButton>
+        <ActionButton>Iniciar treino</ActionButton>
+        {isOpen && (
+          <ExerciseAddModalForm
+            isOpen={isOpen}
+            onClose={onClose}
+            workoutSplit={workoutSplit}
+          />
+        )}
+      </>
+    );
+  };
 
   const tabs = [
     {
@@ -79,6 +93,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
     {
       label: 'Ajustes',
       link: `/workout/${workoutSplit.workout.id}/split/${workoutSplit.id}/settings`,
+      hidden: workoutSplit.workout.user.id !== query.me.id,
     },
   ];
 
@@ -109,7 +124,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
     <RootLayout>
       <PageHeader
         title={workoutSplit.name}
-        actions={actions}
+        actions={getActions()}
         tabs={tabs}
         breadcrumbs={breadcrumbs}
       />

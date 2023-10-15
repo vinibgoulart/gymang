@@ -57,8 +57,10 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
 
   const { workout } = query;
 
+  const isMine = workout.user.id === query.me.id;
+
   const getActions = () => {
-    if (workout.user.id !== query.me.id) {
+    if (!isMine) {
       return <WorkoutDuplicateButton workout={workout} />;
     }
 
@@ -77,6 +79,7 @@ const DetailWorkout = (props: DetailWorkoutProps) => {
     {
       label: 'Ajustes',
       link: `/workout/${workout.id}/settings`,
+      hidden: !isMine,
     },
   ];
 

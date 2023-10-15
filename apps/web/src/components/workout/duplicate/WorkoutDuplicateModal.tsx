@@ -20,7 +20,7 @@ export const WorkoutDuplicateModal = (props: WorkoutDuplicateModalProps) => {
       fragment WorkoutDuplicateModal_workout on Workout {
         id
         name
-        createdBy {
+        user {
           firstName
         }
       }
@@ -87,7 +87,7 @@ export const WorkoutDuplicateModal = (props: WorkoutDuplicateModalProps) => {
     >
       Você tem certeza que deseja duplicar o treino{' '}
       <TextGradient>{workout.name}</TextGradient> de{' '}
-      <TextGradient>{workout.createdBy.firstName}</TextGradient>?
+      <TextGradient>{workout.user.firstName}</TextGradient>?
     </Modal>
   );
 };
