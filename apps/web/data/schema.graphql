@@ -323,6 +323,7 @@ type Mutation {
   WorkoutAdd(input: WorkoutAddInput!): WorkoutAddPayload
   WorkoutRemove(input: WorkoutRemoveInput!): WorkoutRemovePayload
   WorkoutSplitAdd(input: WorkoutSplitAddInput!): WorkoutSplitAddPayload
+  WorkoutSplitRemove(input: WorkoutSplitRemoveInput!): WorkoutSplitRemovePayload
   ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
 }
 
@@ -400,6 +401,18 @@ input WorkoutSplitAddInput {
   name: String!
   modality: WorkoutSplitModalityEnum!
   workout: ID!
+  clientMutationId: String
+}
+
+type WorkoutSplitRemovePayload {
+  workoutSplit: WorkoutSplit
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input WorkoutSplitRemoveInput {
+  id: ID!
   clientMutationId: String
 }
 
