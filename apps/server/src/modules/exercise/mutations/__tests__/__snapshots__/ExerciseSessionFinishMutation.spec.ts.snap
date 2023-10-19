@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should finish a exercise session 1`] = `
+{
+  "ExerciseSessionFinish": {
+    "error": "EMPTY",
+    "exercise": {
+      "breakTime": "EMPTY",
+      "id": "FROZEN-ID",
+      "muscleGroup": "BACK",
+      "name": "Exercise NaN name",
+      "repetitions": "12",
+      "series": "4",
+      "sessionInProgress": "EMPTY",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "weight": "EMPTY",
+      "workoutSplit": {
+        "id": "FROZEN-ID",
+        "name": "WorkoutSplit NaN name",
+      },
+    },
+    "success": "Session finished successfully",
+  },
+}
+`;
+
+exports[`should not finish a session already finished 1`] = `
+{
+  "ExerciseSessionFinish": {
+    "error": "Session already finished",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
+exports[`should not finish a session for a exercise from another user 1`] = `
+{
+  "ExerciseSessionFinish": {
+    "error": "You can not finish this exercise session",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;

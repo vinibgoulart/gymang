@@ -277,7 +277,9 @@ type Exercise implements Node {
   breakTime: String
   muscleGroup: ExerciseMuscleGroupEnum!
   weight: String
-  hasSessionInProgress: Boolean
+  sessionInProgress: Session
+  lastSession: Session
+  sessions(after: String, first: Int, before: String, last: Int): SessionConnection!
   user: User
   workoutSplit: WorkoutSplit
 }
@@ -299,6 +301,51 @@ enum ExerciseMuscleGroupEnum {
   LUMBAR
   FOREARMS
   OTHER
+}
+
+"""Represents a Session"""
+type Session implements Node {
+  """The ID of an object"""
+  id: ID!
+  series: String!
+  repetitions: String!
+  breakTime: String
+  weight: String
+  createdAt: String
+  finishedAt: String
+}
+
+"""A connection to a list of items."""
+type SessionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [SessionEdge]
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type SessionEdge {
+  """The item at the end of the edge"""
+  node: Session
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 """Used to filter exercises"""
@@ -327,6 +374,7 @@ type Mutation {
   WorkoutSplitRemove(input: WorkoutSplitRemoveInput!): WorkoutSplitRemovePayload
   ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
   ExerciseSessionStart(input: ExerciseSessionStartInput!): ExerciseSessionStartPayload
+  ExerciseSessionFinish(input: ExerciseSessionFinishInput!): ExerciseSessionFinishPayload
 }
 
 type UserAddPayload {
@@ -445,5 +493,18 @@ type ExerciseSessionStartPayload {
 
 input ExerciseSessionStartInput {
   id: ID!
+  clientMutationId: String
+}
+
+type ExerciseSessionFinishPayload {
+  exercise: Exercise
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input ExerciseSessionFinishInput {
+  exerciseId: ID!
+  sessionId: ID!
   clientMutationId: String
 }

@@ -18,6 +18,12 @@ export const ExerciseAdd = graphql`
         weight
         breakTime
         muscleGroup
+        lastSession {
+          finishedAt
+        }
+        sessionInProgress {
+          id
+        }
       }
       error
       success

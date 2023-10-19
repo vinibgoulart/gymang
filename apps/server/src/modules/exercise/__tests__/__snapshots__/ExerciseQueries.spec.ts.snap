@@ -8,10 +8,15 @@ exports[`should get a list of exercies 1`] = `
         "node": {
           "breakTime": "60",
           "id": "FROZEN-ID",
-          "muscleGroup": "Chest",
+          "lastSession": "EMPTY",
+          "muscleGroup": "CHEST",
           "name": "Supino Reto",
           "repetitions": "10",
           "series": "3",
+          "sessionInProgress": "EMPTY",
+          "sessions": {
+            "edges": [],
+          },
           "user": {
             "id": "FROZEN-ID",
           },
@@ -26,10 +31,15 @@ exports[`should get a list of exercies 1`] = `
         "node": {
           "breakTime": "60",
           "id": "FROZEN-ID",
-          "muscleGroup": "Back",
+          "lastSession": "EMPTY",
+          "muscleGroup": "BACK",
           "name": "Pull Down",
           "repetitions": "10",
           "series": "3",
+          "sessionInProgress": "EMPTY",
+          "sessions": {
+            "edges": [],
+          },
           "user": {
             "id": "FROZEN-ID",
           },
@@ -37,6 +47,84 @@ exports[`should get a list of exercies 1`] = `
           "workoutSplit": {
             "id": "FROZEN-ID",
             "name": "WorkoutSplit NaN name",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`should get a list of exercies with sessions 1`] = `
+{
+  "exercises": {
+    "edges": [
+      {
+        "node": {
+          "breakTime": "60",
+          "id": "FROZEN-ID",
+          "lastSession": "EMPTY",
+          "muscleGroup": "CHEST",
+          "name": "Supino Reto",
+          "repetitions": "10",
+          "series": "3",
+          "sessionInProgress": "EMPTY",
+          "sessions": {
+            "edges": [],
+          },
+          "user": {
+            "id": "FROZEN-ID",
+          },
+          "weight": "20",
+          "workoutSplit": {
+            "id": "FROZEN-ID",
+            "name": "WorkoutSplit 1 name",
+          },
+        },
+      },
+      {
+        "node": {
+          "breakTime": "60",
+          "id": "FROZEN-ID",
+          "lastSession": {
+            "id": "FROZEN-ID",
+          },
+          "muscleGroup": "BACK",
+          "name": "Pull Down",
+          "repetitions": "10",
+          "series": "3",
+          "sessionInProgress": {
+            "id": "FROZEN-ID",
+          },
+          "sessions": {
+            "edges": [
+              {
+                "node": {
+                  "breakTime": "60",
+                  "id": "FROZEN-ID",
+                  "repetitions": "10",
+                  "series": "3",
+                  "weight": "50",
+                },
+              },
+              {
+                "node": {
+                  "breakTime": "60",
+                  "id": "FROZEN-ID",
+                  "repetitions": "10",
+                  "series": "3",
+                  "weight": "50",
+                },
+              },
+            ],
+          },
+          "user": {
+            "id": "FROZEN-ID",
+          },
+          "weight": "50",
+          "workoutSplit": {
+            "id": "FROZEN-ID",
+            "name": "WorkoutSplit 1 name",
           },
         },
       },

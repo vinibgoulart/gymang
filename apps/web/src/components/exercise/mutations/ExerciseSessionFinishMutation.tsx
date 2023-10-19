@@ -1,8 +1,8 @@
 import { graphql } from 'react-relay';
 
-export const ExerciseSessionStart = graphql`
-  mutation ExerciseSessionStartMutation($input: ExerciseSessionStartInput!) {
-    ExerciseSessionStart(input: $input) {
+export const ExerciseSessionFinish = graphql`
+  mutation ExerciseSessionFinishMutation($input: ExerciseSessionFinishInput!) {
+    ExerciseSessionFinish(input: $input) {
       exercise {
         id
         name
