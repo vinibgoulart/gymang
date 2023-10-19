@@ -7,13 +7,14 @@ import {
   registerTypeLoader,
 } from '@gymang/graphql';
 import {
-  GraphQLBoolean,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
+import { sessionConnectionField } from './session/SessionFields';
+import SessionType from './session/SessionType';
 import { userTypeField } from '../user/UserFields';
 import { workoutSplitTypeField } from '../workoutSplit/WorkoutSplitFields';
 
@@ -46,14 +47,21 @@ const ExerciseType = new GraphQLObjectType<IExercise, GraphQLContext>({
       type: GraphQLString,
       resolve: (exercise) => exercise.weight,
     },
-    hasSessionInProgress: {
-      type: GraphQLBoolean,
+    sessionInProgress: {
+      type: SessionType,
       resolve: (exercise) => {
-        return !!exercise.sessions?.find(
+        return exercise.sessions?.find(
           (session) => !session.finishedAt || session.finishedAt === null,
         );
       },
     },
+    lastSession: {
+      type: SessionType,
+      resolve: (exercise) => {
+        return [...exercise.sessions].pop();
+      },
+    },
+    ...sessionConnectionField(),
     ...userTypeField(),
     ...workoutSplitTypeField(),
   }),

@@ -13,3 +13,4 @@ export {
 export { ExerciseFilterInputType } from './ExerciseFilterInputType';
 export { ExerciseMuscleGroupEnum } from './ExerciseMuscleGroupEnum';
 export { sessionCreate } from './session/create/sessionCreate';
+export type { ISession } from './session/SessionSchema';
