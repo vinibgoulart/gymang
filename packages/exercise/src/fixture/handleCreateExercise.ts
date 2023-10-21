@@ -6,9 +6,7 @@ import { WorkoutSplit, handleCreateWorkoutSplit } from '@gymang/workout-split';
 import type { IExercise } from '../ExerciseModel';
 import Exercise from '../ExerciseModel';
 
-type ExerciseOptions = {};
-
-type HandleCreateExerciseArgs = DeepPartial<IExercise> & ExerciseOptions;
+type HandleCreateExerciseArgs = DeepPartial<IExercise>;
 
 export const handleCreateExercise = async (
   args: HandleCreateExerciseArgs = {},
@@ -35,7 +33,9 @@ export const handleCreateExercise = async (
 
   if (workoutSplit === undefined) {
     if (!existentWorkoutSplit) {
-      workoutSplit = await handleCreateWorkoutSplit();
+      workoutSplit = await handleCreateWorkoutSplit({
+        withRecord: true,
+      });
       existentWorkoutSplit = workoutSplit;
     }
 

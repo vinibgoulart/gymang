@@ -196,6 +196,7 @@ type WorkoutSplit implements Node {
   modality: WorkoutSplitModalityEnum!
   user: User
   workout: Workout
+  records(after: String, first: Int, before: String, last: Int): RecordConnection!
 }
 
 enum WorkoutSplitModalityEnum {
@@ -216,20 +217,46 @@ enum WorkoutSplitModalityEnum {
   OTHER
 }
 
-"""Used to filter workout split"""
-input WorkoutSplitFilter {
-  workout: String
-  orderBy: [WorkoutSplitOrdering!]
+"""A connection to a list of items."""
+type RecordConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RecordEdge]
 }
 
-input WorkoutSplitOrdering {
-  sort: WorkoutSplitSort!
-  direction: DirectionEnum!
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
 }
 
-enum WorkoutSplitSort {
-  createdAt
-  updatedAt
+"""An edge in a connection."""
+type RecordEdge {
+  """The item at the end of the edge"""
+  node: Record
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represents a Record"""
+type Record implements Node {
+  """The ID of an object"""
+  id: ID!
+  exercises(after: String, first: Int, before: String, last: Int, filters: ExerciseFilter): ExerciseConnection!
+  createdAt: String
+  finishedAt: String
 }
 
 """A connection to a list of items."""
@@ -324,21 +351,6 @@ type SessionConnection {
   edges: [SessionEdge]
 }
 
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
 """An edge in a connection."""
 type SessionEdge {
   """The item at the end of the edge"""
@@ -360,6 +372,22 @@ input ExerciseOrdering {
 }
 
 enum ExerciseSort {
+  createdAt
+  updatedAt
+}
+
+"""Used to filter workout split"""
+input WorkoutSplitFilter {
+  workout: String
+  orderBy: [WorkoutSplitOrdering!]
+}
+
+input WorkoutSplitOrdering {
+  sort: WorkoutSplitSort!
+  direction: DirectionEnum!
+}
+
+enum WorkoutSplitSort {
   createdAt
   updatedAt
 }

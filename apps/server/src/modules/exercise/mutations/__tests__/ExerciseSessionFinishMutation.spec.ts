@@ -7,6 +7,7 @@ import {
   sanitizeTestObject,
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
+import { handleCreateWorkoutSplit } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
 
@@ -49,6 +50,10 @@ const query = `
 
 it('should finish a exercise session', async () => {
   const user = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
+
   const exercise = await handleCreateExercise({
     sessions: [
       {
@@ -58,6 +63,7 @@ it('should finish a exercise session', async () => {
         muscleGroup: 'CHEST',
         weight: '1',
         finishedAt: null,
+        record: workoutSplit.records[0]._id,
       },
     ],
   });
@@ -109,6 +115,9 @@ it('should finish a exercise session', async () => {
 it('should not finish a session for a exercise from another user', async () => {
   const user = await handleCreateUser();
   const anotherUser = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
 
   const exercise = await handleCreateExercise({
     user: anotherUser,
@@ -120,6 +129,7 @@ it('should not finish a session for a exercise from another user', async () => {
         muscleGroup: 'CHEST',
         weight: '1',
         finishedAt: null,
+        record: workoutSplit.records[0]._id,
       },
     ],
   });
@@ -160,6 +170,9 @@ it('should not finish a session for a exercise from another user', async () => {
 
 it('should not finish a session already finished', async () => {
   const user = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
 
   const exercise = await handleCreateExercise({
     sessions: [
@@ -170,6 +183,7 @@ it('should not finish a session already finished', async () => {
         muscleGroup: 'CHEST',
         weight: '1',
         finishedAt: new Date(),
+        record: workoutSplit.records[0]._id,
       },
     ],
   });

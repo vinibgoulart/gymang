@@ -36,6 +36,12 @@ const query = `
             name
           }
           modality
+          recordInProgress {
+            id
+          }
+          lastRecord {
+            id
+          }
         }
       }
     }
@@ -54,6 +60,7 @@ it('should get a list of workouts splits', async () => {
     workout,
     user,
     modality: WORKOUT_SPLIT_MODALITY.BOXING,
+    withRecord: true,
   });
 
   await handleCreateWorkoutSplit({

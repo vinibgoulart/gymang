@@ -12,3 +12,6 @@ export {
   WORKOUT_SPLIT_SORT,
 } from './WorkoutSplitOrderBy';
 export { WorkoutSplitFilterInputType } from './WorkoutSplitFilterInputType';
+export type { IRecord } from './record/RecordSchema';
+export { getRecordInProgress } from './record/getRecordInProgress';
+export { getLastRecord } from './record/getLastRecord';

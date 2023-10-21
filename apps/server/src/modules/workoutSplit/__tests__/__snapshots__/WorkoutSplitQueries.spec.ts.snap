@@ -7,8 +7,10 @@ exports[`should get a list of workouts splits 1`] = `
       {
         "node": {
           "id": "FROZEN-ID",
+          "lastRecord": "EMPTY",
           "modality": "BOXING",
           "name": "B",
+          "recordInProgress": "EMPTY",
           "user": {
             "id": "FROZEN-ID",
           },
@@ -21,8 +23,14 @@ exports[`should get a list of workouts splits 1`] = `
       {
         "node": {
           "id": "FROZEN-ID",
+          "lastRecord": {
+            "id": "FROZEN-ID",
+          },
           "modality": "BOXING",
           "name": "A",
+          "recordInProgress": {
+            "id": "FROZEN-ID",
+          },
           "user": {
             "id": "FROZEN-ID",
           },

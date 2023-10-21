@@ -1,4 +1,5 @@
 import { writeConcern } from '@gymang/graphql';
+import type { IRecord } from '@gymang/workout-split';
 import type { Document } from 'mongoose';
 import { Schema } from 'mongoose';
 
@@ -7,6 +8,7 @@ type Session = {
   repetitions: string;
   weight: string;
   breakTime: string;
+  record: IRecord;
   createdAt: Date;
   finishedAt: Date;
 };
@@ -31,6 +33,12 @@ export const SessionSchema = new Schema<ISession>(
     },
     breakTime: {
       type: String,
+      index: true,
+    },
+    record: {
+      type: Schema.Types.ObjectId,
+      ref: 'Record',
+      required: true,
       index: true,
     },
     finishedAt: {
