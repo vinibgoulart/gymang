@@ -9,7 +9,6 @@ export { WorkoutSplitModality } from './WorkoutSplitModalityEnum';
 export {
   WorkoutSplitSort,
   WorkoutSplitOrdering,
-  WORKOUT_SPLIT_SORT,
 } from './WorkoutSplitOrderBy';
 export { WorkoutSplitFilterInputType } from './WorkoutSplitFilterInputType';
 export type { IRecord } from './record/RecordSchema';

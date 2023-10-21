@@ -1,11 +1,11 @@
 import { isLoggedIn } from '@gymang/core';
 import type { GraphQLContext } from '@gymang/core';
+import { WORKOUT_SPLIT_SORT } from '@gymang/enums';
 import { DIRECTION, createLoader } from '@gymang/graphql';
 
 import { workoutSplitFilterMapping } from './WorkoutSplitFilterInputType';
 import type { IWorkoutSplit } from './WorkoutSplitModel';
 import WorkoutSplitModel from './WorkoutSplitModel';
-import { WORKOUT_SPLIT_SORT } from './WorkoutSplitOrderBy';
 
 const viewerCanSee = async (context: GraphQLContext, data: IWorkoutSplit) => {
   if (isLoggedIn(context, context.graphql)) {
