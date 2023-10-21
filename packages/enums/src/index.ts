@@ -6,3 +6,5 @@ export {
   MUSCLE_GROUP,
   MUSCLE_GROUP_LABEL,
 } from './exercise/ExerciseMuscleGroup';
+export { DIRECTION } from './DirectionEnum';
+export { WORKOUT_SPLIT_SORT } from './workoutSplit/WorkoutSplitSort';

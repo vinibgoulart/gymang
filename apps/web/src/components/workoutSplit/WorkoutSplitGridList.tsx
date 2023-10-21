@@ -21,7 +21,6 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
     graphql`
       fragment WorkoutSplitGridList_workout on Workout {
         id
-        ...WorkoutSplitCard_workout
       }
     `,
     props.workout,
@@ -54,7 +53,7 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
 
   const { workoutSplits } = data;
 
-  if (!workoutSplits.edges.length) {
+  if (workout && !workoutSplits.edges.length) {
     const onClick = () => {
       router.push(`/workout/${workout.id}/split/create`);
     };
@@ -71,7 +70,7 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
   return (
     <SimpleGrid>
       {workoutSplits.edges.map(({ node }) => (
-        <WorkoutSplitCard key={node.id} workoutSplit={node} workout={workout} />
+        <WorkoutSplitCard key={node.id} workoutSplit={node} />
       ))}
     </SimpleGrid>
   );

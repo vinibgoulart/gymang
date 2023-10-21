@@ -1,5 +1,5 @@
 import type { GraphQLContext } from '@gymang/core';
-import { edgeField, connectionArgs, withFilter } from '@gymang/graphql';
+import { edgeField, connectionArgs } from '@gymang/graphql';
 import {
   WorkoutSplitFilterInputType,
   WorkoutSplitLoader,
@@ -53,11 +53,7 @@ export const workoutSplitsConnectionField = <T = unknown>(
         return customResolver(obj, args, context);
       }
 
-      const argsWithWorkout = withFilter(args, {
-        workout: args.filters?.workout,
-      });
-
-      return WorkoutSplitLoader.loadAll(context, argsWithWorkout);
+      return WorkoutSplitLoader.loadAll(context, args);
     },
   },
 });

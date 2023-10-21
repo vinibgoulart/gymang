@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not start a record for a workout split from another user 1`] = `
+{
+  "WorkoutSplitRecordStart": {
+    "error": "You can not initiate a record for this workout split",
+    "success": "EMPTY",
+    "workoutSplit": "EMPTY",
+  },
+}
+`;
+
+exports[`should not start a record for a workout split with a in progress record 1`] = `
+{
+  "WorkoutSplitRecordStart": {
+    "error": "You already have a record in progress, finish it first",
+    "success": "EMPTY",
+    "workoutSplit": "EMPTY",
+  },
+}
+`;
+
+exports[`should start a record for a workout split with a completed record 1`] = `
+{
+  "WorkoutSplitRecordStart": {
+    "error": "EMPTY",
+    "success": "Record created successfully",
+    "workoutSplit": {
+      "id": "FROZEN-ID",
+      "lastRecord": {
+        "finishedAt": "EMPTY",
+        "id": "FROZEN-ID",
+      },
+      "name": "WorkoutSplit 1 name",
+      "recordInProgress": {
+        "finishedAt": "EMPTY",
+        "id": "FROZEN-ID",
+      },
+      "records": {
+        "edges": [
+          {
+            "node": {
+              "finishedAt": "2023-10-21T17:58:34.825Z",
+              "id": "FROZEN-ID",
+            },
+          },
+          {
+            "node": {
+              "finishedAt": "EMPTY",
+              "id": "FROZEN-ID",
+            },
+          },
+        ],
+      },
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+    },
+  },
+}
+`;
+
+exports[`should start a workout split record 1`] = `
+{
+  "WorkoutSplitRecordStart": {
+    "error": "EMPTY",
+    "success": "Record created successfully",
+    "workoutSplit": {
+      "id": "FROZEN-ID",
+      "lastRecord": {
+        "finishedAt": "EMPTY",
+        "id": "FROZEN-ID",
+      },
+      "name": "WorkoutSplit NaN name",
+      "recordInProgress": {
+        "finishedAt": "EMPTY",
+        "id": "FROZEN-ID",
+      },
+      "records": {
+        "edges": [
+          {
+            "node": {
+              "finishedAt": "EMPTY",
+              "id": "FROZEN-ID",
+            },
+          },
+        ],
+      },
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+    },
+  },
+}
+`;

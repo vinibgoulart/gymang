@@ -2,39 +2,32 @@ import type { GraphQLContext } from '@gymang/core';
 import { getObjectId } from '@gymang/graphql';
 import type { Types } from 'mongoose';
 
-import { validateSessionCreate } from './validateRecordCreate';
+import { validateRecordCreate } from './validateRecordCreate';
 import WorkoutSplitModel from '../../WorkoutSplitModel';
 
-type SessionCreatePayload = {
+type RecordCreatePayload = {
   workoutSplitId: Types.ObjectId;
 };
 
-export type SessionCreateArgs = {
-  payload: SessionCreatePayload;
+export type RecordCreateArgs = {
+  payload: RecordCreatePayload;
   context: GraphQLContext;
 };
 
-export const sessionCreate = async ({
-  payload,
-  context,
-}: SessionCreateArgs) => {
-  const {
-    id,
-    exercises,
-    error: errorValidateSessionCreate,
-  } = await validateSessionCreate({
+export const recordCreate = async ({ payload, context }: RecordCreateArgs) => {
+  const { id, error: errorValidateRecordCreate } = await validateRecordCreate({
     payload,
     context,
   });
 
-  if (errorValidateSessionCreate) {
+  if (errorValidateRecordCreate) {
     return {
-      exercise: null,
-      error: errorValidateSessionCreate,
+      workoutSplit: null,
+      error: errorValidateRecordCreate,
     };
   }
 
-  const exercise = await WorkoutSplitModel.findOneAndUpdate(
+  const workoutSplit = await WorkoutSplitModel.findOneAndUpdate(
     {
       _id: getObjectId(id),
       removedAt: null,
@@ -42,7 +35,7 @@ export const sessionCreate = async ({
     {
       $push: {
         records: {
-          exercises,
+          finishedAt: null,
         },
       },
     },
@@ -52,7 +45,7 @@ export const sessionCreate = async ({
   );
 
   return {
-    exercise,
+    workoutSplit,
     error: null,
   };
 };

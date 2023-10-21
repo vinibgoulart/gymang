@@ -194,6 +194,8 @@ type WorkoutSplit implements Node {
   id: ID!
   name: String!
   modality: WorkoutSplitModalityEnum!
+  recordInProgress: Record
+  lastRecord: Record
   user: User
   workout: Workout
   records(after: String, first: Int, before: String, last: Int): RecordConnection!
@@ -215,6 +217,14 @@ enum WorkoutSplitModalityEnum {
   VOLLEYBALL
   TENNIS
   OTHER
+}
+
+"""Represents a Record"""
+type Record implements Node {
+  """The ID of an object"""
+  id: ID!
+  createdAt: String
+  finishedAt: String
 }
 
 """A connection to a list of items."""
@@ -250,13 +260,21 @@ type RecordEdge {
   cursor: String!
 }
 
-"""Represents a Record"""
-type Record implements Node {
-  """The ID of an object"""
-  id: ID!
-  exercises(after: String, first: Int, before: String, last: Int, filters: ExerciseFilter): ExerciseConnection!
-  createdAt: String
-  finishedAt: String
+"""Used to filter workout split"""
+input WorkoutSplitFilter {
+  workout: String
+  orderBy: [WorkoutSplitOrdering!]
+}
+
+input WorkoutSplitOrdering {
+  sort: WorkoutSplitSort!
+  direction: DirectionEnum!
+}
+
+enum WorkoutSplitSort {
+  createdAt
+  updatedAt
+  executedAt
 }
 
 """A connection to a list of items."""
@@ -376,22 +394,6 @@ enum ExerciseSort {
   updatedAt
 }
 
-"""Used to filter workout split"""
-input WorkoutSplitFilter {
-  workout: String
-  orderBy: [WorkoutSplitOrdering!]
-}
-
-input WorkoutSplitOrdering {
-  sort: WorkoutSplitSort!
-  direction: DirectionEnum!
-}
-
-enum WorkoutSplitSort {
-  createdAt
-  updatedAt
-}
-
 type Mutation {
   UserAdd(input: UserAddInput!): UserAddPayload
   UserLogin(input: UserLoginInput!): UserLoginPayload
@@ -400,6 +402,7 @@ type Mutation {
   WorkoutRemove(input: WorkoutRemoveInput!): WorkoutRemovePayload
   WorkoutSplitAdd(input: WorkoutSplitAddInput!): WorkoutSplitAddPayload
   WorkoutSplitRemove(input: WorkoutSplitRemoveInput!): WorkoutSplitRemovePayload
+  WorkoutSplitRecordStart(input: WorkoutSplitRecordStartInput!): WorkoutSplitRecordStartPayload
   ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
   ExerciseSessionStart(input: ExerciseSessionStartInput!): ExerciseSessionStartPayload
   ExerciseSessionFinish(input: ExerciseSessionFinishInput!): ExerciseSessionFinishPayload
@@ -491,6 +494,18 @@ type WorkoutSplitRemovePayload {
 
 input WorkoutSplitRemoveInput {
   id: ID!
+  clientMutationId: String
+}
+
+type WorkoutSplitRecordStartPayload {
+  workoutSplit: WorkoutSplit
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input WorkoutSplitRecordStartInput {
+  workoutSplitId: ID!
   clientMutationId: String
 }
 
