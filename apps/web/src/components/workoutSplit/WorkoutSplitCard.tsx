@@ -36,7 +36,7 @@ export const WorkoutSplitCard = (props: WorkoutSplitCardProps) => {
   };
 
   return (
-    <Card align="center" backgroundColor={'white'} onClick={handleClick}>
+    <Card backgroundColor={'white'} onClick={handleClick}>
       <Heading size={'md'} as={'h4'}>
         {workoutSplit.name}
       </Heading>
