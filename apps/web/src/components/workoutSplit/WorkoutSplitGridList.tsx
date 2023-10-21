@@ -59,7 +59,7 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
     };
 
     return (
-      <Card align="center" onClick={onClick} backgroundColor={'white'}>
+      <Card onClick={onClick} backgroundColor={'white'}>
         <TextWithIcon iconLeft={CgAddR}>
           <Text>Adicione sua primeira divisão</Text>
         </TextWithIcon>
