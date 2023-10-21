@@ -653,6 +653,12 @@ importers:
       '@gymang/core':
         specifier: workspace:*
         version: link:../core
+      moment:
+        specifier: ^2.29.4
+        version: 2.29.4
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
     devDependencies:
       tsconfig:
         specifier: workspace:*

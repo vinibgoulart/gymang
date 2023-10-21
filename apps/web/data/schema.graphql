@@ -356,6 +356,7 @@ type Session implements Node {
   repetitions: String!
   breakTime: String
   weight: String
+  record: ID
   createdAt: String
   finishedAt: String
 }

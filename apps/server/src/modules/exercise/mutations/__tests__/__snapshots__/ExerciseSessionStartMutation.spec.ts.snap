@@ -48,6 +48,9 @@ exports[`should start a exercise session 1`] = `
       "workoutSplit": {
         "id": "FROZEN-ID",
         "name": "WorkoutSplit NaN name",
+        "recordInProgress": {
+          "id": "FROZEN-ID",
+        },
       },
     },
     "success": "Session created successfully",
@@ -73,6 +76,9 @@ exports[`should start a session for a exercise with a completed session 1`] = `
       "workoutSplit": {
         "id": "FROZEN-ID",
         "name": "WorkoutSplit 1 name",
+        "recordInProgress": {
+          "id": "FROZEN-ID",
+        },
       },
     },
     "success": "Session created successfully",

@@ -1,5 +1,10 @@
 import type { GraphQLContext } from '@gymang/core';
 import { getObjectId } from '@gymang/graphql';
+import {
+  WorkoutSplit,
+  getRecordInProgress,
+  recordCreate,
+} from '@gymang/workout-split';
 import type { Types } from 'mongoose';
 
 import { validateSessionCreate } from './validateSessionCreate';
@@ -24,7 +29,6 @@ export const sessionCreate = async ({
     repetitions,
     series,
     weight,
-    record,
     error: errorValidateSessionCreate,
   } = await validateSessionCreate({
     payload,
@@ -38,6 +42,36 @@ export const sessionCreate = async ({
     };
   }
 
+  const exerciseExistent = await ExerciseModel.findOne({
+    _id: getObjectId(id),
+    removedAt: null,
+  });
+
+  const workoutSplit = await WorkoutSplit.findOne({
+    _id: exerciseExistent.workoutSplit,
+    removedAt: null,
+  });
+
+  const inProgressRecord = getRecordInProgress({ workoutSplit });
+
+  if (!inProgressRecord) {
+    const { error: errorRecordCreate } = await recordCreate({
+      payload: {
+        workoutSplitId: workoutSplit._id,
+      },
+      context,
+    });
+
+    if (errorRecordCreate) {
+      return {
+        exercise: null,
+        error: errorRecordCreate,
+      };
+    }
+  }
+
+  console.log({ inProgressRecord });
+
   const exercise = await ExerciseModel.findOneAndUpdate(
     {
       _id: getObjectId(id),
@@ -50,7 +84,7 @@ export const sessionCreate = async ({
           repetitions,
           weight,
           breakTime,
-          record,
+          record: inProgressRecord._id,
         },
       },
     },

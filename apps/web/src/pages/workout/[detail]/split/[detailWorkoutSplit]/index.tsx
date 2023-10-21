@@ -12,6 +12,7 @@ import { ExerciseTable } from '../../../../../components/exercise/ExerciseTable'
 import { PageHeader } from '../../../../../components/PageHeader';
 import { WorkoutDuplicateButton } from '../../../../../components/workout/duplicate/WorkoutDuplicateButton';
 import { WorkoutSplitDetail } from '../../../../../components/workoutSplit/WorkoutSplitDetail';
+import { WorkoutSplitInProgressTime } from '../../../../../components/workoutSplit/WorkoutSplitInProgressTime';
 import { RootLayout } from '../../../../../layouts/RootLayout';
 import { getPreloadedQuery } from '../../../../../relay/network';
 
@@ -41,6 +42,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
               }
               ...WorkoutDuplicateButton_workout
             }
+            ...WorkoutSplitInProgressTime_workoutSplit
             ...WorkoutSplitDetail_workoutSplit
             ...ExerciseAddModalForm_workoutSplit
           }
@@ -48,6 +50,7 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
         me {
           id
           ...WorkoutSplitDetail_user
+          ...WorkoutSplitInProgressTime_user
         }
         ...ExerciseTable_query @arguments(filters: $exerciseFilters)
       }
@@ -127,6 +130,10 @@ const DetailWorkoutSplit = (props: DetailWorkoutSplitProps) => {
       />
       <Stack spacing={4}>
         <WorkoutSplitDetail workoutSplit={query.workoutSplit} user={query.me} />
+        <WorkoutSplitInProgressTime
+          workoutSplit={query.workoutSplit}
+          user={query.me}
+        />
         <ExerciseTable query={query} />
       </Stack>
     </RootLayout>

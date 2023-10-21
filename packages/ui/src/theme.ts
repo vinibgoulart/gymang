@@ -22,5 +22,8 @@ export const theme = extendTheme({
     success: {
       main: '#38A169',
     },
+    warning: {
+      main: '#ED8936',
+    },
   },
 });

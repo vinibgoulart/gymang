@@ -61,7 +61,7 @@ export const ExerciseSessionFinishModal = (
   const actions = (
     <HStack>
       <ActionButton onClick={onSubmit} isDisabled={disabled}>
-        Iniciar
+        Finalizar
       </ActionButton>
       <ActionButton onClick={props.onClose} bg={'error.main'}>
         Cancelar
@@ -71,12 +71,12 @@ export const ExerciseSessionFinishModal = (
 
   return (
     <Modal
-      title="Iniciar exercício"
+      title="Finalizar exercício"
       actions={actions}
       isOpen={props.isOpen}
       onClose={props.onClose}
     >
-      Você tem certeza que deseja iniciar o exercício{' '}
+      Você tem certeza que deseja finalizar o exercício{' '}
       <TextGradient>{exercise.name}</TextGradient>?
     </Modal>
   );

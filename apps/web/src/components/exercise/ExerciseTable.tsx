@@ -1,9 +1,10 @@
-import { HStack, Text } from '@chakra-ui/react';
+import { Icon, Text } from '@chakra-ui/react';
 import { MUSCLE_GROUP_LABEL } from '@gymang/enums';
 import { useRefetchTransition } from '@gymang/hooks';
 import { TableInfiniteScroll } from '@gymang/ui';
 import moment from 'moment';
 import { useMemo } from 'react';
+import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { graphql, usePaginationFragment } from 'react-relay';
 
 import { ExerciseSessionFinishButton } from './session/finish/ExerciseSessionFinishButton';
@@ -56,11 +57,18 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
               weight
               breakTime
               muscleGroup
+              workoutSplit {
+                recordInProgress {
+                  id
+                  createdAt
+                }
+              }
               sessionInProgress {
                 id
               }
               lastSession {
                 finishedAt
+                record
               }
               ...ExerciseSessionStartButton_exercise
               ...ExerciseSessionFinishButton_exercise
@@ -119,15 +127,25 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
       {
         name: 'Ações',
         property: 'sessionInProgress',
-        renderCell: (sessionInProgress, row) => (
-          <HStack>
-            {sessionInProgress ? (
-              <ExerciseSessionFinishButton exercise={row} />
-            ) : (
-              <ExerciseSessionStartButton exercise={row} />
-            )}
-          </HStack>
-        ),
+        renderCell: (sessionInProgress, row) => {
+          if (sessionInProgress) {
+            return <ExerciseSessionFinishButton exercise={row} />;
+          }
+
+          console.log({ row });
+
+          if (row?.workoutSplit?.recordInProgress && row?.lastSession?.record) {
+            const isCompleted =
+              row?.lastSession?.record ===
+              row?.workoutSplit?.recordInProgress?.id;
+
+            if (isCompleted) {
+              return <Icon as={BsFillCheckCircleFill} color={'success.main'} />;
+            }
+          }
+
+          return <ExerciseSessionStartButton exercise={row} />;
+        },
       },
     ],
     [],

@@ -5,5 +5,5 @@ type GetLastSessionArgs = {
 };
 
 export const getLastSession = ({ exercise }: GetLastSessionArgs) => {
-  return [...exercise.sessions].pop();
+  return exercise.sessions && [...exercise.sessions].pop();
 };

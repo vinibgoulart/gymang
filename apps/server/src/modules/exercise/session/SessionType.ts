@@ -1,8 +1,17 @@
 import type { GraphQLContext } from '@gymang/core';
 import type { ISession } from '@gymang/exercise';
 import { nodeInterface, createdAtField } from '@gymang/graphql';
-import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
-import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import {
+  GraphQLID,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from 'graphql';
+import {
+  connectionDefinitions,
+  globalIdField,
+  toGlobalId,
+} from 'graphql-relay';
 
 const SessionType = new GraphQLObjectType<ISession, GraphQLContext>({
   name: 'Session',
@@ -25,10 +34,15 @@ const SessionType = new GraphQLObjectType<ISession, GraphQLContext>({
       type: GraphQLString,
       resolve: (session) => session.weight,
     },
+    record: {
+      type: GraphQLID,
+      resolve: (session) => toGlobalId('Record', session.record._id),
+    },
     ...createdAtField,
     finishedAt: {
       type: GraphQLString,
-      resolve: (session) => session.finishedAt ? session.finishedAt.toISOString() : null,
+      resolve: (session) =>
+        session.finishedAt ? session.finishedAt.toISOString() : null,
     },
   }),
   interfaces: () => [nodeInterface],
