@@ -8,3 +8,4 @@ export {
 } from './exercise/ExerciseMuscleGroup';
 export { DIRECTION } from './DirectionEnum';
 export { WORKOUT_SPLIT_SORT } from './workoutSplit/WorkoutSplitSort';
+export { WORKOUT_SPLIT_RECORD_STATUS_LABEL } from './workoutSplit/WorkoutSplitRecordStatusLabel';

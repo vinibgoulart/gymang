@@ -32,6 +32,9 @@ const query = `
         workoutSplit {
           id
           name
+          recordInProgress {
+            id
+          }
         }
         series
         repetitions
