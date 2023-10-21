@@ -9,6 +9,7 @@ import WorkoutSplit from '../WorkoutSplitModel';
 
 type WorkoutSplitOptions = {
   withRecord?: boolean;
+  withFinishedRecord?: boolean;
   withSession?: boolean;
 };
 
@@ -18,8 +19,16 @@ type HandleCreateWorkoutSplitArgs = DeepPartial<IWorkoutSplit> &
 export const handleCreateWorkoutSplit = async (
   args: HandleCreateWorkoutSplitArgs = {},
 ): Promise<IWorkoutSplit> => {
-  let { name, user, workout, modality, withRecord, withSession, ...payload } =
-    args;
+  let {
+    name,
+    user,
+    workout,
+    modality,
+    withRecord,
+    withFinishedRecord,
+    withSession,
+    ...payload
+  } = args;
 
   // const n = getCounter('workoutSplit');
   const n = (global.__COUNTERS__.workoutSplit += 1);
@@ -61,7 +70,7 @@ export const handleCreateWorkoutSplit = async (
     ...payload,
   }).save();
 
-  if (withRecord) {
+  if (withRecord || withFinishedRecord) {
     const exercise = await handleCreateExercise({
       workoutSplit,
     });
@@ -74,8 +83,7 @@ export const handleCreateWorkoutSplit = async (
         $set: {
           records: [
             {
-              exercises: [exercise._id],
-              finishedAt: null,
+              finishedAt: withFinishedRecord ? new Date() : null,
             },
           ],
         },

@@ -1,15 +1,15 @@
-import { Exercise } from '@gymang/exercise';
 import { getObjectId } from '@gymang/graphql';
 
-import type { SessionCreateArgs } from './recordCreate';
+import type { RecordCreateArgs } from './recordCreate';
 import WorkoutSplitModel from '../../WorkoutSplitModel';
+import { getRecordInProgress } from '../getRecordInProgress';
 
-type ValidateSessionCreateArgs = SessionCreateArgs;
+type ValidateRecordCreateArgs = RecordCreateArgs;
 
-export const validateSessionCreate = async ({
+export const validateRecordCreate = async ({
   payload,
   context,
-}: ValidateSessionCreateArgs) => {
+}: ValidateRecordCreateArgs) => {
   const { t } = context;
 
   const { workoutSplitId } = payload;
@@ -27,29 +27,21 @@ export const validateSessionCreate = async ({
   if (!workoutSplit) {
     return {
       ...emptyPayload,
-      error: t('Workout Split not found'),
+      error: t('Workout split not found'),
     };
   }
 
-  const inProgressRecord = workoutSplit.records.some(
-    (record) => !record.finishedAt || record.finishedAt === null,
-  );
+  const inProgressSession = getRecordInProgress({ workoutSplit });
 
-  if (inProgressRecord) {
+  if (inProgressSession) {
     return {
       ...emptyPayload,
       error: t('You already have a record in progress, finish it first'),
     };
   }
 
-  const exercises = Exercise.find({
-    workoutSplit: workoutSplitId,
-    removedAt: null,
-  });
-
   return {
     id: workoutSplitId,
-    exercises,
     error: null,
   };
 };

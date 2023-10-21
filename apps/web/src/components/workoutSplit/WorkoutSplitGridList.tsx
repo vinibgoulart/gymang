@@ -21,7 +21,6 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
     graphql`
       fragment WorkoutSplitGridList_workout on Workout {
         id
-        ...WorkoutSplitCard_workout
       }
     `,
     props.workout,
