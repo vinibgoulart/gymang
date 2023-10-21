@@ -5,6 +5,8 @@ import type { IWorkout } from '@gymang/workout';
 import type { Document, Types } from 'mongoose';
 import { Schema, model } from 'mongoose';
 
+import type { IRecord} from './record/RecordSchema';
+import { RecordSchema } from './record/RecordSchema';
 
 type WorkoutSplit = {
   _id: Types.ObjectId;
@@ -12,6 +14,7 @@ type WorkoutSplit = {
   user: IUser;
   workout: IWorkout;
   modality: keyof typeof WORKOUT_SPLIT_MODALITY;
+  records: IRecord[];
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
@@ -43,6 +46,10 @@ const WorkoutSplitSchema = new Schema<IWorkoutSplit>(
       enum: WORKOUT_SPLIT_MODALITY,
       required: true,
       index: true,
+    },
+    records: {
+      type: [RecordSchema],
+      default: [],
     },
     removedAt: {
       type: Date,

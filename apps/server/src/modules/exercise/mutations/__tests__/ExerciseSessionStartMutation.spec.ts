@@ -131,6 +131,9 @@ it('should not start a session for a exercise from another user', async () => {
 
 it('should not start a session for a exercise with a in progress session', async () => {
   const user = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
 
   const exercise = await handleCreateExercise({
     sessions: [
@@ -141,6 +144,7 @@ it('should not start a session for a exercise with a in progress session', async
         muscleGroup: 'CHEST',
         weight: '1',
         finishedAt: null,
+        record: workoutSplit.records[0]._id,
       },
     ],
   });
@@ -180,6 +184,9 @@ it('should not start a session for a exercise with a in progress session', async
 
 it('should start a session for a exercise with a completed session', async () => {
   const user = await handleCreateUser();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
 
   const exercise = await handleCreateExercise({
     sessions: [
@@ -190,6 +197,7 @@ it('should start a session for a exercise with a completed session', async () =>
         muscleGroup: 'CHEST',
         weight: '1',
         finishedAt: new Date(),
+        record: workoutSplit.records[0]._id,
       },
     ],
   });
@@ -235,20 +243,9 @@ it('should start a session for a exercise with a completed session', async () =>
 
 it('should not start a session for a workout split with an exercise in progress', async () => {
   const user = await handleCreateUser();
-  const workoutSplit = await handleCreateWorkoutSplit();
-
-  await handleCreateExercise({
-    workoutSplit,
-    sessions: [
-      {
-        series: '1',
-        repetitions: '1',
-        breakTime: '1',
-        muscleGroup: 'CHEST',
-        weight: '1',
-        finishedAt: null,
-      },
-    ],
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+    withSession: true,
   });
 
   const exercise = await handleCreateExercise({

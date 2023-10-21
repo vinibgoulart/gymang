@@ -2,11 +2,11 @@ import type { GraphQLContext } from '@gymang/core';
 import { getObjectId } from '@gymang/graphql';
 import type { Types } from 'mongoose';
 
-import { validateSessionCreate } from './validateSessionCreate';
-import ExerciseModel from '../../ExerciseModel';
+import { validateSessionCreate } from './validateRecordCreate';
+import WorkoutSplitModel from '../../WorkoutSplitModel';
 
 type SessionCreatePayload = {
-  id: Types.ObjectId;
+  workoutSplitId: Types.ObjectId;
 };
 
 export type SessionCreateArgs = {
@@ -20,11 +20,7 @@ export const sessionCreate = async ({
 }: SessionCreateArgs) => {
   const {
     id,
-    breakTime,
-    repetitions,
-    series,
-    weight,
-    record,
+    exercises,
     error: errorValidateSessionCreate,
   } = await validateSessionCreate({
     payload,
@@ -38,19 +34,15 @@ export const sessionCreate = async ({
     };
   }
 
-  const exercise = await ExerciseModel.findOneAndUpdate(
+  const exercise = await WorkoutSplitModel.findOneAndUpdate(
     {
       _id: getObjectId(id),
       removedAt: null,
     },
     {
       $push: {
-        sessions: {
-          series,
-          repetitions,
-          weight,
-          breakTime,
-          record,
+        records: {
+          exercises,
         },
       },
     },

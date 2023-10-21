@@ -63,7 +63,7 @@ exports[`should start a session for a exercise with a completed session 1`] = `
       "breakTime": "EMPTY",
       "id": "FROZEN-ID",
       "muscleGroup": "BACK",
-      "name": "Exercise 1 name",
+      "name": "Exercise 3 name",
       "repetitions": "12",
       "series": "4",
       "user": {
@@ -72,7 +72,7 @@ exports[`should start a session for a exercise with a completed session 1`] = `
       "weight": "EMPTY",
       "workoutSplit": {
         "id": "FROZEN-ID",
-        "name": "WorkoutSplit 2 name",
+        "name": "WorkoutSplit 1 name",
       },
     },
     "success": "Session created successfully",

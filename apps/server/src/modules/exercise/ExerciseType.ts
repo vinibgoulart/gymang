@@ -1,16 +1,17 @@
 import type { GraphQLContext } from '@gymang/core';
 import type { IExercise } from '@gymang/exercise';
-import { ExerciseLoader, ExerciseMuscleGroupEnum } from '@gymang/exercise';
+import {
+  ExerciseLoader,
+  ExerciseMuscleGroupEnum,
+  getLastSession,
+  getSessionInProgress,
+} from '@gymang/exercise';
 import {
   connectionDefinitions,
   nodeInterface,
   registerTypeLoader,
 } from '@gymang/graphql';
-import {
-  GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLString,
-} from 'graphql';
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
 import { sessionConnectionField } from './session/SessionFields';
@@ -49,17 +50,11 @@ const ExerciseType = new GraphQLObjectType<IExercise, GraphQLContext>({
     },
     sessionInProgress: {
       type: SessionType,
-      resolve: (exercise) => {
-        return exercise.sessions?.find(
-          (session) => !session.finishedAt || session.finishedAt === null,
-        );
-      },
+      resolve: (exercise) => getSessionInProgress({ exercise }),
     },
     lastSession: {
       type: SessionType,
-      resolve: (exercise) => {
-        return [...exercise.sessions].pop();
-      },
+      resolve: (exercise) => getLastSession({ exercise }),
     },
     ...sessionConnectionField(),
     ...userTypeField(),

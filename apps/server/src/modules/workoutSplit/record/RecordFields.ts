@@ -1,27 +1,27 @@
-import type { GraphQLContext} from '@gymang/core';
+import type { GraphQLContext } from '@gymang/core';
 import { isLoggedIn } from '@gymang/core';
-import type { IExercise } from '@gymang/exercise';
 import {
   connectionArgs,
   connectionFromArray,
   NullConnection,
 } from '@gymang/graphql';
+import type { IWorkoutSplit } from '@gymang/workout-split';
 import { GraphQLNonNull } from 'graphql';
 import type { ConnectionArguments } from 'graphql-relay';
 
-import { SessionConnection } from './SessionType';
+import { RecordConnection } from './RecordType';
 
-type SessionConnectionArgs = ConnectionArguments;
+type RecordConnectionArgs = ConnectionArguments;
 
-export const sessionConnectionField = <T extends IExercise>(
+export const recordConnectionField = <T extends IWorkoutSplit>(
   customResolver = null,
 ) => ({
-  sessions: {
-    type: new GraphQLNonNull(SessionConnection.connectionType),
+  records: {
+    type: new GraphQLNonNull(RecordConnection.connectionType),
     args: {
       ...connectionArgs,
     },
-    resolve: (obj: T, args: SessionConnectionArgs, context: GraphQLContext) => {
+    resolve: (obj: T, args: RecordConnectionArgs, context: GraphQLContext) => {
       if (customResolver) {
         return customResolver(obj, args, context);
       }
@@ -31,7 +31,7 @@ export const sessionConnectionField = <T extends IExercise>(
       }
 
       return connectionFromArray({
-        data: obj.sessions,
+        data: obj.records,
         args,
       });
     },

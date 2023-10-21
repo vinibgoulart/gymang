@@ -1,7 +1,9 @@
 import { getObjectId } from '@gymang/graphql';
+import { WorkoutSplit, getRecordInProgress } from '@gymang/workout-split';
 
 import type { SessionCreateArgs } from './sessionCreate';
 import ExerciseModel from '../../ExerciseModel';
+import { getSessionInProgress } from '../getSessionInProgress';
 
 type ValidateSessionCreateArgs = SessionCreateArgs;
 
@@ -19,6 +21,7 @@ export const validateSessionCreate = async ({
     repetitions: null,
     weight: null,
     breakTime: null,
+    record: null,
   };
 
   const exercise = await ExerciseModel.findOne({
@@ -39,17 +42,29 @@ export const validateSessionCreate = async ({
   });
 
   const inProgressSession = workoutSplitExercises.some((exercise) => {
-    const { sessions } = exercise;
+    const inProgress = getSessionInProgress({ exercise });
 
-    return sessions.some(
-      (session) => !session.finishedAt || session.finishedAt === null,
-    );
+    return !!inProgress;
   });
 
   if (inProgressSession) {
     return {
       ...emptyPayload,
       error: t('You already have a session in progress, finish it first'),
+    };
+  }
+
+  const workoutSplit = await WorkoutSplit.findOne({
+    _id: exercise.workoutSplit,
+    removedAt: null,
+  });
+
+  const inProgressRecord = getRecordInProgress({ workoutSplit });
+
+  if (!inProgressRecord) {
+    return {
+      ...emptyPayload,
+      error: t('You do not have a record in progress, create it first'),
     };
   }
 
@@ -75,6 +90,7 @@ export const validateSessionCreate = async ({
     repetitions,
     weight,
     breakTime,
+    record: inProgressRecord,
     error: null,
   };
 };

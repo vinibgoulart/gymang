@@ -1000,9 +1000,15 @@ importers:
       '@gymang/enums':
         specifier: workspace:*
         version: link:../enums
+      '@gymang/exercise':
+        specifier: workspace:*
+        version: link:../exercise
       '@gymang/graphql':
         specifier: workspace:*
         version: link:../graphql
+      '@gymang/types':
+        specifier: workspace:*
+        version: link:../types
       '@gymang/user':
         specifier: workspace:*
         version: link:../user
