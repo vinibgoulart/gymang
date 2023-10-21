@@ -8,7 +8,7 @@ type Props = {
 
 export const SimpleGrid = ({ children, ...props }: Props) => {
   return (
-    <_SimpleGrid minChildWidth={300} spacing={4} {...props}>
+    <_SimpleGrid columns={[1, 1, 2, 3]} spacing={4} {...props}>
       {children}
     </_SimpleGrid>
   );
