@@ -13,3 +13,4 @@ export { getRecordInProgress } from './record/getRecordInProgress';
 export { getLastRecord } from './record/getLastRecord';
 export { recordCreate } from './record/create/recordCreate';
 export { recordFinish } from './record/finish/recordFinish';
+export { getRecordExercisesIsFinished } from './record/getRecordExercisesIsFinished';
