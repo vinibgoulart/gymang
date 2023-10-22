@@ -62,10 +62,10 @@ export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
               _focus={{ boxShadow: 'none' }}
             >
               <HStack>
-                <Avatar
+                {/* <Avatar
                   size={'sm'}
                   icon={<AiOutlineUser size={20}/>}
-                />
+                /> */}
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
@@ -80,9 +80,9 @@ export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
               </HStack>
             </MenuButton>
             <MenuList bg={'white'} borderColor={'neutral.main'}>
-              <MenuItem>Profile</MenuItem>
+              {/* <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
-              <MenuDivider />
+              <MenuDivider /> */}
               <MenuItem as={Link} href={'/logout'}>
                 Sign out
               </MenuItem>
