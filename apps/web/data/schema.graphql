@@ -555,7 +555,7 @@ input ExerciseSessionFinishInput {
 }
 
 type ExerciseRemovePayload {
-  exercise: Exercise
+  deletedId: ID
   error: String
   success: String
   clientMutationId: String

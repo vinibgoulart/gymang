@@ -29,6 +29,7 @@ export const getRecordExercisesIsFinished = async ({
 
   const exercises = await Exercise.find({
     workoutSplit: workoutSplit._id,
+    removedAt: null
   });
 
   const exercisesWithSessionRecord = exercises.filter(

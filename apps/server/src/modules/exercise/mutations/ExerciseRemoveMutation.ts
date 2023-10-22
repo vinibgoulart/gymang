@@ -1,10 +1,13 @@
 import type { GraphQLContext } from '@gymang/core';
-import { Exercise, exerciseRemove } from '@gymang/exercise';
-import { errorField, getObjectId, successField } from '@gymang/graphql';
+import { Exercise, ExerciseLoader, exerciseRemove } from '@gymang/exercise';
+import {
+  errorField,
+  getObjectId,
+  successField,
+  deletedIdField,
+} from '@gymang/graphql';
 import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
-
-import { exerciseTypeField } from '../ExerciseFields';
 
 type ExerciseRemoveMutationArgs = {
   exerciseId: string;
@@ -65,13 +68,13 @@ const mutation = mutationWithClientMutationId({
     }
 
     return {
-      exercise: exercise._id,
+      deletedId: exercise._id,
       success: t('Exercise removed successfully'),
       error: null,
     };
   },
   outputFields: {
-    ...exerciseTypeField(),
+    ...deletedIdField('Exercise', ExerciseLoader),
     ...errorField,
     ...successField,
   },
