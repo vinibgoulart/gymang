@@ -7,6 +7,7 @@ import {
   sanitizeTestObject,
 } from '@gymang/testutils';
 import { handleCreateUser } from '@gymang/user';
+import { handleCreateWorkoutSplit } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
 import MockDate from 'mockdate';
@@ -178,6 +179,66 @@ it('should not remove a removed exercise', async () => {
   });
 
   expect(exerciseNotRemoved?.removedAt).toEqual(removedAt);
+
+  expect(sanitizeTestObject(result.data)).toMatchSnapshot();
+});
+
+it('should not remove a exercise with a session in progress', async () => {
+  const user = await handleCreateUser();
+
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
+
+  const exercise = await handleCreateExercise({
+    sessions: [
+      {
+        series: '1',
+        repetitions: '1',
+        breakTime: '1',
+        muscleGroup: 'CHEST',
+        weight: '1',
+        finishedAt: null,
+        record: workoutSplit.records[0]._id,
+      },
+    ],
+  });
+
+  const input = {
+    exerciseId: toGlobalId('Exercise', exercise._id),
+  };
+
+  const variables = {
+    input,
+  };
+
+  const context = await getContext({
+    graphql: GRAPHQL_TYPE.WEB,
+    user,
+  });
+
+  const rootValue = {};
+
+  const result = await graphql({
+    schema: schemaWeb,
+    source: query,
+    rootValue,
+    contextValue: context,
+    variableValues: variables,
+  });
+
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.ExerciseRemove.error).toEqual(
+    'You cannot remove an exercise with a session in progress',
+  );
+  expect(result.data.ExerciseRemove.success).toBeNull();
+
+  const exerciseNotRemoved = await Exercise.findOne({
+    _id: exercise._id,
+  });
+
+  expect(exerciseNotRemoved?.removedAt).toBeNull();
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });

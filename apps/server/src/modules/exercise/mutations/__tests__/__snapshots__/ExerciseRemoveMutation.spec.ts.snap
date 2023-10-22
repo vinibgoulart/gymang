@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should not remove a exercise with a session in progress 1`] = `
+{
+  "ExerciseRemove": {
+    "error": "You cannot remove an exercise with a session in progress",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
 exports[`should not remove a new exercise for another user 1`] = `
 {
   "ExerciseRemove": {
