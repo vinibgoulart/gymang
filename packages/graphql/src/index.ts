@@ -98,3 +98,4 @@ export { withConnectionCursor } from './withConnectionCursor';
 export { withFilter } from './withFilter';
 export { withFindCursor } from './withFindCursor';
 export * from './withMongooseFields';
+export { deletedIdField } from './fields/deletedIdField';

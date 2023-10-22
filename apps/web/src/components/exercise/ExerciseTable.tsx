@@ -1,4 +1,4 @@
-import { Icon, Text } from '@chakra-ui/react';
+import { HStack, Icon, Text } from '@chakra-ui/react';
 import { MUSCLE_GROUP_LABEL } from '@gymang/enums';
 import { useRefetchTransition } from '@gymang/hooks';
 import { TableInfiniteScroll } from '@gymang/ui';
@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { graphql, usePaginationFragment } from 'react-relay';
 
+import { ExerciseRemoveButton } from './remove/ExerciseRemoveButton';
 import { ExerciseSessionFinishButton } from './session/finish/ExerciseSessionFinishButton';
 import { ExerciseSessionStartButton } from './session/start/ExerciseSessionStartButton';
 import type { ExerciseTable_query$key } from '../../../__generated__/ExerciseTable_query.graphql';
@@ -72,6 +73,7 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
               }
               ...ExerciseSessionStartButton_exercise
               ...ExerciseSessionFinishButton_exercise
+              ...ExerciseRemoveButton_exercise
             }
           }
         }
@@ -128,21 +130,35 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
         name: 'Ações',
         property: 'sessionInProgress',
         renderCell: (sessionInProgress, row) => {
-          if (sessionInProgress) {
-            return <ExerciseSessionFinishButton exercise={row} />;
-          }
-
-          if (row?.workoutSplit?.recordInProgress && row?.lastSession?.record) {
-            const isCompleted =
-              row?.lastSession?.record ===
-              row?.workoutSplit?.recordInProgress?.id;
-
-            if (isCompleted) {
-              return <Icon as={BsFillCheckCircleFill} color={'success.main'} />;
+          const getAction = () => {
+            if (sessionInProgress) {
+              return <ExerciseSessionFinishButton exercise={row} />;
             }
-          }
 
-          return <ExerciseSessionStartButton exercise={row} />;
+            if (
+              row?.workoutSplit?.recordInProgress &&
+              row?.lastSession?.record
+            ) {
+              const isCompleted =
+                row?.lastSession?.record ===
+                row?.workoutSplit?.recordInProgress?.id;
+
+              if (isCompleted) {
+                return (
+                  <Icon as={BsFillCheckCircleFill} color={'success.main'} />
+                );
+              }
+            }
+
+            return <ExerciseSessionStartButton exercise={row} />;
+          };
+
+          return (
+            <HStack spacing={2}>
+              {getAction()}
+              <ExerciseRemoveButton exercise={row} />
+            </HStack>
+          );
         },
       },
     ],
