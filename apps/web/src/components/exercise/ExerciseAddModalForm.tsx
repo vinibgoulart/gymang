@@ -97,7 +97,7 @@ export const ExerciseAddModalForm = (props: ExerciseAddModalFormProps) => {
             workoutSplit: workoutSplit.id,
             breakTime,
             muscleGroup,
-            repetitions: repetitions,
+            repetitions,
             series: series,
             weight: weight,
           },
