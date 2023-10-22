@@ -116,7 +116,9 @@ it('should get a list of exercies', async () => {
 
 it('should get a list of exercies with sessions', async () => {
   const user = await handleCreateUser();
-  const workoutSplit = await handleCreateWorkoutSplit();
+  const workoutSplit = await handleCreateWorkoutSplit({
+    withRecord: true,
+  });
 
   await handleCreateExercise({
     name: 'Pull Down',
@@ -133,6 +135,7 @@ it('should get a list of exercies with sessions', async () => {
         repetitions: 10,
         weight: 50,
         breakTime: 60,
+        record: workoutSplit.records[0]._id,
       },
       {
         // _id: new Types.ObjectId(),
@@ -140,6 +143,7 @@ it('should get a list of exercies with sessions', async () => {
         repetitions: 10,
         weight: 50,
         breakTime: 60,
+        record: workoutSplit.records[0]._id,
       },
     ],
   });

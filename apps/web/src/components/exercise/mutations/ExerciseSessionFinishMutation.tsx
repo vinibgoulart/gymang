@@ -16,6 +16,14 @@ export const ExerciseSessionFinish = graphql`
         }
         lastSession {
           finishedAt
+          record
+        }
+        workoutSplit {
+          recordInProgress {
+            id
+            createdAt
+          }
+          ...WorkoutSplitInProgressTime_workoutSplit
         }
       }
       error

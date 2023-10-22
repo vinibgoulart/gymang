@@ -9,6 +9,7 @@ import { handleCreateUser } from '@gymang/user';
 import { WorkoutSplit, handleCreateWorkoutSplit } from '@gymang/workout-split';
 import { graphql } from 'graphql';
 import { toGlobalId } from 'graphql-relay';
+import MockDate from 'mockdate';
 
 import { getContext } from '../../../../getContext';
 import { schema as schemaWeb } from '../../../../graphql/schema/schema';
@@ -50,6 +51,8 @@ const query = `
     }
   }
 `;
+
+MockDate.set(new Date('2030-06-01T00:00:00.000Z'));
 
 it('should start a workout split record', async () => {
   const user = await handleCreateUser();

@@ -71,10 +71,6 @@ export const handleCreateWorkoutSplit = async (
   }).save();
 
   if (withRecord || withFinishedRecord) {
-    const exercise = await handleCreateExercise({
-      workoutSplit,
-    });
-
     workoutSplit = await WorkoutSplit.findOneAndUpdate(
       {
         _id: workoutSplit._id,
@@ -94,6 +90,10 @@ export const handleCreateWorkoutSplit = async (
     );
 
     if (withSession) {
+      const exercise = await handleCreateExercise({
+        workoutSplit,
+      });
+
       await Exercise.findOneAndUpdate(
         {
           _id: exercise._id,

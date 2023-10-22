@@ -49,7 +49,7 @@ export const validateSessionCreate = async ({
   if (inProgressSession) {
     return {
       ...emptyPayload,
-      error: t('You already have a session in progress, finish it first'),
+      error: t('You already have a exercise in progress, finish it first'),
     };
   }
 

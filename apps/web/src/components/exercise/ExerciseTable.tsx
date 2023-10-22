@@ -118,7 +118,7 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
           return (
             <Text>
               {lastSession?.finishedAt
-                ? moment(lastSession.finishedAt).fromNow()
+                ? moment(lastSession.finishedAt).format('DD/MM HH:mm')
                 : '-'}
             </Text>
           );
@@ -131,8 +131,6 @@ export const ExerciseTable = (props: ExerciseTableProps) => {
           if (sessionInProgress) {
             return <ExerciseSessionFinishButton exercise={row} />;
           }
-
-          console.log({ row });
 
           if (row?.workoutSplit?.recordInProgress && row?.lastSession?.record) {
             const isCompleted =
