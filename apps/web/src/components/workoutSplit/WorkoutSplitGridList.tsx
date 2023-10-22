@@ -53,17 +53,27 @@ export const WorkoutSplitGridList = (props: WorkoutSplitGridListProps) => {
 
   const { workoutSplits } = data;
 
-  if (workout && !workoutSplits.edges.length) {
-    const onClick = () => {
-      router.push(`/workout/${workout.id}/split/create`);
-    };
+  if (!workoutSplits.edges.length) {
+    if (workout) {
+      const onClick = () => {
+        router.push(`/workout/${workout.id}/split/create`);
+      };
+
+      return (
+        <SimpleGrid>
+          <Card onClick={onClick} backgroundColor={'white'}>
+            <TextWithIcon iconLeft={CgAddR}>
+              <Text>Adicione sua primeira divisão</Text>
+            </TextWithIcon>
+          </Card>
+        </SimpleGrid>
+      );
+    }
 
     return (
       <SimpleGrid>
-        <Card onClick={onClick} backgroundColor={'white'}>
-          <TextWithIcon iconLeft={CgAddR}>
-            <Text>Adicione sua primeira divisão</Text>
-          </TextWithIcon>
+        <Card backgroundColor={'white'}>
+          <Text>Você ainda não executou nenhum exercício</Text>
         </Card>
       </SimpleGrid>
     );
