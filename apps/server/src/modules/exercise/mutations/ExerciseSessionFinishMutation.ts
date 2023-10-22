@@ -1,6 +1,7 @@
 import type { GraphQLContext } from '@gymang/core';
 import { Exercise } from '@gymang/exercise';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
+import { recordFinish } from '@gymang/workout-split';
 import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
@@ -75,6 +76,11 @@ const mutation = mutationWithClientMutationId({
         new: true,
       },
     );
+
+    await recordFinish({
+      context,
+      recordId: getObjectId(session.record._id),
+    });
 
     return {
       exercise: exerciseWithSessionFinished._id,

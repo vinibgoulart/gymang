@@ -36,7 +36,7 @@ const SessionType = new GraphQLObjectType<ISession, GraphQLContext>({
     },
     record: {
       type: GraphQLID,
-      resolve: (session) => toGlobalId('Record', session.record._id),
+      resolve: (session) => session.record && toGlobalId('Record', session.record._id),
     },
     ...createdAtField,
     finishedAt: {

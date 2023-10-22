@@ -13,7 +13,7 @@ exports[`should not start a session for a exercise from another user 1`] = `
 exports[`should not start a session for a exercise with a in progress session 1`] = `
 {
   "ExerciseSessionStart": {
-    "error": "You already have a session in progress, finish it first",
+    "error": "You already have a exercise in progress, finish it first",
     "exercise": "EMPTY",
     "success": "EMPTY",
   },
@@ -23,7 +23,7 @@ exports[`should not start a session for a exercise with a in progress session 1`
 exports[`should not start a session for a workout split with an exercise in progress 1`] = `
 {
   "ExerciseSessionStart": {
-    "error": "You already have a session in progress, finish it first",
+    "error": "You already have a exercise in progress, finish it first",
     "exercise": "EMPTY",
     "success": "EMPTY",
   },
@@ -66,7 +66,7 @@ exports[`should start a session for a exercise with a completed session 1`] = `
       "breakTime": "EMPTY",
       "id": "FROZEN-ID",
       "muscleGroup": "BACK",
-      "name": "Exercise 3 name",
+      "name": "Exercise 2 name",
       "repetitions": "12",
       "series": "4",
       "user": {

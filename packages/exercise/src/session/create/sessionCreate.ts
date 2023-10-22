@@ -52,25 +52,29 @@ export const sessionCreate = async ({
     removedAt: null,
   });
 
-  const inProgressRecord = getRecordInProgress({ workoutSplit });
+  let inProgressRecord = getRecordInProgress({ workoutSplit });
 
   if (!inProgressRecord) {
-    const { error: errorRecordCreate } = await recordCreate({
-      payload: {
-        workoutSplitId: workoutSplit._id,
-      },
-      context,
+    const { workoutSplit: workoutSplitWithRecord, error: errorRecordCreate } =
+      await recordCreate({
+        payload: {
+          workoutSplitId: workoutSplit._id,
+        },
+        context,
+      });
+
+    inProgressRecord = getRecordInProgress({
+      workoutSplit: workoutSplitWithRecord,
     });
 
     if (errorRecordCreate) {
+      console.log('return');
       return {
         exercise: null,
         error: errorRecordCreate,
       };
     }
   }
-
-  console.log({ inProgressRecord });
 
   const exercise = await ExerciseModel.findOneAndUpdate(
     {

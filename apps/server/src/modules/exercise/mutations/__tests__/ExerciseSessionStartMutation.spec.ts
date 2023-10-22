@@ -178,7 +178,7 @@ it('should not start a session for a exercise with a in progress session', async
   expect(result.errors).toBeUndefined();
 
   expect(result.data.ExerciseSessionStart.error).toEqual(
-    'You already have a session in progress, finish it first',
+    'You already have a exercise in progress, finish it first',
   );
   expect(result.data.ExerciseSessionStart.success).toBeNull();
 
@@ -281,7 +281,7 @@ it('should not start a session for a workout split with an exercise in progress'
   expect(result.errors).toBeUndefined();
 
   expect(result.data.ExerciseSessionStart.error).toEqual(
-    'You already have a session in progress, finish it first',
+    'You already have a exercise in progress, finish it first',
   );
   expect(result.data.ExerciseSessionStart.success).toBeNull();
 

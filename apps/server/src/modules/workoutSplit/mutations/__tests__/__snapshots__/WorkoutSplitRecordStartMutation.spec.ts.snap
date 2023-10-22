@@ -40,7 +40,7 @@ exports[`should start a record for a workout split with a completed record 1`] =
         "edges": [
           {
             "node": {
-              "finishedAt": "2023-10-21T17:58:34.825Z",
+              "finishedAt": "2030-06-01T00:00:00.000Z",
               "id": "FROZEN-ID",
             },
           },

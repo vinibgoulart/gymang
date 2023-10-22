@@ -12,3 +12,4 @@ export type { IRecord } from './record/RecordSchema';
 export { getRecordInProgress } from './record/getRecordInProgress';
 export { getLastRecord } from './record/getLastRecord';
 export { recordCreate } from './record/create/recordCreate';
+export { recordFinish } from './record/finish/recordFinish';
