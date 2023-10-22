@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should not remove a new exercise for another user 1`] = `
+{
+  "ExerciseRemove": {
+    "error": "You are not allowed to remove this exercise",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
+exports[`should not remove a removed exercise 1`] = `
+{
+  "ExerciseRemove": {
+    "error": "Exercise already removed",
+    "exercise": "EMPTY",
+    "success": "EMPTY",
+  },
+}
+`;
+
+exports[`should remove a exercise 1`] = `
+{
+  "ExerciseRemove": {
+    "error": "EMPTY",
+    "exercise": {
+      "breakTime": "EMPTY",
+      "id": "FROZEN-ID",
+      "muscleGroup": "BACK",
+      "name": "Exercise NaN name",
+      "repetitions": "12",
+      "series": "4",
+      "user": {
+        "firstName": "User 1 firstName",
+      },
+      "weight": "EMPTY",
+      "workoutSplit": {
+        "id": "FROZEN-ID",
+        "name": "WorkoutSplit NaN name",
+      },
+    },
+    "success": "Exercise removed successfully",
+  },
+}
+`;

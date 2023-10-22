@@ -132,3 +132,11 @@ exports[`should get a list of exercies with sessions 1`] = `
   },
 }
 `;
+
+exports[`should not query removed exercises 1`] = `
+{
+  "exercises": {
+    "edges": [],
+  },
+}
+`;

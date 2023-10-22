@@ -184,3 +184,31 @@ it('should get a list of exercies with sessions', async () => {
 
   expect(sanitizeTestObject(result.data)).toMatchSnapshot();
 });
+
+it('should not query removed exercises', async () => {
+  const user = await handleCreateUser();
+
+  await handleCreateExercise({
+    removedAt: new Date(),
+  });
+
+  const context = await getContext({
+    graphql: GRAPHQL_TYPE.WEB,
+    user,
+  });
+
+  const rootValue = {};
+
+  const result = await graphql({
+    schema: schemaAdmin,
+    source: query,
+    rootValue,
+    contextValue: context,
+  });
+
+  expect(result.errors).toBeUndefined();
+
+  expect(result.data.exercises.edges.length).toEqual(0);
+
+  expect(sanitizeTestObject(result.data)).toMatchSnapshot();
+});
