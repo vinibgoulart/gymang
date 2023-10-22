@@ -1,4 +1,7 @@
-import { SimpleGrid } from '@gymang/ui';
+import { Text } from '@chakra-ui/react';
+import { SimpleGrid, TextWithIcon, Card } from '@gymang/ui';
+import { useRouter } from 'next/router';
+import { CgAddR } from 'react-icons/cg';
 import { graphql, usePaginationFragment } from 'react-relay';
 
 import { WorkoutCard } from './WorkoutCard';
@@ -10,6 +13,8 @@ type WorkoutGridListProps = {
 };
 
 export const WorkoutGridList = (props: WorkoutGridListProps) => {
+  const router = useRouter();
+
   const { data } = usePaginationFragment<
     WorkoutGridListPaginationQuery,
     WorkoutGridList_query$key
@@ -38,7 +43,19 @@ export const WorkoutGridList = (props: WorkoutGridListProps) => {
   const { workouts } = data;
 
   if (!workouts.edges.length) {
-    return null;
+    const onClick = () => {
+      router.push('/workout/create');
+    };
+
+    return (
+      <SimpleGrid>
+        <Card onClick={onClick} backgroundColor={'white'}>
+          <TextWithIcon iconLeft={CgAddR}>
+            <Text>Adicione seu primeiro treino</Text>
+          </TextWithIcon>
+        </Card>
+      </SimpleGrid>
+    );
   }
 
   return (
