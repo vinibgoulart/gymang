@@ -16,3 +16,4 @@ export { sessionCreate } from './session/create/sessionCreate';
 export type { ISession } from './session/SessionSchema';
 export { getSessionInProgress } from './session/getSessionInProgress';
 export { getLastSession } from './session/getLastSession';
+export { exerciseRemove } from './remove/exerciseRemove';

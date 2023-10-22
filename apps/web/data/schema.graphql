@@ -407,6 +407,7 @@ type Mutation {
   ExerciseAdd(input: ExerciseAddInput!): ExerciseAddPayload
   ExerciseSessionStart(input: ExerciseSessionStartInput!): ExerciseSessionStartPayload
   ExerciseSessionFinish(input: ExerciseSessionFinishInput!): ExerciseSessionFinishPayload
+  ExerciseRemove(input: ExerciseRemoveInput!): ExerciseRemovePayload
 }
 
 type UserAddPayload {
@@ -550,5 +551,17 @@ type ExerciseSessionFinishPayload {
 input ExerciseSessionFinishInput {
   exerciseId: ID!
   sessionId: ID!
+  clientMutationId: String
+}
+
+type ExerciseRemovePayload {
+  exercise: Exercise
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input ExerciseRemoveInput {
+  exerciseId: ID!
   clientMutationId: String
 }
