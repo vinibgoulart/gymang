@@ -1,6 +1,6 @@
 import type { GraphQLContext } from '@gymang/core';
 import { errorField, getObjectId, successField } from '@gymang/graphql';
-import { Workout } from '@gymang/workout';
+import { Workout, workoutRemove } from '@gymang/workout';
 import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
@@ -51,14 +51,10 @@ const mutation = mutationWithClientMutationId({
       };
     }
 
-    await Workout.findOneAndUpdate(
-      {
-        _id: getObjectId(id),
-      },
-      {
-        removedAt: new Date(),
-      },
-    );
+    await workoutRemove({
+      workoutId: workout._id,
+      context,
+    })
 
     return {
       workout: workout._id,
