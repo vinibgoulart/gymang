@@ -1,6 +1,4 @@
 export { assertFetchMockLength } from './assertFetchMockLength';
-export { assertGraphQLResultErrorsUndefined } from './assertGraphQLResultErrorsUndefined';
-export { assertIdsAsString } from './assertIds';
 export { assertRequest } from './assertRequest';
 export { assertResponseStatus } from './assertResponseStatus';
 export { autoAdvanceTimers } from './autoAdvanceTimers';
@@ -43,14 +41,12 @@ export { itemsToReadableStream } from './itemsToReadableStream';
 export { assertArrayMongoose } from './mongoose/assertArrayMongoose';
 export { mongooseObjectIdToString } from './mongoose/mongooseObjectIdToString';
 export { toEqualObjectId } from './mongoose/toEqualObjectId';
-export { renderEmail } from './renderEmail';
 export { assertRequestBody } from './request/assertRequestBody';
 export { assertRequestMethod } from './request/assertRequestMethod';
 export { assertRequestUrl } from './request/assertRequestUrl';
 export { getRequestBody } from './request/getRequestBody';
 export { getRequestMethod } from './request/getRequestMethod';
 export { getRequestUrl } from './request/getRequestUrl';
-export { getTestKoaApp } from './request/getTestKoaApp';
 export { sanitizeMailgunEmail } from './sanitizeMailgunEmail';
 export {
   defaultFrozenKeys,
