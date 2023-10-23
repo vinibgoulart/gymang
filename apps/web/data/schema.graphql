@@ -463,7 +463,7 @@ input WorkoutAddInput {
 }
 
 type WorkoutRemovePayload {
-  workout: Workout
+  deletedId: ID
   error: String
   success: String
   clientMutationId: String

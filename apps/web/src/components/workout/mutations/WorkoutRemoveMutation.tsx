@@ -6,11 +6,7 @@ export const WorkoutRemove = graphql`
     $connections: [ID!]!
   ) {
     WorkoutRemove(input: $input) {
-      workout
-        @prependNode(connections: $connections, edgeTypeName: "WorkoutEdge") {
-        id
-        name
-      }
+      deletedId @deleteEdge(connections: $connections)
       error
       success
     }
