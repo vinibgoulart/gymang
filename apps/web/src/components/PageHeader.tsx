@@ -8,7 +8,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import type { BreadcrumbItem } from '@gymang/ui';
-import { Breadcrumb, MenuActionButton } from '@gymang/ui';
+import { ActionButton, Breadcrumb, MenuActionButton } from '@gymang/ui';
 import { useRouter } from 'next/router';
 import { Children } from 'react';
 
@@ -62,7 +62,9 @@ export const PageHeader = (props: PageHeaderProps) => {
       return null;
     }
 
-    const actionsCount = Children.count(props.actions.props.children);
+    const actionsCount = Children.toArray(props.actions.props.children).filter(
+      (child) => child.type === ActionButton,
+    ).length;
 
     if (actionsCount === 1) {
       return props.actions;
