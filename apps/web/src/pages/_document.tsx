@@ -6,6 +6,7 @@ export default function Document() {
       <Head>
         <title>Gymang</title>
         <meta property="og:title" content="Gymang" key="title" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
         <Main />
