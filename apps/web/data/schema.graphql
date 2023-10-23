@@ -263,6 +263,7 @@ type RecordEdge {
 """Used to filter workout split"""
 input WorkoutSplitFilter {
   workout: String
+  fromLoggedUser: Boolean
   orderBy: [WorkoutSplitOrdering!]
 }
 

@@ -7,7 +7,10 @@ export { handleCreateWorkoutSplit } from './fixture/handleCreateWorkoutSplit';
 export { workoutSplitCreate } from './create/workoutSplitCreate';
 export { WorkoutSplitModality } from './WorkoutSplitModalityEnum';
 export { WorkoutSplitSort, WorkoutSplitOrdering } from './WorkoutSplitOrderBy';
-export { WorkoutSplitFilterInputType } from './WorkoutSplitFilterInputType';
+export {
+  WorkoutSplitFilterInputType,
+  type WorkoutSplitFilterInputTypeArgs,
+} from './WorkoutSplitFilterInputType';
 export type { IRecord } from './record/RecordSchema';
 export { getRecordInProgress } from './record/getRecordInProgress';
 export { getLastRecord } from './record/getLastRecord';
