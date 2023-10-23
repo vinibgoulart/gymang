@@ -1,10 +1,10 @@
+import { config } from "@gymang/config";
 import cors from "@koa/cors";
 import Router from "@koa/router";
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import koaLogger from "koa-logger";
 
-import { config } from "@gymang/config";
 import { routerWeb } from "./graphql/routerWeb";
 
 const app = new Koa();
@@ -38,7 +38,7 @@ app.use(
   cors({
     maxAge: 86400,
     credentials: true,
-    origin: config.GYMANG_ENV === "production" ? "https://gymang.com.br" : "*",
+    origin: config.GYMANG_ENV === "production" ? "https://gymang.com" : "*",
   })
 );
 
