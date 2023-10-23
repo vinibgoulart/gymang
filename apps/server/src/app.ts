@@ -38,7 +38,7 @@ app.use(
   cors({
     maxAge: 86400,
     credentials: true,
-    origin: config.GYMANG_ENV === "production" ? "https://gymang.com" : "*",
+    origin: config.GYMANG_ENV === "production" ? "https://app.gymang.com" : "*",
   })
 );
 
