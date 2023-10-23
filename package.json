@@ -7,7 +7,9 @@
   "scripts": {
     "build": "turbo run build",
     "build:server": "pnpm -C apps/server build",
+    "build:web": "pnpm -C apps/web build",
     "start:server": "pnpm -C apps/server start",
+    "start:web": "pnpm -C apps/web start",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
