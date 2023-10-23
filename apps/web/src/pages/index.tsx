@@ -86,6 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
               isPublic: null,
             },
             workoutSplitFilters: {
+              fromLoggedUser: true,
               orderBy: [
                 {
                   direction: DIRECTION.DESC,
