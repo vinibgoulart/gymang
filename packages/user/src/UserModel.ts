@@ -3,12 +3,14 @@ import { hashSync, compareSync } from 'bcryptjs';
 import type { Document, Types } from 'mongoose';
 import { Schema, model } from 'mongoose';
 
+import { MetricsSchema, type IMetrics } from './metrics/MetricsSchema';
 
 type User = {
   _id: Types.ObjectId;
   firstName: string;
   email: string;
   password: string;
+  metrics?: IMetrics[];
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
@@ -33,6 +35,10 @@ const UserSchema = new Schema<IUser>(
       type: String,
       hidden: true,
       required: true,
+    },
+    metrics: {
+      type: [MetricsSchema],
+      default: [],
     },
     removedAt: {
       type: Date,
