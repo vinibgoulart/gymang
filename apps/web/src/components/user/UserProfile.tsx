@@ -139,6 +139,7 @@ export const UserProfile = (props: UserProfileProps) => {
   const primaryAxis = useMemo(
     () => ({
       getValue: (datum) => datum.date,
+      elementType: 'line',
     }),
     [],
   );
@@ -162,6 +163,7 @@ export const UserProfile = (props: UserProfileProps) => {
             primaryAxis,
             secondaryAxes,
             tooltip: true,
+            defaultColors: ['#a2a2ff'],
           }}
         />
       </Stack>
