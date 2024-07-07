@@ -1,8 +1,9 @@
-import { createLoader } from "@gymang/graphql";
-import UserModel from "./UserModel";
-import type { IUser } from "./UserModel";
-import { isLoggedIn } from "@gymang/core";
-import { GraphQLContext } from "@gymang/core";
+import { isLoggedIn } from '@gymang/core';
+import type { GraphQLContext } from '@gymang/core';
+import { createLoader } from '@gymang/graphql';
+
+import UserModel from './UserModel';
+import type { IUser } from './UserModel';
 
 const viewerCanSee = async (context: GraphQLContext, data: IUser) => {
   if (isLoggedIn(context, context.graphql)) {
@@ -20,7 +21,7 @@ const {
   loadAll,
 } = createLoader({
   model: UserModel,
-  loaderName: "UserLoader",
+  loaderName: 'UserLoader',
   viewerCanSee,
 });
 

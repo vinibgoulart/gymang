@@ -5,3 +5,5 @@ export type { IUser } from './UserModel';
 
 export { handleCreateUser } from './fixture/handleCreateUser';
 export { userCreate } from './create/userCreate';
+export type { IMetrics } from './metrics/MetricsSchema';
+export { metricsCreate } from './metrics/create/metricsCreate';

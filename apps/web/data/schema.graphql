@@ -34,6 +34,69 @@ type User implements Node {
   id: ID!
   firstName: String
   email: String
+  metrics(after: String, first: Int, before: String, last: Int): MetricsConnection!
+}
+
+"""A connection to a list of items."""
+type MetricsConnection {
+  """Number of items in this connection"""
+  count: Int
+
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+    This allows a client to fetch the first five objects by passing "5" as the
+    argument to "first", then fetch the total count so it could display "5 of 83",
+    for example.
+  """
+  totalCount: Int
+
+  """Offset from start"""
+  startCursorOffset: Int!
+
+  """Offset till end"""
+  endCursorOffset: Int!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfoExtended!
+
+  """A list of edges."""
+  edges: [MetricsEdge]!
+}
+
+"""Information about pagination in a connection."""
+type PageInfoExtended {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type MetricsEdge {
+  """The item at the end of the edge"""
+  node: Metrics
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represents a Metrics"""
+type Metrics implements Node {
+  """The ID of an object"""
+  id: ID!
+  weight: Int!
+  height: Int!
+  age: Int!
+  fat: String
+  imc: String
+  createdAt: String
 }
 
 """A connection to a list of items."""
@@ -60,21 +123,6 @@ type UserConnection {
 
   """A list of edges."""
   edges: [UserEdge]!
-}
-
-"""Information about pagination in a connection."""
-type PageInfoExtended {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
 }
 
 """An edge in a connection."""
@@ -400,6 +448,7 @@ type Mutation {
   UserAdd(input: UserAddInput!): UserAddPayload
   UserLogin(input: UserLoginInput!): UserLoginPayload
   UserLogout(input: UserLogoutInput!): UserLogoutPayload
+  UserMetricsAdd(input: UserMetricsAddInput!): UserMetricsAddPayload
   WorkoutAdd(input: WorkoutAddInput!): WorkoutAddPayload
   WorkoutRemove(input: WorkoutRemoveInput!): WorkoutRemovePayload
   WorkoutSplitAdd(input: WorkoutSplitAddInput!): WorkoutSplitAddPayload
@@ -445,6 +494,21 @@ type UserLogoutPayload {
 }
 
 input UserLogoutInput {
+  clientMutationId: String
+}
+
+type UserMetricsAddPayload {
+  user: User
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input UserMetricsAddInput {
+  weight: Int!
+  height: Int!
+  age: Int!
+  fat: String
   clientMutationId: String
 }
 

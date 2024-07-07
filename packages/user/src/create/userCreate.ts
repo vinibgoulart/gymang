@@ -1,6 +1,7 @@
-import { GraphQLContext } from '@gymang/core';
-import User from '../UserModel';
+import type { GraphQLContext } from '@gymang/core';
+
 import { validateUserCreate } from './validateUserCreate';
+import User from '../UserModel';
 
 type UserCreatePayload = {
   email: string;

@@ -57,7 +57,6 @@
     "uuid": "^9.0.0",
     "webpack-node-externals": "^3.0.0"
   },
-  "packageManager": "pnpm@8.6.10",
   "name": "gymang",
   "dependencies": {
     "bcryptjs": "^2.4.3",

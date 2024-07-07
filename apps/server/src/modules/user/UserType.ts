@@ -1,12 +1,15 @@
-import { GraphQLContext } from '@gymang/core';
+import type { GraphQLContext } from '@gymang/core';
 import {
   connectionDefinitions,
   nodeInterface,
   registerTypeLoader,
 } from '@gymang/graphql';
-import { IUser, UserLoader } from '@gymang/user';
+import type { IUser } from '@gymang/user';
+import { UserLoader } from '@gymang/user';
 import { GraphQLObjectType, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
+
+import { metricsConnectionField } from './metrics/MetricsFields';
 
 const UserType = new GraphQLObjectType<IUser, GraphQLContext>({
   name: 'User',
@@ -21,6 +24,7 @@ const UserType = new GraphQLObjectType<IUser, GraphQLContext>({
       type: GraphQLString,
       resolve: (user) => user.email,
     },
+    ...metricsConnectionField(),
   }),
   interfaces: () => [nodeInterface],
 });

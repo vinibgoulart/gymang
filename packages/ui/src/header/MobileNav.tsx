@@ -1,6 +1,5 @@
 import type { FlexProps } from '@chakra-ui/react';
 import {
-  Avatar,
   Box,
   Flex,
   HStack,
@@ -15,7 +14,6 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AiOutlineUser } from 'react-icons/ai';
 import { FiMenu, FiChevronDown } from 'react-icons/fi';
 
 type MobileProps = FlexProps & {
@@ -80,11 +78,12 @@ export const MobileNav = ({ onOpen, name, ...rest }: MobileProps) => {
               </HStack>
             </MenuButton>
             <MenuList bg={'white'} borderColor={'neutral.main'}>
-              {/* <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuDivider /> */}
+              <MenuItem as={Link} href={'/profile'}>
+                Perfil
+              </MenuItem>
+              <MenuDivider />
               <MenuItem as={Link} href={'/logout'}>
-                Sign out
+                Sair
               </MenuItem>
             </MenuList>
           </Menu>

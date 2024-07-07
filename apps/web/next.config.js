@@ -8,7 +8,7 @@ const nextConfig = {
     '@gymang/ui',
     '@gymang/form',
     '@gymang/enums',
-    '@gymang/testutils',
+    '@gymang/testutils'
   ],
   compiler: {
     relay: {
