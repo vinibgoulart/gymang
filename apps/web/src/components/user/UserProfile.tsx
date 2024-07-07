@@ -113,11 +113,7 @@ export const UserProfile = (props: UserProfileProps) => {
       <>
         <ActionButton onClick={onOpen}>Adicionar métrica</ActionButton>
         {isOpen && (
-          <UserMetricsAddModalForm
-            isOpen={isOpen}
-            onClose={onClose}
-            user={data}
-          />
+          <UserMetricsAddModalForm isOpen={isOpen} onClose={onClose} />
         )}
       </>
     );

@@ -4,18 +4,15 @@ import { useMutationCallbacks } from '@gymang/relay';
 import { ActionButton, Modal } from '@gymang/ui';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
-import { graphql, useFragment } from 'react-relay';
 import { ROOT_ID, ConnectionHandler } from 'relay-runtime';
 import { z } from 'zod';
 
 import { UserMetricsAdd } from './mutations/UserMetricsAddMutation';
-import type { UserMetricsAddModalForm_user$key } from '../../../__generated__/UserMetricsAddModalForm_user.graphql';
 import type { UserMetricsAddMutation } from '../../../__generated__/UserMetricsAddMutation.graphql';
 
 type UserMetricsAddModalFormProps = {
   isOpen: boolean;
   onClose: () => void;
-  user: UserMetricsAddModalForm_user$key;
 };
 
 const validationSchema = z.object({
