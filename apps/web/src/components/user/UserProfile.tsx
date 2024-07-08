@@ -1,9 +1,10 @@
 import { Stack, useDisclosure } from '@chakra-ui/react';
 import { useRefetchTransition } from '@gymang/hooks';
 import { ActionButton, Section, TableInfiniteScroll } from '@gymang/ui';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
+import type { AxisOptions } from 'react-charts';
 import { graphql, usePaginationFragment } from 'react-relay';
 
 import { UserMetricsAddModalForm } from './UserMetricsAddModalForm';
@@ -119,32 +120,43 @@ export const UserProfile = (props: UserProfileProps) => {
     );
   };
 
+  const metricsOrderedByDate = useMemo(() => {
+    return metrics.edges
+      .map((edge) => edge?.node)
+      .sort((a, b) => {
+        return moment(a?.createdAt).isBefore(moment(b?.createdAt)) ? -1 : 1;
+      });
+  }, [metrics]);
+
   const charts = useMemo(
     () => [
       {
         label: 'IMC',
-        data: metrics.edges.map((edge) => ({
-          date: moment(edge?.node?.createdAt).format('DD/MM/YYYY HH:mm'),
-          imc: edge?.node?.imc,
+        data: metricsOrderedByDate.map((node) => ({
+          date: moment(node?.createdAt).format('DD/MM/YYYY HH:mm'),
+          imc: node?.imc,
         })),
       },
     ],
-    [metrics],
+    [metricsOrderedByDate],
   );
 
-  const primaryAxis = useMemo(
+  const primaryAxis = useMemo<AxisOptions<unknown>>(
     () => ({
-      getValue: (datum) => datum.date,
-      elementType: 'line',
+      getValue: (datum) => {
+        console.log({ date: datum.date });
+        return moment(datum.date, 'DD/MM/YYYY HH:mm').toDate();
+      },
+      radius: undefined,
     }),
     [],
   );
 
-  const secondaryAxes = useMemo(
+  const secondaryAxes = useMemo<AxisOptions<unknown>[]>(
     () => [
       {
         getValue: (datum) => datum.imc,
-        elementType: 'line',
+        radius: undefined,
       },
     ],
     [],
