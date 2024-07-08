@@ -1,0 +1,4 @@
+export enum WORKOUT_STATUS_ENUM {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+}
