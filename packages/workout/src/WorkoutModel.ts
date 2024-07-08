@@ -1,7 +1,10 @@
 import { writeConcern } from '@gymang/graphql';
+import type { IPersonal } from '@gymang/personal';
 import type { IUser } from '@gymang/user';
 import type { Document, Types } from 'mongoose';
 import { Schema, model } from 'mongoose';
+
+import { WORKOUT_STATUS_ENUM } from './WorkoutStatusEnum';
 
 type Workout = {
   _id: Types.ObjectId;
@@ -9,6 +12,8 @@ type Workout = {
   createdBy: IUser;
   user: IUser;
   isPublic: boolean;
+  status: WORKOUT_STATUS_ENUM;
+  approvedBy?: IPersonal;
   createdAt: Date;
   updatedAt: Date;
   removedAt: Date;
@@ -40,6 +45,19 @@ const WorkoutSchema = new Schema<IWorkout>(
       required: true,
       index: true,
       default: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      index: true,
+      enum: WORKOUT_STATUS_ENUM,
+      default: WORKOUT_STATUS_ENUM.APPROVED,
+    },
+    approvedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'Personal',
+      index: true,
+      default: null,
     },
     removedAt: {
       type: Date,

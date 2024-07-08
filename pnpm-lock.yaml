@@ -715,6 +715,22 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
 
+  packages/personal:
+    dependencies:
+      '@gymang/core':
+        specifier: workspace:*
+        version: link:../core
+      '@gymang/graphql':
+        specifier: workspace:*
+        version: link:../graphql
+      '@gymang/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
   packages/relay:
     dependencies:
       '@chakra-ui/react':
